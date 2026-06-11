@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Lucas Ly Ba</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .nf { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 24px; }
+    .nf__code { font-family: var(--mono); font-size: clamp(4rem, 18vw, 9rem); font-weight: 700; line-height: 1;
+      background: linear-gradient(180deg, #fff 30%, #9fb0c4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .nf__msg { font-family: var(--mono); color: var(--red); margin: 14px 0 6px; }
+    .nf__sub { color: var(--text-dim); margin-bottom: 28px; }
+    .nf__sub code { font-family: var(--mono); color: var(--orange); }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="nf">
+    <div>
+      <div class="nf__code">404</div>
+      <p class="nf__msg">// Segmentation fault — page not found</p>
+      <p class="nf__sub">This route dereferenced a <code>null</code> pointer. Nothing mapped here.</p>
+      <a class="btn btn--primary" href="/">cd ~ &nbsp;→&nbsp; back home</a>
+    </div>
+  </main>
+</body>
+</html>
