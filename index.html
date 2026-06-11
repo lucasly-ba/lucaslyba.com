@@ -239,11 +239,16 @@
             <h3 class="entry__role">Assistant Internship <span class="dim">— YAKA</span></h3>
             <p class="entry__org">EPITA — École d'Ingénieurs en Informatique</p>
             <p class="entry__desc">
-              Six-month teaching internship preceding my TA role — supporting third-year
-              students on systems and C++ coursework, writing assignments, and answering
-              technical questions throughout the semester.
+              Six-month assistant internship preceding my TA role, supporting third-year
+              students through EPITA's <strong>C and SQL</strong> curriculum — running piscines,
+              backing the teaching assistants and helping students through their projects. Most
+              of my time went into building the <strong>Tiger Compiler</strong>, the groundwork
+              for my maintainer role, alongside reference implementations across the track: a
+              POSIX shell (42sh), a custom <code>malloc</code>, an HTTP server (httpd), the C and
+              SQL piscines, and smaller tools like an expression evaluator (evalexpr) and a
+              streaming I/O library (tinylibstream).
             </p>
-            <ul class="entry__tech"><li>C++</li><li>Teaching</li><li>Mentoring</li></ul>
+            <ul class="entry__tech"><li>C</li><li>SQL</li><li>Systems</li><li>Compilers</li><li>Teaching</li></ul>
           </div>
         </li>
 
@@ -260,24 +265,38 @@
 
       <div class="cards">
 
-        <article class="card card--featured">
+        <a class="card" href="projects/debian-lsp/">
           <div class="card__top">
             <span class="card__kind">// Language tooling</span>
-            <a href="https://github.com/jelmer/debian-lsp" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">debian-lsp</h3>
           <p class="card__desc">
-            A Language Server Protocol implementation for Debian packaging files. Completions,
+            A Language Server Protocol implementation for Debian packaging files — completions,
             diagnostics, hover, go-to-definition, formatting, code actions, inlay hints and
-            semantic highlighting across Debian metadata. My Google Summer of Code 2026 project.
+            semantic highlighting. My Google Summer of Code 2026 project.
           </p>
           <ul class="card__tags"><li>Rust</li><li>LSP</li><li>Debian</li><li>GSoC 2026</li></ul>
-        </article>
+        </a>
 
-        <article class="card card--featured">
+        <a class="card" href="projects/tiger/">
+          <div class="card__top">
+            <span class="card__kind">// Compiler</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">Tiger Compiler</h3>
+          <p class="card__desc">
+            A complete compiler for the Tiger language, built front-end to back-end in modern
+            C++ — lexing, parsing, binding, type-checking, IR translation and an SSA-based
+            optimizing back-end. The project I now help maintain at EPITA.
+          </p>
+          <ul class="card__tags"><li>C++</li><li>SSA</li><li>Front-to-back</li><li>Optimization</li></ul>
+        </a>
+
+        <a class="card" href="projects/lux/">
           <div class="card__top">
             <span class="card__kind">// Editor</span>
-            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">Lux</h3>
           <p class="card__desc">
@@ -286,55 +305,53 @@
             into terminal UIs, text buffers and editor internals.
           </p>
           <ul class="card__tags"><li>Rust</li><li>TUI</li><li>tree-sitter</li><li>Editor internals</li></ul>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="projects/swift/">
           <div class="card__top">
             <span class="card__kind">// Open source</span>
-            <a href="https://github.com/swiftlang/swift/pulls?q=author%3Alucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">Swift compiler</h3>
           <p class="card__desc">
-            Active open-source contributor to the Swift toolchain — currently opening pull
-            requests against the compiler, working through a large production C++ codebase and
-            its review process.
+            Open-source contributor to the Swift toolchain — opening pull requests against the
+            compiler and working through a large production C++ codebase and its review process.
           </p>
           <ul class="card__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="projects/swift-nixos/">
           <div class="card__top">
             <span class="card__kind">// Toolchain</span>
-            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">Swift on NixOS</h3>
           <p class="card__desc">
             A reproducible <code>flake.nix</code> that builds the full Swift 6.5 toolchain from
             source on NixOS — which upstream doesn't support. Reverse-engineered the build to
             solve a deep cascade of toolchain problems: <code>DT_RUNPATH</code> vs transitive
-            rpath, glibc sysroot detection in ClangImporter, a complete bootstrap runtime, and
-            ncurses shimming. A complete, working NixOS build of Swift from scratch.
+            rpath, glibc sysroot detection, a complete bootstrap runtime, and ncurses shimming.
           </p>
           <ul class="card__tags"><li>Nix / flake.nix</li><li>Swift</li><li>LLVM</li><li>Toolchain</li><li>Linux</li></ul>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="projects/42sh/">
           <div class="card__top">
             <span class="card__kind">// Systems</span>
-            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
-          <h3 class="card__title">42sh</h3>
+          <h3 class="card__title">42sh <span class="card__sub">— POSIX shell</span></h3>
           <p class="card__desc">
             A POSIX-compliant Unix shell written in C from the ground up: lexer, parser, AST
             execution engine, built-ins, job control, redirections, piping and signal handling.
           </p>
           <ul class="card__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="projects/ocr-sudoku/">
           <div class="card__top">
             <span class="card__kind">// Computer vision</span>
-            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">OCR Sudoku Solver</h3>
           <p class="card__desc">
@@ -343,26 +360,26 @@
             solved puzzle.
           </p>
           <ul class="card__tags"><li>C</li><li>Neural network</li><li>Image processing</li><li>Solver</li></ul>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="projects/mole/">
           <div class="card__top">
             <span class="card__kind">// Systems</span>
-            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">Mole</h3>
           <p class="card__desc">
-            A keyboard-driven mouse navigator for X11 — a Vimium-style hint mode that traverses
-            the AT-SPI accessibility tree (with OCR fallback) and drives the pointer via x11rb.
-            Built for i3.
+            Mole — short for <strong>Mouseless</strong> — is a keyboard-driven mouse navigator
+            for X11. It hops the pointer around the screen like a mole, using a Vimium-style hint
+            mode over the AT-SPI accessibility tree (with OCR fallback) and x11rb. Built for i3.
           </p>
           <ul class="card__tags"><li>Rust</li><li>X11 / x11rb</li><li>AT-SPI</li><li>i3wm</li></ul>
-        </article>
+        </a>
 
-        <article class="card card--featured">
+        <a class="card" href="projects/memex/">
           <div class="card__top">
             <span class="card__kind">// Product</span>
-            <a href="https://getmemex.app" target="_blank" rel="noopener" class="card__icon" aria-label="Website">↗</a>
+            <span class="card__icon" aria-hidden="true">↗</span>
           </div>
           <h3 class="card__title">Memex</h3>
           <p class="card__desc">
@@ -371,7 +388,7 @@
             related threads and syncing across devices. Founded and shipped end-to-end.
           </p>
           <ul class="card__tags"><li>TypeScript</li><li>Vite</li><li>Manifest V3</li><li>Full-stack</li></ul>
-        </article>
+        </a>
 
       </div>
 
@@ -460,7 +477,7 @@
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="section section--contact">
       <div class="contact">
-        <p class="contact__kicker">// Let's build something low-level</p>
+        <p class="contact__kicker">// Let's build something</p>
         <h2 class="contact__title">Let's talk.</h2>
         <p class="contact__text">
           I'm open to opportunities in compilers, systems and tooling — internships,
