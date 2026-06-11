@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lux — Lucas Ly Ba</title>
+  <meta name="description" content="A modal, Helix-inspired text editor written from scratch in Rust." />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj">
+    <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
+
+    <span class="proj__kind">// Editor</span>
+    <h1 class="proj__title">Lux</h1>
+    <p class="proj__lede">A modal, Helix-inspired text editor written from scratch in Rust.</p>
+
+    <dl class="proj__meta">
+          <div><dt>Role</dt><dd>Author</dd></div>
+          <div><dt>Language</dt><dd>Rust</dd></div>
+          <div><dt>Type</dt><dd>Terminal UI</dd></div>
+    </dl>
+
+    <ul class="proj__tags"><li>Rust</li><li>TUI</li><li>tree-sitter</li><li>Editor internals</li></ul>
+
+    <div class="proj__links">
+          <a class="btn btn--ghost" href="https://github.com/lucasly-ba" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+        <h2>Overview</h2>
+        <p>Lux is a terminal text editor built in Rust, inspired by <strong>Helix</strong>'s selection-first, modal editing model. It's a from-scratch exploration of how a real editor works under the hood — text storage, modal input, and syntax-aware rendering.</p>
+
+        <h2>What I built</h2>
+        <ul class='proj__list'><li><strong>Selection-first modal editing</strong> — actions operate on selections</li><li><strong>Multiple cursors</strong> for parallel edits</li><li><strong>tree-sitter</strong> integration for syntax-aware highlighting</li><li>An efficient <strong>text buffer</strong> and rendering pipeline for the terminal</li></ul>
+
+    <h2>Demo</h2>
+    <div class="proj__media">
+      <!-- Add your media here later, e.g.:
+           <video src="demo.mp4" controls muted loop></video>
+           <img src="screenshot.png" alt="Lux screenshot" /> -->
+      <span class="ph">Demo video &amp; screenshots coming soon.</span>
+    </div>
+
+    <nav class="proj__nav">
+      <a href="../tiger/">← Tiger Compiler</a>
+      <a href="../swift/">Swift compiler →</a>
+    </nav>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
