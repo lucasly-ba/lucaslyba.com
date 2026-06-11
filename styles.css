@@ -455,3 +455,14 @@ a { color: inherit; text-decoration: none; }
   .proj { padding: 28px 18px 70px; }
   .proj__back { margin-bottom: 28px; }
 }
+
+/* ---------- accessibility: reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
