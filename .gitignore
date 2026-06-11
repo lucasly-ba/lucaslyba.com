@@ -1,0 +1,6 @@
+# local preview server — not part of the deployed site
+.serve.js
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
