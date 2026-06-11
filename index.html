@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucas Ly Ba — Low-Level & Systems Engineer</title>
+  <meta name="description" content="Lucas Ly Ba — MSc student in Low-Level & Systems Engineering at EPITA. Compiler engineer working on Rust, C, C++, and systems. Debian GSoC 2026, gccrs, Tiger Compiler." />
+  <meta name="author" content="Lucas Ly Ba" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Lucas Ly Ba — Low-Level & Systems Engineer" />
+  <meta property="og:description" content="Compiler engineer. Rust · C · C++ · systems. Debian GSoC 2026 · gccrs · Tiger Compiler." />
+  <meta property="og:url" content="https://lucaslyba.com" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a href="#top" class="nav__logo" aria-label="Lucas Ly Ba — home">
+      <span class="nav__mark">LLB</span>
+      <span class="nav__wordmark">Lucas Ly Ba</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#community">Community</a>
+      <a href="#contact" class="nav__cta">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero__inner">
+        <p class="hero__eyebrow">
+          <span class="status-dot"></span>
+          <span class="hero__eyebrow-text">Lucas Ly Ba · open to opportunities worldwide<br />on-site / hybrid / remote</span>
+        </p>
+        <h1 class="hero__name">Lucas&nbsp;Ly&nbsp;Ba</h1>
+        <p class="hero__role">
+          <span class="kw">MSc</span> student in <span class="hl">Low-Level &amp; Systems Engineering</span>
+          <span class="dim">@ EPITA</span>
+        </p>
+        <p class="hero__tagline">
+          I build the layers most people never see — <span class="acc-green">compilers</span>,
+          <span class="acc-cyan">developer tools</span>, and <span class="acc-orange">systems software</span>.
+          I write <span class="acc-purple">Rust</span>, <span class="acc-purple">C</span> and
+          <span class="acc-purple">C++</span> close to the metal.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#work" class="btn btn--primary">View my work</a>
+          <a href="mailto:hi@lucaslyba.com" class="btn btn--ghost">Get in touch</a>
+        </div>
+
+        <ul class="hero__badges">
+          <li><span class="badge-icon">◆</span> Debian — Google Summer of Code 2026</li>
+          <li><span class="badge-icon">◆</span> Compiler Engineer @ Embecosm — gccrs</li>
+          <li><span class="badge-icon">◆</span> Tiger Compiler Maintainer @ EPITA</li>
+          <li><span class="badge-icon">◆</span> Open-source contributor</li>
+        </ul>
+      </div>
+
+      <!-- terminal card -->
+      <div class="terminal" aria-hidden="true">
+        <div class="terminal__bar">
+          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          <span class="terminal__title">lucas@systems: ~/whoami</span>
+        </div>
+        <pre class="terminal__body"><code><span class="t-comment">// Who is this?</span>
+<span class="t-kw">struct</span> <span class="t-type">Engineer</span> {
+    name:        <span class="t-str">"Lucas Ly Ba"</span>,
+    focus:       [<span class="t-str">"compilers"</span>, <span class="t-str">"systems"</span>, <span class="t-str">"tooling"</span>],
+    languages:   [<span class="t-str">"Rust"</span>, <span class="t-str">"C"</span>, <span class="t-str">"C++"</span>],
+    school:      <span class="t-str">"EPITA — MSc"</span>,
+    gsoc_2026:   <span class="t-type">Some</span>(<span class="t-str">"Debian"</span>),
+    available:   <span class="t-bool">true</span>,
+}
+
+<span class="t-fn">fn</span> <span class="t-fn">main</span>() {
+    <span class="t-comment">// Ship things that run fast.</span>
+    <span class="t-cursor">█</span>
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section">
+      <div class="section__head">
+        <span class="section__index">01</span>
+        <h2 class="section__title">About</h2>
+        <span class="section__rule"></span>
+      </div>
+      <div class="about">
+        <div class="about__text">
+          <p>
+            I'm a Master's student at <strong>EPITA</strong> on the <strong>GISTRE</strong>
+            track — low-level &amp; systems engineering. I work on compilers, systems software,
+            and the developer tools that sit close to the machine.
+          </p>
+          <p>
+            I was selected for <strong>Google Summer of Code 2026</strong> with
+            <strong>Debian</strong> — accepted among <strong>15,245 applicants</strong>
+            worldwide (a 7.5% acceptance rate) — to build <strong>debian-lsp</strong>,
+            a Language Server Protocol implementation for Debian packaging files.
+          </p>
+          <p>
+            I contribute to several <strong>open-source projects</strong> — among them the
+            <strong>Swift compiler</strong>, <strong>gccrs</strong> (the GCC Rust front-end)
+            at Embecosm, and <strong>Debian</strong>. Alongside that I maintain EPITA's
+            <strong>Tiger Compiler</strong>, where I write SSA-based optimization passes. I
+            also build my own systems software — a POSIX shell, a Helix-inspired editor, an
+            OCR pipeline — and I founded <strong>Memex</strong>, a product I shipped
+            end-to-end.
+          </p>
+        </div>
+        <div class="about__facts">
+          <div class="fact">
+            <span class="fact__num">15,245</span>
+            <span class="fact__label">GSoC applicants · 7.5% accepted</span>
+          </div>
+          <div class="fact">
+            <span class="fact__num">6</span>
+            <span class="fact__label">core maintainers on EPITA's Tiger Compiler — I'm one</span>
+          </div>
+          <div class="fact">
+            <span class="fact__num">5</span>
+            <span class="fact__label">SSA optimization passes I implemented</span>
+          </div>
+          <div class="fact">
+            <span class="fact__num">∞</span>
+            <span class="fact__label">curiosity for how things really work</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WORK / EXPERIENCE ===== -->
+    <section id="work" class="section">
+      <div class="section__head">
+        <span class="section__index">02</span>
+        <h2 class="section__title">Experience</h2>
+        <span class="section__rule"></span>
+      </div>
+
+      <ol class="timeline">
+
+        <li class="entry">
+          <div class="entry__time">
+            <span class="entry__date">May 2026 — present</span>
+            <span class="entry__tag">Remote</span>
+          </div>
+          <div class="entry__body">
+            <h3 class="entry__role">Open Source Developer <span class="dim">— GSoC</span></h3>
+            <p class="entry__org">Debian · Google Summer of Code 2026</p>
+            <p class="entry__desc">
+              Selected to contribute to the Debian organization, accepted among 15,245
+              applicants worldwide (7.5% acceptance rate). Building <strong>debian-lsp</strong>,
+              a Language Server Protocol implementation for Debian packaging files —
+              delivering completions, diagnostics, hover, go-to-definition, formatting,
+              code actions, inlay hints and semantic highlighting across key Debian metadata
+              and packaging files. Collaborating with Debian maintainers through design
+              discussions and code reviews.
+            </p>
+            <p class="entry__mentor">Mentor: Jelmer Vernooij</p>
+            <ul class="entry__tech"><li>Language Server Protocol</li><li>Rust</li><li>Debian packaging</li></ul>
+            <a class="entry__link" href="https://github.com/jelmer/debian-lsp" target="_blank" rel="noopener">github.com/jelmer/debian-lsp ↗</a>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry__time">
+            <span class="entry__date">Feb 2026 — present</span>
+            <span class="entry__tag">On-site · Paris</span>
+          </div>
+          <div class="entry__body">
+            <h3 class="entry__role">Teaching Assistant <span class="dim">— YAKA · Tiger Compiler Maintainer</span></h3>
+            <p class="entry__org">EPITA — École d'Ingénieurs en Informatique</p>
+            <p class="entry__desc">
+              Part of a 61-person assistant team teaching C++, Java and JavaScript to
+              third-year students. One of six maintainers of the <strong>Tiger Compiler</strong> —
+              the largest and longest-running project of the year, built to teach modern C++,
+              compiler construction and software design patterns. On the backend I implemented
+              several <strong>SSA-based optimization passes</strong>:
+            </p>
+            <ul class="entry__bullets">
+              <li>Constant propagation</li>
+              <li>Dead code elimination</li>
+              <li>Copy propagation</li>
+              <li>Constant folding</li>
+              <li>Unreachable code elimination</li>
+            </ul>
+            <p class="entry__mentor">Mentors: Mael Cravero, Julie Fiadino</p>
+            <ul class="entry__tech"><li>C++</li><li>SSA</li><li>Compiler backend</li><li>Optimization</li></ul>
+            <a class="entry__link" href="https://assignments.lre.epita.fr" target="_blank" rel="noopener">assignments.lre.epita.fr ↗</a>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry__time">
+            <span class="entry__date">Sep 2025 — Feb 2026</span>
+            <span class="entry__tag">Hybrid · Paris</span>
+          </div>
+          <div class="entry__body">
+            <h3 class="entry__role">Compiler Engineering Intern</h3>
+            <p class="entry__org">Embecosm</p>
+            <p class="entry__desc">
+              Contributed to <strong>gccrs</strong> (the GCC Rust front-end), a
+              production-grade open-source compiler written in C++ that brings Rust support
+              to GCC. Resolved multiple issues and pull requests across the compiler pipeline,
+              focusing on <strong>lint accuracy, diagnostics quality</strong> and the overall
+              compilation feedback experience.
+            </p>
+            <p class="entry__mentor">Mentors: Arthur Cohen, Pierre-Emmanuel Patry</p>
+            <ul class="entry__tech"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Diagnostics</li></ul>
+            <a class="entry__link" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">github.com/Rust-GCC/gccrs ↗</a>
+          </div>
+        </li>
+
+        <li class="entry">
+          <div class="entry__time">
+            <span class="entry__date">Sep 2025 — Feb 2026</span>
+            <span class="entry__tag">On-site · Paris</span>
+          </div>
+          <div class="entry__body">
+            <h3 class="entry__role">Assistant Internship <span class="dim">— YAKA</span></h3>
+            <p class="entry__org">EPITA — École d'Ingénieurs en Informatique</p>
+            <p class="entry__desc">
+              Six-month teaching internship preceding my TA role — supporting third-year
+              students on systems and C++ coursework, writing assignments, and answering
+              technical questions throughout the semester.
+            </p>
+            <ul class="entry__tech"><li>C++</li><li>Teaching</li><li>Mentoring</li></ul>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="section">
+      <div class="section__head">
+        <span class="section__index">03</span>
+        <h2 class="section__title">Projects</h2>
+        <span class="section__rule"></span>
+      </div>
+
+      <div class="cards">
+
+        <article class="card card--featured">
+          <div class="card__top">
+            <span class="card__kind">// Language tooling</span>
+            <a href="https://github.com/jelmer/debian-lsp" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">debian-lsp</h3>
+          <p class="card__desc">
+            A Language Server Protocol implementation for Debian packaging files. Completions,
+            diagnostics, hover, go-to-definition, formatting, code actions, inlay hints and
+            semantic highlighting across Debian metadata. My Google Summer of Code 2026 project.
+          </p>
+          <ul class="card__tags"><li>Rust</li><li>LSP</li><li>Debian</li><li>GSoC 2026</li></ul>
+        </article>
+
+        <article class="card card--featured">
+          <div class="card__top">
+            <span class="card__kind">// Editor</span>
+            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Lux</h3>
+          <p class="card__desc">
+            A modal, Helix-inspired text editor written from scratch in Rust — selection-first
+            editing, multiple cursors and a tree-sitter-driven rendering pipeline. A deep dive
+            into terminal UIs, text buffers and editor internals.
+          </p>
+          <ul class="card__tags"><li>Rust</li><li>TUI</li><li>tree-sitter</li><li>Editor internals</li></ul>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <span class="card__kind">// Open source</span>
+            <a href="https://github.com/swiftlang/swift/pulls?q=author%3Alucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Swift compiler</h3>
+          <p class="card__desc">
+            Active open-source contributor to the Swift toolchain — currently opening pull
+            requests against the compiler, working through a large production C++ codebase and
+            its review process.
+          </p>
+          <ul class="card__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <span class="card__kind">// Toolchain</span>
+            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Swift on NixOS</h3>
+          <p class="card__desc">
+            A reproducible <code>flake.nix</code> that builds the full Swift 6.5 toolchain from
+            source on NixOS — which upstream doesn't support. Reverse-engineered the build to
+            solve a deep cascade of toolchain problems: <code>DT_RUNPATH</code> vs transitive
+            rpath, glibc sysroot detection in ClangImporter, a complete bootstrap runtime, and
+            ncurses shimming. A complete, working NixOS build of Swift from scratch.
+          </p>
+          <ul class="card__tags"><li>Nix / flake.nix</li><li>Swift</li><li>LLVM</li><li>Toolchain</li><li>Linux</li></ul>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <span class="card__kind">// Systems</span>
+            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">42sh</h3>
+          <p class="card__desc">
+            A POSIX-compliant Unix shell written in C from the ground up: lexer, parser, AST
+            execution engine, built-ins, job control, redirections, piping and signal handling.
+          </p>
+          <ul class="card__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <span class="card__kind">// Computer vision</span>
+            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">OCR Sudoku Solver</h3>
+          <p class="card__desc">
+            An end-to-end OCR pipeline in C: image preprocessing, a neural network for digit
+            recognition, and a constraint-propagation solver — from a photo of a grid to a
+            solved puzzle.
+          </p>
+          <ul class="card__tags"><li>C</li><li>Neural network</li><li>Image processing</li><li>Solver</li></ul>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <span class="card__kind">// Systems</span>
+            <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener" class="card__icon" aria-label="GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Mole</h3>
+          <p class="card__desc">
+            A keyboard-driven mouse navigator for X11 — a Vimium-style hint mode that traverses
+            the AT-SPI accessibility tree (with OCR fallback) and drives the pointer via x11rb.
+            Built for i3.
+          </p>
+          <ul class="card__tags"><li>Rust</li><li>X11 / x11rb</li><li>AT-SPI</li><li>i3wm</li></ul>
+        </article>
+
+        <article class="card card--featured">
+          <div class="card__top">
+            <span class="card__kind">// Product</span>
+            <a href="https://getmemex.app" target="_blank" rel="noopener" class="card__icon" aria-label="Website">↗</a>
+          </div>
+          <h3 class="card__title">Memex</h3>
+          <p class="card__desc">
+            A browser extension that turns AI conversations into a searchable knowledge
+            workspace — indexing ChatGPT, Claude and Perplexity, auto-tagging content, grouping
+            related threads and syncing across devices. Founded and shipped end-to-end.
+          </p>
+          <ul class="card__tags"><li>TypeScript</li><li>Vite</li><li>Manifest V3</li><li>Full-stack</li></ul>
+        </article>
+
+      </div>
+
+      <div class="more">
+        <span class="more__label">// Also built</span>
+        <ul class="more__list">
+          <li><code>malloc</code> in C</li>
+          <li>BitTorrent client (C)</li>
+          <li>Game of Life (OCaml)</li>
+          <li>ESP32 chess clock — KiCad PCB</li>
+          <li>STM32 embedded system</li>
+          <li>TinyX backend</li>
+          <li>Math Voice Assistant — Stanford Hackathon</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== STACK ===== -->
+    <section id="stack" class="section">
+      <div class="section__head">
+        <span class="section__index">04</span>
+        <h2 class="section__title">Stack</h2>
+        <span class="section__rule"></span>
+      </div>
+
+      <div class="stack">
+        <div class="stack__group">
+          <h4 class="stack__label">Languages</h4>
+          <ul class="chips">
+            <li>C</li><li>C++</li><li>Rust</li><li>OCaml</li><li>Python</li><li>x86 Assembly</li>
+            <li>Java</li><li>TypeScript</li><li>SQL</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h4 class="stack__label">Compilers</h4>
+          <ul class="chips">
+            <li>SSA form</li><li>Optimization passes</li><li>AST visitors</li><li>Lexing / parsing</li>
+            <li>Type-checking</li><li>Register allocation</li><li>LLVM IR</li><li>HIR / LIR</li>
+            <li>Escape analysis</li><li>GCC internals</li><li>LSP</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h4 class="stack__label">Systems</h4>
+          <ul class="chips">
+            <li>Linux</li><li>Kernel architecture</li><li>Virtual memory</li><li>Multithreading</li>
+            <li>POSIX</li><li>Embedded (STM32 / ESP32)</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h4 class="stack__label">Tooling</h4>
+          <ul class="chips">
+            <li>NixOS / Nix</li><li>Git</li><li>Docker</li><li>GDB / LLDB</li><li>Neovim</li>
+            <li>Helix</li><li>i3wm</li><li>Debian packaging</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMMUNITY ===== -->
+    <section id="community" class="section">
+      <div class="section__head">
+        <span class="section__index">05</span>
+        <h2 class="section__title">Community</h2>
+        <span class="section__rule"></span>
+      </div>
+      <div class="community">
+        <div class="community__item">
+          <h3 class="community__title">Prologin <span class="dim">— problem setter</span></h3>
+          <p class="community__desc">
+            I design algorithmic challenges for the selection rounds of <strong>Prologin</strong>,
+            France's national computer-science competition.
+          </p>
+          <span class="community__years">2025 — present</span>
+        </div>
+        <div class="community__item">
+          <h3 class="community__title">EPIBuddy / Epiworld <span class="dim">— student mentor</span></h3>
+          <p class="community__desc">
+            I mentor incoming international students at EPITA, guiding campus integration and
+            academic onboarding in English.
+          </p>
+          <span class="community__years">2025 — present</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section section--contact">
+      <div class="contact">
+        <p class="contact__kicker">// Let's build something low-level</p>
+        <h2 class="contact__title">Let's talk.</h2>
+        <p class="contact__text">
+          I'm open to opportunities in compilers, systems and tooling — internships,
+          collaborations or roles. The fastest way to reach me is email.
+        </p>
+        <div class="contact__links">
+          <a class="btn btn--primary" href="mailto:hi@lucaslyba.com">hi@lucaslyba.com</a>
+          <a class="btn btn--ghost" href="https://github.com/lucasly-ba" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/lucas-ly-ba-a546b7294" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
