@@ -269,8 +269,14 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--mono); font-size: .72rem; color: var(--text-dim);
   padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel);
 }
-.entry__link { font-family: var(--mono); font-size: .8rem; color: var(--green); transition: opacity .2s; }
-.entry__link:hover { opacity: .7; }
+.entry__links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+.entry__link { font-family: var(--mono); font-size: .8rem; color: var(--text-dim); transition: color .2s; }
+.entry__link:hover { color: var(--text); }
+.entry__project {
+  font-family: var(--mono); font-size: .82rem; font-weight: 600; color: var(--green);
+  display: inline-flex; align-items: center; gap: 6px; transition: gap .2s, opacity .2s;
+}
+.entry__project:hover { gap: 10px; opacity: .85; }
 
 /* ---------- project cards ---------- */
 .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
