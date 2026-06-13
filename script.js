@@ -26,6 +26,41 @@ document.querySelectorAll(".card").forEach((card) => {
   });
 });
 
+// ---- mobile nav toggle ----
+const nav = document.querySelector(".nav");
+const navToggle = document.querySelector(".nav__toggle");
+const navMenu = document.querySelector(".nav__links");
+
+if (navToggle && nav) {
+  const setMenu = (open) => {
+    nav.classList.toggle("is-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+
+  navToggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+
+  // close when a link is tapped
+  navMenu.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => setMenu(false))
+  );
+
+  // close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenu(false);
+  });
+
+  // close when tapping outside the nav
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("is-open") && !nav.contains(e.target)) setMenu(false);
+  });
+
+  // reset when resizing up to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) setMenu(false);
+  });
+}
+
 // ---- active nav link on scroll ----
 const navLinks = [...document.querySelectorAll(".nav__links a")];
 const sections = navLinks
