@@ -271,6 +271,32 @@
           <ul class="card__tags"><li>Rust</li><li>LSP</li><li>Debian</li><li>GSoC 2026</li></ul>
         </a>
 
+        <a class="card" href="projects/gccrs/">
+          <div class="card__top">
+            <span class="card__kind">// Compiler</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">gccrs</h3>
+          <p class="card__desc">
+            The GCC Rust front-end — bringing native Rust support to GCC. I contributed across
+            the compiler pipeline at Embecosm, improving lint accuracy and diagnostics quality.
+          </p>
+          <ul class="card__tags"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Diagnostics</li></ul>
+        </a>
+
+        <a class="card" href="projects/swift/">
+          <div class="card__top">
+            <span class="card__kind">// Open source</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">Swift compiler</h3>
+          <p class="card__desc">
+            Open-source contributor to the Swift toolchain — opening pull requests against the
+            compiler and working through a large production C++ codebase and its review process.
+          </p>
+          <ul class="card__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
+        </a>
+
         <a class="card" href="projects/tiger/">
           <div class="card__top">
             <span class="card__kind">// Compiler</span>
@@ -283,6 +309,21 @@
             optimizing back-end. The project I now help maintain at EPITA.
           </p>
           <ul class="card__tags"><li>C++</li><li>SSA</li><li>Front-to-back</li><li>Optimization</li></ul>
+        </a>
+
+        <a class="card" href="projects/swift-nixos/">
+          <div class="card__top">
+            <span class="card__kind">// Toolchain</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">swift-nixos</h3>
+          <p class="card__desc">
+            A reproducible <code>flake.nix</code> that builds the full Swift 6.5 toolchain from
+            source on NixOS — which upstream doesn't support. Reverse-engineered the build to
+            solve a deep cascade of toolchain problems: <code>DT_RUNPATH</code> vs transitive
+            rpath, glibc sysroot detection, a complete bootstrap runtime, and ncurses shimming.
+          </p>
+          <ul class="card__tags"><li>Nix / flake.nix</li><li>Swift</li><li>LLVM</li><li>Toolchain</li><li>Linux</li></ul>
         </a>
 
         <a class="card" href="projects/lux/">
@@ -299,60 +340,6 @@
           <ul class="card__tags"><li>Rust</li><li>TUI</li><li>tree-sitter</li><li>Editor internals</li></ul>
         </a>
 
-        <a class="card" href="projects/swift/">
-          <div class="card__top">
-            <span class="card__kind">// Open source</span>
-            <span class="card__icon" aria-hidden="true">↗</span>
-          </div>
-          <h3 class="card__title">Swift compiler</h3>
-          <p class="card__desc">
-            Open-source contributor to the Swift toolchain — opening pull requests against the
-            compiler and working through a large production C++ codebase and its review process.
-          </p>
-          <ul class="card__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
-        </a>
-
-        <a class="card" href="projects/swift-nixos/">
-          <div class="card__top">
-            <span class="card__kind">// Toolchain</span>
-            <span class="card__icon" aria-hidden="true">↗</span>
-          </div>
-          <h3 class="card__title">Swift on NixOS</h3>
-          <p class="card__desc">
-            A reproducible <code>flake.nix</code> that builds the full Swift 6.5 toolchain from
-            source on NixOS — which upstream doesn't support. Reverse-engineered the build to
-            solve a deep cascade of toolchain problems: <code>DT_RUNPATH</code> vs transitive
-            rpath, glibc sysroot detection, a complete bootstrap runtime, and ncurses shimming.
-          </p>
-          <ul class="card__tags"><li>Nix / flake.nix</li><li>Swift</li><li>LLVM</li><li>Toolchain</li><li>Linux</li></ul>
-        </a>
-
-        <a class="card" href="projects/gccrs/">
-          <div class="card__top">
-            <span class="card__kind">// Compiler</span>
-            <span class="card__icon" aria-hidden="true">↗</span>
-          </div>
-          <h3 class="card__title">gccrs</h3>
-          <p class="card__desc">
-            The GCC Rust front-end — bringing native Rust support to GCC. I contributed across
-            the compiler pipeline at Embecosm, improving lint accuracy and diagnostics quality.
-          </p>
-          <ul class="card__tags"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Diagnostics</li></ul>
-        </a>
-
-        <a class="card" href="projects/42sh/">
-          <div class="card__top">
-            <span class="card__kind">// Systems</span>
-            <span class="card__icon" aria-hidden="true">↗</span>
-          </div>
-          <h3 class="card__title">42sh <span class="card__sub">— POSIX shell</span></h3>
-          <p class="card__desc">
-            A POSIX-compliant Unix shell written in C from the ground up: lexer, parser, AST
-            execution engine, built-ins, job control, redirections, piping and signal handling.
-          </p>
-          <ul class="card__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
-        </a>
-
         <a class="card" href="projects/mole/">
           <div class="card__top">
             <span class="card__kind">// Systems</span>
@@ -365,6 +352,19 @@
             mode over the AT-SPI accessibility tree (with OCR fallback) and x11rb. Built for i3.
           </p>
           <ul class="card__tags"><li>Rust</li><li>X11 / x11rb</li><li>AT-SPI</li><li>i3wm</li></ul>
+        </a>
+
+        <a class="card" href="projects/42sh/">
+          <div class="card__top">
+            <span class="card__kind">// Systems</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">POSIX shell</h3>
+          <p class="card__desc">
+            A POSIX-compliant Unix shell written in C from the ground up: lexer, parser, AST
+            execution engine, built-ins, job control, redirections, piping and signal handling.
+          </p>
+          <ul class="card__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
         </a>
 
       </div>
