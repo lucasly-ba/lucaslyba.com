@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — Lucas Ly Ba</title>
+  <meta name="description" content="Build journals by Lucas Ly Ba — long-form write-ups on compilers, editors, and systems toolchains." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Writing — Lucas Ly Ba" />
+  <meta property="og:description" content="Build journals: Swift on NixOS, the Lux editor, and the Mole X11 navigator." />
+  <meta property="og:url" content="https://lucaslyba.com/notes/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj">
+    <a class="proj__back" href="../#writing">&lt;&lt; Back home</a>
+
+    <span class="proj__kind">// Writing</span>
+    <h1 class="proj__title">Build journals</h1>
+    <p class="proj__lede">Long-form developer logs — why each project is built the way it is, and the problems I hit along the way. The full versions live in each repo's <code>JOURNEY.md</code>; these are the readable ones.</p>
+
+    <div class="notes" style="margin-top:32px;">
+      <a class="note" href="swift-nixos/">
+        <span class="note__kind">// toolchain · nix · llvm</span>
+        <h3 class="note__title">Building Swift from source on NixOS</h3>
+        <p class="note__desc">Upstream doesn't support it. A cascade of toolchain bugs — DT_RUNPATH vs rpath, sysroot detection, a 30-minute "hang" cracked open with a gdb backtrace — all solved in one flake.nix.</p>
+        <span class="note__more">Read →</span>
+      </a>
+      <a class="note" href="lux/">
+        <span class="note__kind">// editor · rust</span>
+        <h3 class="note__title">Lux: building an editor by hand</h3>
+        <p class="note__desc">A rope, incremental tree-sitter, an undo tree and a hand-written LSP client — and the bugs the 92-test suite still missed.</p>
+        <span class="note__more">Read →</span>
+      </a>
+      <a class="note" href="mole/">
+        <span class="note__kind">// systems · x11 · ocr</span>
+        <h3 class="note__title">Mole: when the map is text</h3>
+        <p class="note__desc">Why Mole dropped the accessibility tree for OCR, and how a capture → detect → label → act daemon makes keyboard pointing feel instant.</p>
+        <span class="note__more">Read →</span>
+      </a>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>

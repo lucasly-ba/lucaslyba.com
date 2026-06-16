@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>debian-lsp — Lucas Ly Ba</title>
-  <meta name="description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian." />
+  <meta name="description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="debian-lsp — Lucas Ly Ba" />
-  <meta property="og:description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian." />
+  <meta property="og:description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
   <meta property="og:url" content="https://lucaslyba.com/projects/debian-lsp/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -24,36 +24,90 @@
   <article class="proj">
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
-    <span class="proj__kind">// Language tooling</span>
+    <span class="proj__kind">// Language tooling · GSoC 2026</span>
     <h1 class="proj__title">debian-lsp</h1>
-    <p class="proj__lede">A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian.</p>
+    <p class="proj__lede">A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij.</p>
 
     <dl class="proj__meta">
-          <div><dt>Year</dt><dd>2026</dd></div>
-          <div><dt>Role</dt><dd>GSoC contributor</dd></div>
-          <div><dt>Language</dt><dd>Rust</dd></div>
-          <div><dt>Mentor</dt><dd>Jelmer Vernooij</dd></div>
+      <div><dt>Program</dt><dd>Google Summer of Code 2026</dd></div>
+      <div><dt>Org</dt><dd>Debian</dd></div>
+      <div><dt>Dates</dt><dd>May 25 — Aug 24, 2026</dd></div>
+      <div><dt>Language</dt><dd>Rust</dd></div>
+      <div><dt>Mentor</dt><dd>Jelmer Vernooij</dd></div>
     </dl>
 
-    <ul class="proj__tags"><li>Rust</li><li>LSP</li><li>Debian</li><li>tree-sitter</li><li>GSoC 2026</li></ul>
+    <ul class="proj__tags"><li>Rust</li><li>LSP</li><li>deb822</li><li>tree-sitter</li><li>Debian packaging</li><li>GSoC 2026</li></ul>
 
     <div class="proj__links">
-          <a class="btn btn--ghost" href="https://github.com/jelmer/debian-lsp" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/jelmer/debian-lsp" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--ghost" href="https://summerofcode.withgoogle.com/programs/2026/projects/iXHT14Tv" target="_blank" rel="noopener">GSoC project ↗</a>
     </div>
 
-        <h2>Overview</h2>
-        <p>Debian packaging is driven by a family of metadata files — <code>debian/control</code>, <code>debian/changelog</code>, <code>debian/rules</code> and more. <strong>debian-lsp</strong> brings modern editor intelligence to these files through the Language Server Protocol, so any LSP-capable editor (VS Code, Neovim, Helix…) gets first-class support for editing Debian packages.</p><p>It was selected as a Google Summer of Code 2026 project under the Debian organization — accepted among 15,245 applicants worldwide.</p>
+    <h2>Overview</h2>
+    <p>Debian packaging is driven by a family of metadata files — <code>debian/control</code>, <code>debian/tests/control</code>, <code>debian/*.lintian-overrides</code>, <code>debian/conffiles</code>, <code>debian/install</code> and many more. <strong>debian-lsp</strong> brings modern editor intelligence to those files over the <strong>Language Server Protocol</strong>, so any LSP-capable editor gets first-class support for editing Debian packages: completions, diagnostics, hover, go-to-definition, semantic highlighting and code actions.</p>
+    <p>The project was started by <strong>Jelmer Vernooij</strong>, my mentor and a long-time Debian developer. I joined it through <strong>Google Summer of Code 2026</strong> and have been working alongside him on it since — <strong>accepted as one of the 1,141 contributors selected worldwide</strong> out of <strong>15,245 applicants</strong>. Getting deep into the codebase also meant navigating <strong>several other Debian Rust crates</strong> it builds on (the deb822 parsing/format stack, the lintian-brush fixers, the package and architecture caches).</p>
 
-        <h2>What it provides</h2>
-        <ul class='proj__list'><li><strong>Completions</strong> across packaging fields and values</li><li><strong>Diagnostics</strong> for malformed or invalid metadata</li><li><strong>Hover</strong> documentation and <strong>go-to-definition</strong></li><li><strong>Formatting</strong> and <strong>code actions</strong></li><li><strong>Inlay hints</strong> and <strong>semantic highlighting</strong></li></ul>
+    <figure>
+      <img src="control-hover.png" alt="debian-lsp providing hover documentation over a Source field in a debian/control file, inside Helix" />
+      <figcaption>debian-lsp serving hover docs for a <code>Source</code> field in <code>debian/control</code> — running in Helix.</figcaption>
+    </figure>
 
-    <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="debian-lsp screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
+    <h2>Editor support</h2>
+    <p>Because it speaks the Language Server Protocol, debian-lsp is editor-agnostic. As part of the work I got it running in <strong>Helix</strong> and <strong>Emacs</strong> (via <code>eglot</code>) in addition to the existing setups — wiring up the language-server configuration so Debian maintainers on those editors get the same completions, diagnostics and hover.</p>
+
+    <h2>Before GSoC</h2>
+    <p>Before the official coding period began I was already contributing: I implemented support for <code>debian/patches/series</code> (go-to-definition from a patch name to the patch file in the tree, plus completion) — which isn't on the timeline below — and <strong>fixed a number of other issues</strong> across the existing code while learning my way around the codebase and its sibling crates.</p>
+
+    <h2>The plan — timeline</h2>
+    <p>The 175-hour project is scoped file-type by file-type. Each week takes on a packaging file (or a related cluster) and brings it up to the full feature set — completions, go-to-definition, hover, diagnostics, semantic tokens and code actions where they apply.</p>
+    <div class="proj__table-wrap">
+      <table class="proj__table">
+        <thead><tr><th>Period</th><th>Module</th><th>Will achieve</th><th>Perhaps achieve</th><th>Stretch / extend</th></tr></thead>
+        <tbody>
+          <tr><td>Week 1</td><td>tests/control</td><td>Completions · Go-to-definition · Hover · Docs</td><td>Code lens · Code actions</td><td>Diagnostics</td></tr>
+          <tr><td>Week 2</td><td>lintian-overrides</td><td>Parser rework · Completions · Go-to-definition · Docs</td><td>Code actions</td><td>Diagnostics</td></tr>
+          <tr><td>Week 3</td><td>conffiles · dirs</td><td>Completions · Diagnostics · Semantics · Docs · Code actions</td><td></td><td></td></tr>
+          <tr><td>Week 4</td><td>install · diagnostics</td><td>install support · tests &amp; lintian-overrides diagnostics · tidy earlier work</td><td></td><td></td></tr>
+          <tr><td>Week 5</td><td>manpages</td><td>Support + cleanup</td><td></td><td></td></tr>
+          <tr><td>Week 6</td><td>menu</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Week 7</td><td>triggers · not-installed</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Week 8</td><td>debcargo.toml</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Week 9</td><td>wrap-up</td><td>Tidy everything · mentor review · GSoC final report</td><td></td><td></td></tr>
+        </tbody>
+      </table>
     </div>
+
+    <h2>Week 1 — debian/tests/control</h2>
+    <p>DEP-8 autopkgtest control files. Full deb822-style intelligence driven by the shared parser:</p>
+    <ul class="proj__list">
+      <li><strong>Field completions</strong> for all known fields — <code>Tests</code>, <code>Test-Command</code>, <code>Depends</code>, <code>Restrictions</code>, <code>Features</code>, <code>Architecture</code>, <code>Classes</code>, <code>Tests-Directory</code>.</li>
+      <li><strong>Value completions</strong>: known DEP-8 restrictions and features (space-separated, de-duplicated); a lazy one-level directory scan for <code>Tests-Directory</code>; executable test files for <code>Tests</code> (respecting <code>Tests-Directory</code>); async package-cache completions plus the <code>@</code> / <code>@builddeps@</code> / <code>@recommends@</code> substitution variables for <code>Depends</code>; and the known architecture list for <code>Architecture</code>.</li>
+      <li><strong>Go-to-definition</strong>: a test name jumps to its executable in the tests directory; a package in <code>Depends</code> resolves to its binary paragraph in <code>debian/control</code> (reusing the existing control logic); <code>Tests-Directory</code> opens the referenced folder.</li>
+      <li><strong>Hover</strong> on a known field shows its documentation, via the shared deb822 hover logic.</li>
+    </ul>
+
+    <h2>Week 2 — debian/*.lintian-overrides</h2>
+    <p>Lintian override lines have the shape <code>[[&lt;package&gt;][ &lt;archlist&gt;][ &lt;type&gt;]: ]&lt;lintian-tag&gt;[[*]&lt;context&gt;[*]]</code>. The work:</p>
+    <ul class="proj__list">
+      <li><strong>Parser improvement</strong>: emit a partial <code>PACKAGE_SPEC</code> node even without the trailing <code>:</code>, so completion can walk the CST for the current spec context (package / arch list / type) without a separate partial-text parser.</li>
+      <li><strong>Completions</strong> for package names (binary &amp; source from <code>debian/control</code>), architectures (with wildcards and negations), override types (<code>source</code>, <code>binary</code>, <code>udeb</code>), and lintian tags.</li>
+      <li><strong>Go-to-definition</strong> from a package name to its <code>Package:</code> / <code>Source:</code> paragraph.</li>
+      <li><strong>Hover</strong>: tag descriptions (from <code>lintian-explain-tags</code>), whether a package is defined in <code>debian/control</code>, architecture-restriction notes (with negation), and per-type descriptions.</li>
+    </ul>
+
+    <h2>Week 3 — debian/conffiles &amp; debian/dirs</h2>
+    <ul class="proj__list">
+      <li><strong>conffiles</strong> — completion by scanning <code>debian/&lt;package&gt;/etc/</code> for absolute paths and offering the <code>remove-on-upgrade</code> flag; diagnostics for empty lines, relative paths, unknown flags, duplicate entries, too many tokens, and <code>remove-on-upgrade</code> on a file that still exists (which <code>dpkg-deb</code> refuses to build); hover and semantic tokens (paths as values, the flag as a keyword).</li>
+      <li><strong>dirs</strong> — completion of common directory prefixes (<code>usr/share/</code>, <code>usr/lib/</code>, <code>usr/bin/</code>, <code>etc/</code>, <code>var/lib/</code>) and a duplicate-entry warning.</li>
+    </ul>
+
+    <h2>Week 4 — debian/install &amp; diagnostics</h2>
+    <ul class="proj__list">
+      <li><strong>install</strong> — source-path and destination-prefix completion; go-to-definition from a source path to the file in the tree (same pattern as <code>patches/series</code>); diagnostics for missing sources, leading-slash destinations, duplicates and malformed lines; hover and semantic tokens.</li>
+      <li><strong>Diagnostics</strong> for <code>tests/control</code> and <code>lintian-overrides</code>. Several of these are implemented as <strong>lintian-brush fixers</strong> rather than directly in the LSP — so command-line <code>lintian-brush</code> users benefit too — and the LSP surfaces them automatically as diagnostics and quick-fixes (e.g. a listed test that doesn't exist or isn't executable, a missing <code>Tests-Directory</code>, and field-casing warnings).</li>
+    </ul>
+
+    <div class="callout"><p>Documentation is updated as each module lands: the README grows a section per file type covering its completions, diagnostics, go-to-definition and hover.</p></div>
 
     <nav class="proj__nav">
       <span></span>

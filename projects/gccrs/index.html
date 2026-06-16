@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>gccrs — Lucas Ly Ba</title>
-  <meta name="description" content="Open-source contributions to the GCC Rust front-end — bringing native Rust support to GCC, in C++." />
+  <meta name="description" content="The GCC Rust front-end. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across a 200,000-line C++ compiler." />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="gccrs — Lucas Ly Ba" />
-  <meta property="og:description" content="Open-source contributions to the GCC Rust front-end — bringing native Rust support to GCC, in C++." />
+  <meta property="og:description" content="The GCC Rust front-end. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across a 200,000-line C++ compiler." />
   <meta property="og:url" content="https://lucaslyba.com/projects/gccrs/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -24,36 +24,67 @@
   <article class="proj">
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
-    <span class="proj__kind">// Compiler</span>
+    <span class="proj__kind">// Compiler · Embecosm internship</span>
     <h1 class="proj__title">gccrs</h1>
-    <p class="proj__lede">Open-source contributions to the GCC Rust front-end — bringing native Rust support to GCC, in C++.</p>
+    <p class="proj__lede">The GCC Rust front-end — native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across the compiler pipeline.</p>
 
     <dl class="proj__meta">
-          <div><dt>Years</dt><dd>2025 — 2026</dd></div>
-          <div><dt>Role</dt><dd>Compiler Engineering Intern</dd></div>
-          <div><dt>Company</dt><dd>Embecosm</dd></div>
-          <div><dt>Mentors</dt><dd>Arthur Cohen, Pierre-Emmanuel Patry</dd></div>
+      <div><dt>Role</dt><dd>Compiler Engineering Intern</dd></div>
+      <div><dt>Company</dt><dd>Embecosm</dd></div>
+      <div><dt>Dates</dt><dd>Sep 2025 — Feb 2026 · 6 months</dd></div>
+      <div><dt>Language</dt><dd>C++ (200k+ lines)</dd></div>
+      <div><dt>Mentors</dt><dd>Arthur Cohen, Pierre-Emmanuel Patry</dd></div>
     </dl>
 
-    <ul class="proj__tags"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Diagnostics</li></ul>
+    <ul class="proj__tags"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Lints</li><li>Diagnostics</li><li>HIR</li></ul>
 
     <div class="proj__links">
-          <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">My pull requests ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">My issues ↗</a>
     </div>
 
-        <h2>Overview</h2>
-        <p><strong>gccrs</strong> is the GCC Rust front-end — a production-grade, open-source effort to bring native Rust support to GCC, written in C++. I contributed during my internship at <strong>Embecosm</strong>, working across the compiler pipeline.</p>
+    <h2>Overview</h2>
+    <p>I spent six months at <strong>Embecosm</strong> contributing to <strong>gccrs</strong>, the GCC Rust front-end — a production-grade open-source compiler, written in <strong>more than 200,000 lines of C++</strong>, that brings Rust support to GCC. I resolved issues and pull requests across the compiler pipeline, focused on <strong>lint accuracy, diagnostics quality</strong> and the overall compilation feedback experience: making sure incorrect Rust is rejected the way the official <code>rustc</code> rejects it, and that the warnings read clearly.</p>
 
-        <h2>What I worked on</h2>
-        <ul class='proj__list'><li>Resolved multiple <strong>issues and pull requests</strong> across the compiler pipeline</li><li>Improved <strong>lint accuracy</strong> and diagnostic warnings</li><li>Raised the quality of <strong>compilation feedback</strong> for users</li></ul>
+    <h2>Recommendation</h2>
+    <blockquote class="quote">
+      <p>"Lucas interned with us at Embecosm and worked on the Rust-GCC project for 6 months. While he did not have a lot of compiler experience at first, he was a brilliant student and eager to learn. He acquired competences quickly and was able to become productive on the compiler in a very short amount of time. He adapted to our complicated contributing guidelines very well, and became a very productive member of the team, solving hard problems despite the high complexity of our codebase — more than 200,000 lines of C++!"</p>
+      <p>"Lucas took ownership of multiple lints within our compiler, ensuring proper warnings and reliable correctness checks for invalid Rust code. This part of the compiler helps ensure that incorrect Rust code is rejected by Rust-GCC, and helps bridge the gap between our compiler and the official implementation. He proved to be a very valuable member of the team, and I am more than happy to recommend him."</p>
+      <span class="quote__by">— Arthur Cohen <span>· Compiler Engineer at Embecosm · gccrs mentor</span></span>
+    </blockquote>
+    <figure>
+      <img src="recommendation.png" alt="LinkedIn recommendation from Arthur Cohen, Compiler Engineer at Embecosm" />
+      <figcaption>The recommendation, on LinkedIn.</figcaption>
+    </figure>
 
-    <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="gccrs screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
-    </div>
+    <h2>What I built — the lints</h2>
+    <p>I took ownership of a family of lints in the unused / naming-convention check, mirroring <code>rustc</code>'s diagnostics so gccrs rejects and warns on the same code:</p>
+    <ul class="proj__list">
+      <li><strong>Naming conventions</strong> — non-snake-case (variables, functions, modules, lifetimes) and non-upper-case globals/statics.</li>
+      <li><strong>Unused checks</strong> — unused variables, unused assignments, unused <code>mut</code>, and unused labels.</li>
+      <li><strong>Redundant semicolons</strong> — flagging unnecessary trailing <code>;</code>.</li>
+      <li>Plus the refactors that made the rest possible: reworking the unused-variable lint, renaming the lint files, and cleaning up string helpers in the HIR.</li>
+    </ul>
+
+    <h2>In action</h2>
+    <p>One file exercising every lint at once, compiled with the experimental 2.0 check:</p>
+    <pre class="code"><span class="g">$</span> gccrs -frust-incomplete-and-experimental-compiler-do-not-use \
+      -frust-unused-check-2.0 -S 00-all-lints.rs -o /dev/null</pre>
+    <figure>
+      <img src="lints.png" alt="gccrs emitting naming-convention, unused-variable, unused-assignment, unused-mut, unused-label and redundant-semicolon warnings" />
+      <figcaption>gccrs emitting the naming, unused and redundant-semicolon diagnostics — each pointing at the exact span.</figcaption>
+    </figure>
+
+    <h2>Beyond lints — fixes across the pipeline</h2>
+    <p>Lints were the focus, but a lot of the work was hunting down correctness bugs elsewhere in the front-end:</p>
+    <ul class="proj__list">
+      <li>Fixed a <strong>segfault on an empty doc attribute</strong>.</li>
+      <li>Fixed a <strong><code>cfg</code> attribute without parentheses</strong> error.</li>
+      <li>Added an <strong>error check when a <code>derive</code> targets the wrong item</strong>.</li>
+      <li>Reduced a match-arm pattern vector to a single pattern where the extra generality was unused.</li>
+      <li>…and more issues and reviews across the codebase — the full set is in my <a href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">pull requests</a> and <a href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">issues</a>.</li>
+    </ul>
 
     <nav class="proj__nav">
       <a href="../swift-nixos/">← Swift on NixOS</a>

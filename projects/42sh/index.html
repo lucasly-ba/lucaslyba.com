@@ -30,28 +30,24 @@
 
     <dl class="proj__meta">
           <div><dt>Role</dt><dd>Author</dd></div>
+          <div><dt>Context</dt><dd>EPITA — school project</dd></div>
           <div><dt>Language</dt><dd>C</dd></div>
           <div><dt>Standard</dt><dd>POSIX</dd></div>
     </dl>
 
-    <ul class="proj__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
-
-    <div class="proj__links">
-          <a class="btn btn--ghost" href="https://github.com/lucasly-ba" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
+    <ul class="proj__tags"><li>C</li><li>POSIX</li><li>Lexer</li><li>Parser</li><li>AST</li><li>Job control</li></ul>
 
         <h2>Overview</h2>
-        <p>42sh is a full Unix shell implemented in C, following the POSIX specification. It runs scripts and interactive sessions, parsing the shell grammar into an AST and executing it with proper process and signal semantics.</p>
+        <p>42sh is a full Unix shell implemented in C, following the POSIX specification. It runs scripts and interactive sessions: a <strong>lexer</strong> tokenizes input, a <strong>parser</strong> builds an AST of the shell grammar, and an <strong>execution engine</strong> walks it with proper process and signal semantics. The source is organized into modules — <code>lexer</code>, <code>parser</code>, <code>ast</code>, <code>cmd</code>, <code>evalexpr</code>, <code>variable</code>, <code>myredir</code> — built and driven by autotools.</p>
 
         <h2>What I built</h2>
-        <ul class='proj__list'><li><strong>Lexer & parser</strong> for the POSIX shell grammar</li><li><strong>AST execution engine</strong></li><li><strong>Built-ins</strong>, variables and expansions</li><li><strong>Redirections</strong> and <strong>pipelines</strong></li><li><strong>Job control</strong> and <strong>signal handling</strong></li></ul>
+        <ul class='proj__list'><li><strong>Lexer &amp; parser</strong> for the POSIX shell grammar, producing an AST</li><li><strong>AST execution engine</strong> with process management</li><li><strong>Built-ins</strong>, variables, and parameter / arithmetic expansion</li><li><strong>Redirections</strong>, <strong>pipelines</strong> and command sequences (<code>&amp;&amp;</code>, <code>||</code>)</li><li><strong>Globbing</strong>, <strong>for loops</strong>, functions and exit-code propagation</li></ul>
 
     <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="42sh screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
+    <p>A single script drives the shell (<code>./src/sh -c "…"</code>) through pipes, variable and arithmetic expansion, heredocs, redirection, sequences, globbing, functions and exit codes:</p>
+    <div class="shots shots--2">
+      <figure><img src="demo-source.png" alt="demo.sh source driving 42sh through eleven shell features" /><figcaption>demo.sh — the driver script.</figcaption></figure>
+      <figure><img src="demo-output.png" alt="42sh running the demo script and printing the result of each feature" /><figcaption>42sh executing it.</figcaption></figure>
     </div>
 
     <nav class="proj__nav">

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mole: when the map is text — Lucas Ly Ba</title>
+  <meta name="description" content="Building Mole, a keyboard-driven X11 pointer navigator — why it abandoned the accessibility tree for OCR, and how a capture → detect → label → act daemon makes pointing feel instant." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mole: when the map is text — Lucas Ly Ba" />
+  <meta property="og:description" content="Why Mole dropped the accessibility tree for OCR, and how its daemon pipeline makes keyboard pointing feel instant." />
+  <meta property="og:url" content="https://lucaslyba.com/notes/mole/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj note-article">
+    <a class="proj__back" href="../">&lt;&lt; All writing</a>
+
+    <span class="proj__kind">// Build journal · systems</span>
+    <h1 class="proj__title">Mole: when the map is text</h1>
+    <p class="proj__lede">Mole lets you drive the mouse from the keyboard on Linux/X11: press a key, every word on screen gets a short hint, type one, the pointer teleports there. The interesting story isn't the idea — it's the design pivot and the systems plumbing underneath.</p>
+
+    <div class="proj__links">
+      <a class="btn btn--ghost" href="https://github.com/lucasly-ba/mole" target="_blank" rel="noopener">Repo &amp; full JOURNEY ↗</a>
+      <a class="btn btn--ghost" href="../../projects/mole/">Project page →</a>
+    </div>
+
+    <figure>
+      <video src="../../projects/mole/demo.mp4" controls muted loop playsinline preload="metadata"></video>
+      <figcaption>Hint mode over a real screen.</figcaption>
+    </figure>
+
+    <h2>The shape of the problem</h2>
+    <p>The goal is simple to state: press a key, get two-letter labels over the screen, type a label, the pointer goes there. The hard parts are all systems: <em>what do you point at and how do you find it</em>; how do you draw on top of everything; how do you move and click the real pointer; and how do you make it feel instant.</p>
+
+    <h2>The pivot: text is the map</h2>
+    <p>The first design hinted <em>clickable widgets</em>, found through the <strong>AT-SPI accessibility tree</strong>, with OCR only as a fallback. That was abandoned — for two reasons. First, the accessibility tree only knows about controls an app <em>chooses to declare</em>, so huge swaths of the screen (document text, terminals, Electron apps, anything custom-drawn) were invisible to it. Second, maintaining two very different detection paths doubled the surface area for something the OCR path already covered. So Mole hints <strong>text, found by reading the screen with OCR</strong>. The accessibility tree went away entirely.</p>
+
+    <h2>The pipeline</h2>
+    <p>Everything is wrapped in a <strong>daemon</strong> so a trigger only does the per-interaction work, and the architecture is a pipeline with each stage in its own module so it can be read and tested alone:</p>
+    <ul class="proj__list">
+      <li><strong>capture</strong> the screen, then <strong>detect</strong> words with OCR;</li>
+      <li><strong>label</strong> each target with a short hint and <strong>render</strong> them into a borderless, transparent <strong>X11 overlay</strong> the window manager won't touch;</li>
+      <li><strong>match</strong> the keys you type against the labels, then <strong>act</strong> — synthetic input the rest of the system believes is hardware, for move / click / drag.</li>
+    </ul>
+    <p>Plain <code>hjkl</code> movement does no scanning at all, which is what keeps it feeling instant: the expensive capture-and-OCR only happens when you actually ask for hints.</p>
+
+    <h2>Honest about what's proven</h2>
+    <p>The journal is deliberately clear about what is runtime-tested against a real display versus what is structurally correct but needs hardware to prove out — and where to take it next (Wayland is the obvious frontier, since the X11 overlay and synthetic-input tricks don't translate directly).</p>
+
+    <div class="callout"><p>Module map, phase-by-phase build, dependency choices and the tested-vs-needs-a-display breakdown are all in <a href="https://github.com/lucasly-ba/mole" target="_blank" rel="noopener"><code>JOURNEY.md</code></a>.</p></div>
+
+    <nav class="proj__nav">
+      <a href="../lux/">← Lux: building an editor by hand</a>
+      <span></span>
+    </nav>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
