@@ -24,6 +24,7 @@
   <article class="proj">
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
+    <img src="logo.png" alt="Memex app icon" class="proj__logo" />
     <span class="proj__kind">// SaaS · browser extension</span>
     <h1 class="proj__title">Memex</h1>
     <p class="proj__lede">Your multi-AI memory — search, group and ask across ChatGPT, Claude, Perplexity and Gemini. A Manifest V3 browser extension backed by a Fastify + Supabase + Stripe service. Built solo, end to end, and shipped to the Chrome Web Store.</p>
@@ -47,13 +48,68 @@
     <p>People now spread their thinking across several AI chats — ChatGPT, Claude, Perplexity, Gemini — and then can't find anything again. <strong>Memex</strong> is a browser extension that turns all of those conversations into one searchable, organizable memory that <strong>stays on your device</strong>. It's the only project here that isn't systems or compilers — it's a full product I designed, built and shipped on my own: the extension, the backend, auth, billing and the store listing.</p>
 
     <h2>What it does</h2>
-    <div class="shots">
-      <figure><img src="shot-1.png" alt="Memex universal search across ChatGPT, Claude and Perplexity conversations" /><figcaption>Universal search — every AI chat, one search box, by keyword, topic, tag or note.</figcaption></figure>
-      <figure><img src="shot-2.png" alt="Memex auto-organizing conversations into groups" /><figcaption>Auto-organize — AI clusters chats into clean topics, or you build your own groups, tags and notes.</figcaption></figure>
-      <figure><img src="shot-3.png" alt="Memex answering a question from past conversations with citations" /><figcaption>Ask your AI history — a real answer drawn from your past chats, cited back to the source (no relevant match → never charged).</figcaption></figure>
-      <figure><img src="shot-4.png" alt="Memex two-sentence summaries and a saved-prompt library" /><figcaption>Summarize, save, reuse — two-sentence recaps and a saved-prompt library you can paste into any AI.</figcaption></figure>
-      <figure><img src="shot-5.png" alt="Memex private-by-design, indexed locally, export to Markdown, PDF, JSON, Notion" /><figcaption>Private by design — the index stays in your browser; export the whole library to Markdown, PDF, JSON or Notion.</figcaption></figure>
+    <div class="carousel" id="memex-carousel" aria-roledescription="carousel" aria-label="Memex screenshots" tabindex="0">
+      <div class="carousel__viewport">
+        <div class="carousel__track" id="memex-track">
+          <div class="carousel__slide"><img src="shot-1.png" alt="Memex universal search across ChatGPT, Claude and Perplexity conversations" /></div>
+          <div class="carousel__slide"><img src="shot-2.png" alt="Memex auto-organizing conversations into groups" /></div>
+          <div class="carousel__slide"><img src="shot-3.png" alt="Memex answering a question from past conversations with citations" /></div>
+          <div class="carousel__slide"><img src="shot-4.png" alt="Memex two-sentence summaries and a saved-prompt library" /></div>
+          <div class="carousel__slide"><img src="shot-5.png" alt="Memex private-by-design, indexed locally, export to Markdown, PDF, JSON, Notion" /></div>
+        </div>
+        <button class="carousel__arrow carousel__arrow--prev" id="memex-prev" aria-label="Previous screenshot">&lsaquo;</button>
+        <button class="carousel__arrow carousel__arrow--next" id="memex-next" aria-label="Next screenshot">&rsaquo;</button>
+      </div>
+      <p class="carousel__caption" id="memex-caption"></p>
+      <div class="carousel__dots" id="memex-dots"></div>
     </div>
+    <script>
+    (() => {
+      const root = document.getElementById("memex-carousel");
+      if (!root) return;
+      const track = document.getElementById("memex-track");
+      const slides = [...track.children];
+      const dotsWrap = document.getElementById("memex-dots");
+      const captionEl = document.getElementById("memex-caption");
+      const captions = [
+        "Universal search — every AI chat, one search box, by keyword, topic, tag or note.",
+        "Auto-organize — AI clusters chats into clean topics, or you build your own groups, tags and notes.",
+        "Ask your AI history — a real answer drawn from your past chats, cited back to the source.",
+        "Summarize, save, reuse — two-sentence recaps and a saved-prompt library you can paste into any AI.",
+        "Private by design — the index stays in your browser; export to Markdown, PDF, JSON or Notion.",
+      ];
+      let i = 0;
+      const dots = slides.map((_, idx) => {
+        const b = document.createElement("button");
+        b.className = "carousel__dot";
+        b.setAttribute("aria-label", "Screenshot " + (idx + 1));
+        b.addEventListener("click", () => go(idx));
+        dotsWrap.appendChild(b);
+        return b;
+      });
+      function go(n) {
+        i = (n + slides.length) % slides.length;
+        track.style.transform = "translateX(-" + i * 100 + "%)";
+        dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+        captionEl.textContent = captions[i];
+      }
+      document.getElementById("memex-prev").addEventListener("click", () => go(i - 1));
+      document.getElementById("memex-next").addEventListener("click", () => go(i + 1));
+      root.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") { go(i - 1); e.preventDefault(); }
+        else if (e.key === "ArrowRight") { go(i + 1); e.preventDefault(); }
+      });
+      let x0 = null;
+      root.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      root.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+      go(0);
+    })();
+    </script>
 
     <h2>How it works</h2>
     <ul class="proj__list">

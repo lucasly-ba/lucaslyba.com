@@ -599,6 +599,40 @@ a { color: inherit; text-decoration: none; }
   .shots--2, .ba { grid-template-columns: 1fr; }
 }
 
+/* project logo (e.g. Memex app icon) */
+.proj__logo { width: 64px; height: 64px; display: block; margin-bottom: 18px; border-radius: 14px; }
+
+/* image carousel (Memex screenshots) */
+.carousel { margin-bottom: 28px; }
+.carousel__viewport {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border); border-radius: var(--r); background: var(--panel);
+}
+.carousel__track { display: flex; transition: transform .42s cubic-bezier(.4, 0, .2, 1); }
+.carousel__slide { flex: 0 0 100%; min-width: 0; }
+.carousel__slide img { width: 100%; display: block; }
+.carousel__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(10, 14, 20, .68); border: 1px solid var(--border-hi); color: var(--text);
+  font-family: var(--sans); font-size: 1.5rem; line-height: 1; cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s; backdrop-filter: blur(4px); z-index: 2;
+}
+.carousel__arrow:hover { background: rgba(10, 14, 20, .9); border-color: var(--green); color: var(--green); }
+.carousel__arrow--prev { left: 12px; }
+.carousel__arrow--next { right: 12px; }
+.carousel__caption {
+  font-family: var(--mono); font-size: .8rem; color: var(--text-mute);
+  text-align: center; margin: 14px 0 12px; min-height: 1.2em; max-width: none;
+}
+.carousel__dots { display: flex; justify-content: center; gap: 9px; }
+.carousel__dot {
+  width: 8px; height: 8px; border-radius: 50%; border: none; padding: 0; cursor: pointer;
+  background: var(--border-hi); transition: background .2s, transform .2s;
+}
+.carousel__dot:hover { background: var(--text-mute); }
+.carousel__dot.is-active { background: var(--green); transform: scale(1.35); }
+
 /* recommendation / testimonial quote */
 .quote {
   border-left: 2px solid var(--green); background: var(--panel);
