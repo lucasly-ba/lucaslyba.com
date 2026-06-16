@@ -45,8 +45,8 @@
         <p>Lux is a small but real terminal text editor built in Rust, inspired by <strong>Helix</strong>'s selection-first, modal editing model. The interesting parts — the text data structure, the syntax engine, the undo system, the language-server client — are all built <strong>by hand</strong> rather than pulled off the shelf. The goal was to <em>understand</em> how an editor works, not just use one.</p>
 
         <figure>
-          <img src="editor.png" alt="Lux editing a Rust file with syntax highlighting, line numbers, modal status line and tildes for empty lines" />
-          <figcaption>Lux in normal mode — tree-sitter highlighting, line numbers and a modal status line.</figcaption>
+          <img src="editor.png" alt="Lux editing one of its own Rust source files with tree-sitter highlighting, line numbers and a modal status line" />
+          <figcaption>Lux editing its own source — tree-sitter highlighting, line numbers and a modal status line.</figcaption>
         </figure>
 
         <h2>What I built</h2>
@@ -58,11 +58,11 @@
           <li><strong>Modal editing</strong> — normal / insert / visual, with a <code>:</code> command line — and a test suite (92 tests) covering the internals.</li>
         </ul>
 
-        <p>The full story of why each piece exists — and the NixOS build quirks behind it — is in the <a href="../../notes/lux/">build journey</a>.</p>
+        <p>The piece I'm proudest of is the <strong>undo tree</strong>: a linear undo stack throws your redo history away the instant you type after undoing, so modelling history as a tree — every branch still reachable — is what makes editing feel safe to explore. The <a href="../../notes/lux/">build journey</a> walks through that and the rest, module by module.</p>
 
     <nav class="proj__nav">
-      <a href="../tiger/">← Tiger Compiler</a>
-      <a href="../swift/">Swift compiler →</a>
+      <a href="../swift-nixos/">← Swift on NixOS</a>
+      <a href="../mole/">Mole →</a>
     </nav>
   </article>
 

@@ -56,11 +56,19 @@
           <li><strong>libdispatch</strong> and <strong>Foundation</strong> — <code>import Foundation</code> with <code>Date</code> / JSON / <code>UUID</code> / <code>NSString</code> all working.</li>
           <li><strong>Test suite</strong> — Parse 252/252 and Interpreter 257/260 pass, achieved with <em>zero</em> edits to the Swift or LLVM trees (flake-only).</li>
         </ul>
+        <figure>
+          <pre class="term"><span class="p">$ build/Ninja-RelWithDebInfoAssert+swift-DebugAssert/swift-linux-x86_64/bin/swiftc --version</span>
+Swift version 6.5-dev (LLVM 89c76288634fcd9, Swift 87350fc6de2da31)
+Target: x86_64-unknown-linux-gnu
+Build config: +assertions</pre>
+          <figcaption>The compiler built from source — Swift 6.5-dev, not the 5.10.1 bootstrap.</figcaption>
+        </figure>
+        <p>The <code>swiftc</code> on <code>PATH</code> is the nixpkgs <strong>bootstrap</strong> compiler (Swift 5.10.1); the version above is the actual build output, run straight from the build tree.</p>
         <div class="callout"><p>The deepest bug — executable tests segfaulting in libc — was root-caused under <code>gdb</code> to a bare-clang baked dynamic linker mismatching the Nix glibc in the RUNPATH, then fixed entirely in the flake's shell hook. The full write-up is in the <a href="../../notes/swift-nixos/">build journey</a>.</p></div>
 
     <nav class="proj__nav">
-      <a href="../swift/">← Swift compiler</a>
-      <a href="../gccrs/">gccrs →</a>
+      <a href="../tiger/">← Tiger Compiler</a>
+      <a href="../lux/">Lux →</a>
     </nav>
   </article>
 
