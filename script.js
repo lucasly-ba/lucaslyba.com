@@ -61,55 +61,6 @@ if (navToggle && nav) {
   });
 }
 
-// ---- live GitHub contributions ----
-// GitHub's REST API doesn't expose the contribution total (that needs an
-// authenticated GraphQL call), so this reads it from a no-auth contributions
-// proxy. Two providers are tried; if both are unreachable the static
-// ∞/curiosity card is left untouched.
-(async () => {
-  const num = document.getElementById("gh-num");
-  const label = document.getElementById("gh-label");
-  if (!num) return;
-  const user = "lucasly-ba";
-
-  // sum the `count` of any contributions[] entry within the last 365 days
-  const lastYearTotal = (contributions) => {
-    if (!Array.isArray(contributions)) return null;
-    const cutoff = Date.now() - 365 * 864e5;
-    return contributions.reduce((sum, c) => {
-      const t = Date.parse(c.date);
-      return sum + (t >= cutoff ? (c.count || 0) : 0);
-    }, 0);
-  };
-
-  const providers = [
-    async () => {
-      const r = await fetch(`https://github-contributions-api.jogruber.com/v4/${user}?y=last`);
-      if (!r.ok) throw 0;
-      return lastYearTotal((await r.json()).contributions);
-    },
-    async () => {
-      const r = await fetch(`https://github-contributions.vercel.app/api/v1/${user}`);
-      if (!r.ok) throw 0;
-      return lastYearTotal((await r.json()).contributions);
-    },
-  ];
-
-  for (const get of providers) {
-    try {
-      const n = await get();
-      if (typeof n === "number" && n > 0) {
-        num.textContent = n.toLocaleString();
-        label.textContent = "contributions on GitHub in the last year";
-        return;
-      }
-    } catch (_) {
-      /* try the next provider */
-    }
-  }
-  // all unreachable — keep the static card
-})();
-
 // ---- interactive terminal navigator ----
 (() => {
   const out = document.getElementById("termnav-out");
