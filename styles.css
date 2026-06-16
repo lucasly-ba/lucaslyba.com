@@ -196,7 +196,9 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--mono); font-size: .98rem; color: var(--text-dim);
   display: flex; align-items: center; gap: 10px;
 }
-.badge-icon { color: var(--green); font-size: .7rem; }
+.badge-icon { color: var(--green); font-size: .7rem; flex-shrink: 0; }
+.hero__badges li { align-items: baseline; }
+.badge-text { text-wrap: balance; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -455,10 +457,14 @@ a { color: inherit; text-decoration: none; }
 
 .proj__kind { font-family: var(--mono); font-size: .8rem; color: var(--text-mute); display: block; margin-bottom: 12px; }
 .proj__title {
-  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -1.5px; line-height: 1.05;
-  margin-bottom: 14px;
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -1.5px; line-height: 1.12;
+  margin-bottom: 14px; padding-bottom: .06em;
   background: linear-gradient(180deg, #fff 40%, #9fb0c4);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.proj__title .card__sub {
+  -webkit-text-fill-color: var(--text-mute); color: var(--text-mute);
+  font-weight: 500; letter-spacing: -.5px; white-space: nowrap;
 }
 .proj__lede { font-size: 1.12rem; color: var(--text-dim); max-width: 62ch; margin-bottom: 24px; }
 
@@ -602,6 +608,7 @@ a { color: inherit; text-decoration: none; }
 .quote p:last-of-type { margin-bottom: 14px; }
 .quote__by { font-family: var(--mono); font-size: .82rem; color: var(--cyan); display: block; }
 .quote__by span { color: var(--text-mute); }
+.quote__tr { color: var(--text-mute); font-style: italic; font-size: .94em; }
 
 /* spec / timeline table */
 .proj__table-wrap { overflow-x: auto; margin-bottom: 26px; }
@@ -617,6 +624,17 @@ a { color: inherit; text-decoration: none; }
 .proj__table td:first-child { font-family: var(--mono); color: var(--cyan); white-space: nowrap; }
 .proj__table .done { color: var(--green); }
 .proj__table .now  { color: var(--orange); }
+
+/* code + real terminal output blocks */
+.proj pre.code, .proj pre.term {
+  font-family: var(--mono); border: 1px solid var(--border); border-radius: var(--r);
+  background: #0b0f16; padding: 14px 16px; margin: 0 0 20px; overflow: auto;
+}
+.proj pre.code { font-size: .82rem; line-height: 1.5; color: var(--text-dim); white-space: pre; }
+.proj pre.code .c { color: var(--text-mute); }
+.proj pre.code .g, .proj pre.code .p { color: var(--green); }
+.proj pre.term { font-size: .76rem; line-height: 1.5; color: var(--text-dim); max-height: 360px; }
+.proj pre.term .p { color: var(--green); }
 
 /* inline status note / callout */
 .callout {
