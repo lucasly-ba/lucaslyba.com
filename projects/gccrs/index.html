@@ -25,14 +25,15 @@
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
     <span class="proj__kind">// Compiler · Embecosm internship</span>
-    <h1 class="proj__title">gccrs</h1>
-    <p class="proj__lede">The GCC Rust front-end — native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across the compiler pipeline.</p>
+    <h1 class="proj__title">gccrs <span class="card__sub">— GCC Rust front-end</span></h1>
+    <p class="proj__lede">Native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints and merged 20+ pull requests across the compiler pipeline.</p>
 
     <dl class="proj__meta">
       <div><dt>Role</dt><dd>Compiler Engineering Intern</dd></div>
       <div><dt>Company</dt><dd>Embecosm</dd></div>
       <div><dt>Dates</dt><dd>Sep 2025 — Feb 2026 · 6 months</dd></div>
-      <div><dt>Language</dt><dd>C++ (200k+ lines)</dd></div>
+      <div><dt>Language</dt><dd>C++</dd></div>
+      <div><dt>Merged</dt><dd>20+ pull requests on the project</dd></div>
       <div><dt>Mentors</dt><dd>Arthur Cohen, Pierre-Emmanuel Patry</dd></div>
     </dl>
 
@@ -40,12 +41,11 @@
 
     <div class="proj__links">
       <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">My pull requests ↗</a>
       <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">My issues ↗</a>
     </div>
 
     <h2>Overview</h2>
-    <p>I spent six months at <strong>Embecosm</strong> contributing to <strong>gccrs</strong>, the GCC Rust front-end — a production-grade open-source compiler, written in <strong>more than 200,000 lines of C++</strong>, that brings Rust support to GCC. I resolved issues and pull requests across the compiler pipeline, focused on <strong>lint accuracy, diagnostics quality</strong> and the overall compilation feedback experience: making sure incorrect Rust is rejected the way the official <code>rustc</code> rejects it, and that the warnings read clearly.</p>
+    <p>I spent six months at <strong>Embecosm</strong> contributing to <strong>gccrs</strong>, the GCC Rust front-end — a production-grade open-source compiler that brings Rust support to GCC. I merged 20+ pull requests across the compiler pipeline, focused on <strong>lint accuracy, diagnostics quality</strong> and the overall compilation feedback experience: making sure incorrect Rust is rejected the way the official <code>rustc</code> rejects it, and that the warnings read clearly.</p>
 
     <h2>Recommendation</h2>
     <blockquote class="quote">
@@ -59,36 +59,29 @@
     </figure>
 
     <h2>What I built — the lints</h2>
-    <p>I took ownership of a family of lints in the unused / naming-convention check, mirroring <code>rustc</code>'s diagnostics so gccrs rejects and warns on the same code:</p>
-    <ul class="proj__list">
-      <li><strong>Naming conventions</strong> — non-snake-case (variables, functions, modules, lifetimes) and non-upper-case globals/statics.</li>
-      <li><strong>Unused checks</strong> — unused variables, unused assignments, unused <code>mut</code>, and unused labels.</li>
-      <li><strong>Redundant semicolons</strong> — flagging unnecessary trailing <code>;</code>.</li>
-      <li>Plus the refactors that made the rest possible: reworking the unused-variable lint, renaming the lint files, and cleaning up string helpers in the HIR.</li>
-    </ul>
+    <p>I owned a family of lints in gccrs's unused / naming-convention checks, mirroring <code>rustc</code> so the compiler rejects and warns on exactly the code the official toolchain does — naming conventions (snake-case, upper-case globals), unused variables, assignments, <code>mut</code> and labels, and redundant semicolons. Landing them cleanly meant first reworking the unused-variable lint and the HIR string helpers underneath.</p>
 
     <h2>In action</h2>
-    <p>One file exercising every lint at once, compiled with the experimental 2.0 check:</p>
+    <p>One file exercising the lints at once:</p>
     <pre class="code"><span class="g">$</span> gccrs -frust-incomplete-and-experimental-compiler-do-not-use \
-      -frust-unused-check-2.0 -S 00-all-lints.rs -o /dev/null</pre>
+      -frust-unused-check-2.0 -S 00-all-lints.rs</pre>
     <figure>
-      <img src="lints.png" alt="gccrs emitting naming-convention, unused-variable, unused-assignment, unused-mut, unused-label and redundant-semicolon warnings" />
-      <figcaption>gccrs emitting the naming, unused and redundant-semicolon diagnostics — each pointing at the exact span.</figcaption>
+      <img src="lints.png" alt="gccrs emitting naming, unused and redundant-semicolon lints" />
+      <figcaption>gccrs emitting lints.</figcaption>
     </figure>
 
-    <h2>Beyond lints — fixes across the pipeline</h2>
-    <p>Lints were the focus, but a lot of the work was hunting down correctness bugs elsewhere in the front-end:</p>
-    <ul class="proj__list">
-      <li>Fixed a <strong>segfault on an empty doc attribute</strong>.</li>
-      <li>Fixed a <strong><code>cfg</code> attribute without parentheses</strong> error.</li>
-      <li>Added an <strong>error check when a <code>derive</code> targets the wrong item</strong>.</li>
-      <li>Reduced a match-arm pattern vector to a single pattern where the extra generality was unused.</li>
-      <li>…and more issues and reviews across the codebase — the full set is in my <a href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">pull requests</a> and <a href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">issues</a>.</li>
-    </ul>
+    <h2>Growing the project, not just the code</h2>
+    <p>Beyond the lints, I opened <strong>30+ issues</strong> across the compiler — well-scoped, reproducible bug and missing-diagnostic reports. They became on-ramps: several turned into first contributions for <strong>newcomers</strong> joining the project, which is part of how an open-source compiler actually grows. I also fixed correctness bugs myself along the way — a segfault on an empty doc attribute, a <code>cfg</code> attribute without parentheses, and a missing check when a <code>derive</code> targets the wrong item.</p>
+    <blockquote class="quote">
+      <p>"Je voulais vous dire, c'est très cool les issues que vous avez créées — visiblement ça a motivé des nouveaux arrivants à les faire, et on avance bien du côté des erreurs sur les attributs."</p>
+      <p class="quote__tr">"I wanted to say — the issues you opened are really cool; they clearly motivated newcomers to take them on, and we're making good progress on the attribute errors."</p>
+      <span class="quote__by">— Pierre-Emmanuel Patry <span>· gccrs mentor</span></span>
+    </blockquote>
+    <p>The full set of my work is in my <a href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">issues</a> and <a href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">pull requests</a>.</p>
 
     <nav class="proj__nav">
-      <a href="../swift-nixos/">← Swift on NixOS</a>
-      <a href="../42sh/">42sh →</a>
+      <a href="../debian-lsp/">← debian-lsp</a>
+      <a href="../swift/">Swift compiler →</a>
     </nav>
   </article>
 
