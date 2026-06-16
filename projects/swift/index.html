@@ -26,33 +26,28 @@
 
     <span class="proj__kind">// Open source</span>
     <h1 class="proj__title">Swift compiler</h1>
-    <p class="proj__lede">Open-source contributions to the Swift toolchain — working inside a large production C++ compiler.</p>
+    <p class="proj__lede">Getting into the Swift toolchain — one of the largest open-source compilers in production.</p>
 
     <dl class="proj__meta">
-          <div><dt>Role</dt><dd>Contributor</dd></div>
+          <div><dt>Role</dt><dd>Contributor (in progress)</dd></div>
           <div><dt>Language</dt><dd>C++ / Swift</dd></div>
           <div><dt>Project</dt><dd>swiftlang/swift</dd></div>
+          <div><dt>Status</dt><dd>Ramping up</dd></div>
     </dl>
 
     <ul class="proj__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
 
     <div class="proj__links">
-          <a class="btn btn--ghost" href="https://github.com/swiftlang/swift/pulls?q=author%3Alucasly-ba" target="_blank" rel="noopener">My pull requests ↗</a>
+          <a class="btn btn--ghost" href="https://github.com/swiftlang/swift" target="_blank" rel="noopener">swiftlang/swift ↗</a>
+          <a class="btn btn--ghost" href="../swift-nixos/">Swift on NixOS →</a>
     </div>
 
         <h2>Overview</h2>
-        <p>I contribute to the <strong>Swift</strong> toolchain — one of the largest open-source compilers in production. This means navigating a massive C++ codebase, opening pull requests, and working through the upstream review process with the Swift community.</p>
+        <p>I'm working toward contributing to the <strong>Swift</strong> toolchain — a massive production C++ compiler. The entry point was the hard part: getting the full toolchain to build from source. I solved that in <a href="../swift-nixos/">Swift on NixOS</a>, where the complete stack (compiler, standard library, C++ interop and Foundation) now builds and the test suite runs — a working contributor edit → rebuild → test loop on a platform upstream doesn't even support.</p>
 
-        <h2>Why it matters</h2>
-        <p>Contributing to a compiler of this scale is a masterclass in reading unfamiliar code, isolating issues across a huge pipeline, and writing changes that meet a high review bar. It pairs directly with my work building Swift from source on NixOS.</p>
-
-    <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="Swift compiler screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
-    </div>
+        <h2>What's next</h2>
+        <p>With a from-source build and a validated test loop in place, the next step is reading into the compiler pipeline and opening pull requests upstream. This page will fill in as that work lands.</p>
+        <div class="callout"><p>Honest status: contributions here are <strong>just getting started</strong>. The groundwork — a reproducible from-source build and test harness — is done; upstream PRs are the next milestone.</p></div>
 
     <nav class="proj__nav">
       <a href="../lux/">← Lux</a>

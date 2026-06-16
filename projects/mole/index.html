@@ -34,25 +34,32 @@
           <div><dt>Target</dt><dd>X11 / i3</dd></div>
     </dl>
 
-    <ul class="proj__tags"><li>Rust</li><li>X11 / x11rb</li><li>AT-SPI</li><li>i3wm</li></ul>
+    <ul class="proj__tags"><li>Rust</li><li>X11 / x11rb</li><li>OCR</li><li>Daemon</li><li>i3wm</li></ul>
 
     <div class="proj__links">
-          <a class="btn btn--ghost" href="https://github.com/lucasly-ba" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn--ghost" href="https://github.com/lucasly-ba/mole" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn--ghost" href="../../notes/mole/">Build journey →</a>
     </div>
 
         <h2>Overview</h2>
-        <p><strong>Mole</strong> is short for <strong>Mouseless</strong> — it lets you drive the pointer entirely from the keyboard. The name fits the behaviour: the cursor pops up all over the screen like a mole, jumping straight to whatever you want to click.</p>
+        <p><strong>Mole</strong> is keyboard-only mouse navigation for Linux/X11. Press a key and Mole labels every word on your screen with a short hint; type the label and the pointer teleports there — then click, drag, or keep moving by keyboard. The name fits twice over: <strong>mo</strong>use-<strong>le</strong>ss, and a mole tunnels straight to wherever you point.</p>
+
+        <h2>Demo</h2>
+        <figure>
+          <video src="demo.mp4" controls muted loop playsinline preload="metadata"></video>
+          <figcaption>Hint mode over a real screen — type a label, the pointer jumps, click.</figcaption>
+        </figure>
 
         <h2>How it works</h2>
-        <ul class='proj__list'><li><strong>Vimium-style hint mode</strong> — overlays labels you type to jump the pointer</li><li>Traverses the <strong>AT-SPI accessibility tree</strong> to find targets</li><li><strong>OCR fallback</strong> when the accessibility tree is incomplete</li><li>Screen capture and pointer control via <strong>x11rb</strong></li><li>Built for the <strong>i3</strong> window manager on X11</li></ul>
-
-    <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="Mole screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
-    </div>
+        <p>The hard part isn't the idea — it's the systems plumbing. Mole is a <strong>daemon</strong> built as a pipeline so a trigger only does the per-interaction work:</p>
+        <ul class='proj__list'>
+          <li><strong>The map is text.</strong> Mole reads the screen with <strong>OCR</strong> rather than the accessibility tree — so document text, terminals, Electron apps and custom-drawn UIs are all hintable, not just declared widgets. (An earlier AT-SPI design was abandoned for exactly this reason.)</li>
+          <li><strong>Vimium-style hints</strong> — two-letter labels are drawn over every word; type one and the pointer teleports there.</li>
+          <li>A borderless, transparent <strong>X11 overlay</strong> the window manager won't touch, drawn and controlled via <strong>x11rb</strong>.</li>
+          <li><strong>Synthetic input</strong> the rest of the system believes is hardware, for move / click / drag.</li>
+          <li>Plain <code>hjkl</code> movement that does no scanning at all, so it feels instant.</li>
+        </ul>
+        <p>Every stage — capture → detect → label → render → match → act — lives in its own module. The full design story is in the <a href="../../notes/mole/">build journey</a>.</p>
 
     <nav class="proj__nav">
       <a href="../42sh/">← 42sh</a>

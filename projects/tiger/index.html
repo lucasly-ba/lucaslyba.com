@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tiger Compiler — Lucas Ly Ba</title>
-  <meta name="description" content="A complete compiler for the Tiger language, built front-end to back-end in modern C++ — the project I now help maintain at EPITA." />
+  <meta name="description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes — finally merged." />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Tiger Compiler — Lucas Ly Ba" />
-  <meta property="og:description" content="A complete compiler for the Tiger language, built front-end to back-end in modern C++ — the project I now help maintain at EPITA." />
+  <meta property="og:description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes — finally merged." />
   <meta property="og:url" content="https://lucaslyba.com/projects/tiger/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -24,38 +24,87 @@
   <article class="proj">
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
-    <span class="proj__kind">// Compiler</span>
+    <span class="proj__kind">// Compiler · EPITA maintainer</span>
     <h1 class="proj__title">Tiger Compiler</h1>
-    <p class="proj__lede">A complete compiler for the Tiger language, built front-end to back-end in modern C++ — the project I now help maintain at EPITA.</p>
+    <p class="proj__lede">EPITA's Tiger Compiler — the largest, longest-running project of the year. I built it front-to-back as a student, then joined the assistant team as its 7th-generation SSA maintainer and implemented five optimization passes.</p>
 
     <dl class="proj__meta">
-          <div><dt>Years</dt><dd>2025 — 2026</dd></div>
-          <div><dt>Role</dt><dd>Author & maintainer</dd></div>
-          <div><dt>Language</dt><dd>C++</dd></div>
-          <div><dt>Mentors</dt><dd>Mael Cravero, Julie Fiadino</dd></div>
+      <div><dt>Role</dt><dd>Student → Maintainer (assistant team)</dd></div>
+      <div><dt>School</dt><dd>EPITA — LRE</dd></div>
+      <div><dt>Language</dt><dd>Modern C++</dd></div>
+      <div><dt>Focus</dt><dd>SSA back-end &amp; optimization</dd></div>
+      <div><dt>Reference</dt><dd>Appel, <em>Modern Compiler Implementation in ML</em></dd></div>
     </dl>
 
-    <ul class="proj__tags"><li>C++</li><li>SSA</li><li>Lexing / parsing</li><li>Type-checking</li><li>Optimization</li><li>Code generation</li></ul>
+    <ul class="proj__tags"><li>C++</li><li>SSA</li><li>LIR</li><li>Optimization</li><li>Front-to-back</li><li>Compiler design</li></ul>
 
     <div class="proj__links">
-          <a class="btn btn--ghost" href="https://assignments.lre.epita.fr" target="_blank" rel="noopener">assignments.lre.epita.fr ↗</a>
+      <a class="btn btn--ghost" href="https://assignments.lre.epita.fr/index.html" target="_blank" rel="noopener">The assignment ↗</a>
     </div>
 
-        <h2>Overview</h2>
-        <p>The Tiger Compiler is EPITA's flagship compiler project — a full compiler for the Tiger language, written from scratch in modern C++. I built it through every phase of the pipeline, then became one of six maintainers responsible for the project used by every third-year cohort.</p>
+    <h2>Overview</h2>
+    <p>The <strong>Tiger Compiler</strong> is the flagship project of EPITA's compiler course: a complete compiler for the Tiger language, built in modern C++ to teach compiler construction and software-design patterns. Before anything else, I <strong>built the whole thing myself as a student</strong> — lexer, parser, binding, type-checking, escape analysis, IR translation and a back-end — following the <a href="https://assignments.lre.epita.fr/index.html" target="_blank" rel="noopener">full assignment chain</a> front-end to back-end.</p>
+    <p>I was then accepted into the <strong>assistant team</strong> as a Tiger maintainer working on <strong>SSA</strong>. SSA optimization has been passed down through generations of maintainers: I am the <strong>7th maintainer of the 7th generation</strong> to work on it — and the one who <strong>finally got it merged</strong>. I built on the merged student work handed down from <strong>Elsa Keirouz</strong>, and <strong>Julie Fiadino</strong> helped me a lot throughout. The optimizer was written the hard way — reading the algorithms in <strong>Andrew W. Appel's <em>Modern Compiler Implementation in ML</em></strong>, thinking them through, and implementing them by hand.</p>
 
-        <h2>The pipeline, front to back</h2>
-        <ul class='proj__list'><li><strong>Front-end</strong> — lexing, parsing, AST construction</li><li><strong>Semantic analysis</strong> — name binding, scoping, type-checking</li><li><strong>Translation</strong> — lowering to intermediate representation</li><li><strong>Back-end</strong> — instruction selection, register allocation, code generation</li></ul>
+    <h2>Five SSA optimization passes</h2>
+    <p>Each pass runs on the Low-Level IR (LIR) after conversion to SSA form. Below: a small program, its LIR <span class="ba__tag ba__tag--before" style="display:inline">before</span> the pass, and the same LIR <span class="ba__tag ba__tag--after" style="display:inline">after</span>.</p>
 
-        <h2>SSA-based optimization back-end</h2>
-        <p>On the back-end I implemented a suite of SSA-based optimization passes:</p><ul class='proj__list'><li>Constant propagation</li><li>Constant folding</li><li>Copy propagation</li><li>Dead code elimination</li><li>Unreachable block removal</li></ul>
+    <div class="pass">
+      <h3><span class="pass__n">01</span> Constant folding<span class="pass__flag">--constant-folding --ssa</span></h3>
+      <p>Expressions over known constants (<code>3 + 4</code>, <code>10 * 2</code>) are evaluated at compile time instead of at runtime.</p>
+      <figure><img src="cf-src.png" alt="Tiger source: constant folding before/after" /></figure>
+      <div class="ba">
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="cf-before.png" alt="LIR before constant folding" /></figure></div>
+        <div><span class="ba__tag ba__tag--after">After — folded</span><figure><img src="cf-after.png" alt="LIR after constant folding" /></figure></div>
+      </div>
+    </div>
 
-    <h2>Demo</h2>
-    <div class="proj__media">
-      <!-- Add your media here later, e.g.:
-           <video src="demo.mp4" controls muted loop></video>
-           <img src="screenshot.png" alt="Tiger Compiler screenshot" /> -->
-      <span class="ph">Demo video &amp; screenshots coming soon.</span>
+    <div class="pass">
+      <h3><span class="pass__n">02</span> Constant propagation<span class="pass__flag">--constant-propagation --ssa</span></h3>
+      <p>A variable known to hold a constant is substituted directly at its uses, so the value is never reloaded from memory.</p>
+      <figure><img src="cp-src.png" alt="Tiger source: constant propagation before/after" /></figure>
+      <div class="ba">
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="cp-before.png" alt="LIR before constant propagation" /></figure></div>
+        <div><span class="ba__tag ba__tag--after">After — propagated</span><figure><img src="cp-after.png" alt="LIR after constant propagation" /></figure></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <h3><span class="pass__n">03</span> Copy propagation<span class="pass__flag">--copy-propagation --ssa</span></h3>
+      <p>When one variable is just a copy of another (<code>e := d</code>), every use of the copy is replaced by the original and the copy is eliminated.</p>
+      <figure><img src="copy-src.png" alt="Tiger source: copy propagation before/after" /></figure>
+      <div class="ba">
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="copy-before.png" alt="LIR before copy propagation" /></figure></div>
+        <div><span class="ba__tag ba__tag--after">After — copy removed</span><figure><img src="copy-after.png" alt="LIR after copy propagation" /></figure></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <h3><span class="pass__n">04</span> Dead-code elimination<span class="pass__flag">--dead-code-elimination --ssa</span></h3>
+      <p>An assignment whose result is never read (<code>unused := 999</code>) is removed entirely — no computation, no memory write.</p>
+      <figure><img src="dce-src.png" alt="Tiger source: dead code elimination before/after" /></figure>
+      <div class="ba">
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="dce-before.png" alt="LIR before dead code elimination" /></figure></div>
+        <div><span class="ba__tag ba__tag--after">After — dead store gone</span><figure><img src="dce-after.png" alt="LIR after dead code elimination" /></figure></div>
+      </div>
+    </div>
+
+    <div class="pass">
+      <h3><span class="pass__n">05</span> Unreachable-code elimination<span class="pass__flag">--constant-conditions --ssa</span></h3>
+      <p>A branch with a constant condition (<code>if 1 = 1</code>) is resolved at compile time and the dead branch is dropped.</p>
+      <figure><img src="unreach-src.png" alt="Tiger source: unreachable code before/after" /></figure>
+      <div class="ba">
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="unreach-before.png" alt="LIR before unreachable code elimination" /></figure></div>
+        <div><span class="ba__tag ba__tag--after">After — branch removed</span><figure><img src="unreach-after.png" alt="LIR after unreachable code elimination" /></figure></div>
+      </div>
+    </div>
+
+    <h2>All passes at once</h2>
+    <p>Chained together (<code>--ssa-optimize</code>), what looks like six variables and a branch collapses to a single constant. The compiler sees <code>print_int(82)</code>.</p>
+    <figure><img src="all-src.png" alt="Tiger source: all optimization passes chained" /></figure>
+    <div class="ba">
+      <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="all-before.png" alt="LIR before all passes" /></figure></div>
+      <div><span class="ba__tag ba__tag--after">After — fully reduced</span><figure><img src="all-after.png" alt="LIR after all passes" /></figure></div>
     </div>
 
     <nav class="proj__nav">
