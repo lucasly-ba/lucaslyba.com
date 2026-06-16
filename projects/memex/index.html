@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memex — Lucas Ly Ba</title>
+  <meta name="description" content="Memex — your multi-AI memory. A Manifest V3 browser extension that searches, groups and asks across ChatGPT, Claude, Perplexity and Gemini, backed by a Fastify + Supabase + Stripe service. Built solo and shipped to the Chrome Web Store." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Memex — Lucas Ly Ba" />
+  <meta property="og:description" content="Your multi-AI memory: search, group and ask across ChatGPT, Claude, Perplexity and Gemini. A browser extension + SaaS, built solo." />
+  <meta property="og:url" content="https://lucaslyba.com/projects/memex/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj">
+    <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
+
+    <span class="proj__kind">// SaaS · browser extension</span>
+    <h1 class="proj__title">Memex</h1>
+    <p class="proj__lede">Your multi-AI memory — search, group and ask across ChatGPT, Claude, Perplexity and Gemini. A Manifest V3 browser extension backed by a Fastify + Supabase + Stripe service. Built solo, end to end, and shipped to the Chrome Web Store.</p>
+
+    <dl class="proj__meta">
+      <div><dt>Role</dt><dd>Solo developer — full stack</dd></div>
+      <div><dt>Type</dt><dd>Browser extension + SaaS</dd></div>
+      <div><dt>Extension</dt><dd>TypeScript · Vite · Manifest V3</dd></div>
+      <div><dt>Backend</dt><dd>Fastify · Supabase · Stripe</dd></div>
+      <div><dt>Status</dt><dd>Live on the Chrome Web Store</dd></div>
+    </dl>
+
+    <ul class="proj__tags"><li>TypeScript</li><li>Manifest V3</li><li>Vite</li><li>Fastify</li><li>Supabase</li><li>Stripe</li><li>Chrome / Firefox</li></ul>
+
+    <div class="proj__links">
+      <a class="btn btn--ghost" href="https://chromewebstore.google.com/detail/memex/jiliolfjonejjhokmmekeeomppnbpacf" target="_blank" rel="noopener">Chrome Web Store ↗</a>
+      <a class="btn btn--ghost" href="https://getmemex.app" target="_blank" rel="noopener">getmemex.app ↗</a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>People now spread their thinking across several AI chats — ChatGPT, Claude, Perplexity, Gemini — and then can't find anything again. <strong>Memex</strong> is a browser extension that turns all of those conversations into one searchable, organizable memory that <strong>stays on your device</strong>. It's the only project here that isn't systems or compilers — it's a full product I designed, built and shipped on my own: the extension, the backend, auth, billing and the store listing.</p>
+
+    <h2>What it does</h2>
+    <div class="shots">
+      <figure><img src="shot-1.png" alt="Memex universal search across ChatGPT, Claude and Perplexity conversations" /><figcaption>Universal search — every AI chat, one search box, by keyword, topic, tag or note.</figcaption></figure>
+      <figure><img src="shot-2.png" alt="Memex auto-organizing conversations into groups" /><figcaption>Auto-organize — AI clusters chats into clean topics, or you build your own groups, tags and notes.</figcaption></figure>
+      <figure><img src="shot-3.png" alt="Memex answering a question from past conversations with citations" /><figcaption>Ask your AI history — a real answer drawn from your past chats, cited back to the source (no relevant match → never charged).</figcaption></figure>
+      <figure><img src="shot-4.png" alt="Memex two-sentence summaries and a saved-prompt library" /><figcaption>Summarize, save, reuse — two-sentence recaps and a saved-prompt library you can paste into any AI.</figcaption></figure>
+      <figure><img src="shot-5.png" alt="Memex private-by-design, indexed locally, export to Markdown, PDF, JSON, Notion" /><figcaption>Private by design — the index stays in your browser; export the whole library to Markdown, PDF, JSON or Notion.</figcaption></figure>
+    </div>
+
+    <h2>How it works</h2>
+    <ul class="proj__list">
+      <li><strong>Per-provider content scripts.</strong> A small script runs only on each AI site (<code>claude.ai</code>, <code>chatgpt.com</code>, <code>perplexity.ai</code>, <code>gemini.google.com</code>), reads the user's own open conversation, and feeds it to the index — one adapter per provider's DOM.</li>
+      <li><strong>Local-first index.</strong> Conversations, tags and groups live in <code>browser.storage.local</code> — search, grouping and tagging never leave the browser. Only minimal metadata is synced, for the user's own cross-device use.</li>
+      <li><strong>A Manifest V3 service worker</strong> coordinates indexing, batched embedding for smart tags, and a tight content-security-policy that only ever talks to <code>api.getmemex.app</code>.</li>
+      <li><strong>AI features behind a metered backend.</strong> "Ask", auto-sort and summaries call a <strong>Fastify</strong> service with daily usage quotas enforced by Postgres RPCs — and you're never charged when a question has no relevant match.</li>
+    </ul>
+
+    <h2>The stack</h2>
+    <ul class="proj__list">
+      <li><strong>Extension</strong> — TypeScript, <strong>Vite</strong> build, <strong>Manifest V3</strong> for Chrome &amp; Firefox (via <code>web-ext</code>), <code>webextension-polyfill</code>, a popup UI, and Vitest unit tests.</li>
+      <li><strong>Backend</strong> — a <strong>Fastify</strong> (Node/TypeScript) API on <strong>Supabase</strong> (Postgres + Auth), with usage metering in SQL RPCs, deployed on Railway.</li>
+      <li><strong>Billing</strong> — <strong>Stripe</strong> subscriptions and trials; card data never touches the server.</li>
+      <li><strong>Integrations &amp; ops</strong> — <strong>Notion</strong> export over OAuth, and <strong>Sentry</strong> for error monitoring.</li>
+    </ul>
+
+    <h2>Built solo, with rigor</h2>
+    <p>Shipping a product that handles accounts, payments and user data meant taking security seriously: I ran a full <strong>security &amp; correctness audit</strong> of the extension and backend — XSS vectors in the export generators, an unsigned OAuth <code>state</code> parameter, storage race conditions and quota-refund gaps — and worked through a pre-launch infrastructure checklist (schema, RPCs, RLS, key handling) before publishing.</p>
+
+    <nav class="proj__nav">
+      <a href="../42sh/">← POSIX shell</a>
+      <span></span>
+    </nav>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
