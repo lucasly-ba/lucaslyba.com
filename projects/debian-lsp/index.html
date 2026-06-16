@@ -45,7 +45,7 @@
 
     <h2>Overview</h2>
     <p>Debian packaging is driven by a family of metadata files — <code>debian/control</code>, <code>debian/tests/control</code>, <code>debian/*.lintian-overrides</code>, <code>debian/conffiles</code>, <code>debian/install</code> and many more. <strong>debian-lsp</strong> brings modern editor intelligence to those files over the <strong>Language Server Protocol</strong>, so any LSP-capable editor gets first-class support for editing Debian packages: completions, diagnostics, hover, go-to-definition, semantic highlighting and code actions.</p>
-    <p>The project was started by <strong>Jelmer Vernooij</strong>, my mentor and a long-time Debian developer. I joined it through <strong>Google Summer of Code 2026</strong> and have been working alongside him on it since — <strong>accepted as one of the 1,141 contributors selected worldwide</strong> out of <strong>15,245 applicants</strong>. Getting deep into the codebase also meant navigating <strong>several other Debian Rust crates</strong> it builds on (the deb822 parsing/format stack, the lintian-brush fixers, the package and architecture caches).</p>
+    <p>The project was started by <strong>Jelmer Vernooij</strong>, my mentor and a long-time Debian developer. I joined it through <strong>Google Summer of Code 2026</strong> and have been working alongside him on it since — <strong>accepted as one of the 1,141 contributors selected worldwide</strong> out of <strong>15,245 applicants</strong>. Going deep also meant working across the <strong>sibling crates</strong> it builds on: <strong>deb822</strong> (the parsing/format stack for Debian's RFC-822-style files), <strong>lintian-brush</strong> (the automated fixers), and the <strong>package and architecture caches</strong>.</p>
 
     <figure>
       <img src="control-hover.png" alt="debian-lsp providing hover documentation over a Source field in a debian/control file, inside Helix" />
@@ -56,7 +56,7 @@
     <p>Because it speaks the Language Server Protocol, debian-lsp is editor-agnostic. As part of the work I got it running in <strong>Helix</strong> and <strong>Emacs</strong> (via <code>eglot</code>) in addition to the existing setups — wiring up the language-server configuration so Debian maintainers on those editors get the same completions, diagnostics and hover.</p>
 
     <h2>Before GSoC</h2>
-    <p>Before the official coding period began I was already contributing: I implemented support for <code>debian/patches/series</code> (go-to-definition from a patch name to the patch file in the tree, plus completion) — which isn't on the timeline below — and <strong>fixed a number of other issues</strong> across the existing code while learning my way around the codebase and its sibling crates.</p>
+    <p>I was already navigating the codebase and its sibling crates before the official coding period started — reading the existing code, understanding the deb822 and lintian-brush layers, and <strong>fixing real bugs</strong> as I went. One concrete piece that isn't on the timeline below: I implemented support for <code>debian/patches/series</code> — go-to-definition from a patch name straight to the patch file in the tree, plus completion.</p>
 
     <h2>The plan — timeline</h2>
     <p>The 175-hour project is scoped file-type by file-type. Each week takes on a packaging file (or a related cluster) and brings it up to the full feature set — completions, go-to-definition, hover, diagnostics, semantic tokens and code actions where they apply.</p>
@@ -104,14 +104,17 @@
     <h2>Week 4 — debian/install &amp; diagnostics</h2>
     <ul class="proj__list">
       <li><strong>install</strong> — source-path and destination-prefix completion; go-to-definition from a source path to the file in the tree (same pattern as <code>patches/series</code>); diagnostics for missing sources, leading-slash destinations, duplicates and malformed lines; hover and semantic tokens.</li>
-      <li><strong>Diagnostics</strong> for <code>tests/control</code> and <code>lintian-overrides</code>. Several of these are implemented as <strong>lintian-brush fixers</strong> rather than directly in the LSP — so command-line <code>lintian-brush</code> users benefit too — and the LSP surfaces them automatically as diagnostics and quick-fixes (e.g. a listed test that doesn't exist or isn't executable, a missing <code>Tests-Directory</code>, and field-casing warnings).</li>
+      <li><strong>Diagnostics</strong> for <code>tests/control</code> and <code>lintian-overrides</code> — e.g. a listed test that doesn't exist or isn't executable, a missing <code>Tests-Directory</code>, and field-casing warnings.</li>
     </ul>
 
-    <div class="callout"><p>Documentation is updated as each module lands: the README grows a section per file type covering its completions, diagnostics, go-to-definition and hover.</p></div>
+    <div class="callout"><p><strong>Design choice that pays off twice:</strong> several of these diagnostics are implemented as <strong>lintian-brush fixers</strong>, not just inside the LSP. So they help <strong>everyone running <code>lintian-brush</code> on the command line</strong> — not only people in an LSP-capable editor — and the language server then surfaces the very same checks automatically as live diagnostics and quick-fixes.</p></div>
+
+    <h2>Documentation</h2>
+    <p>Documentation is updated as each module lands: the README grows a section per file type covering its completions, diagnostics, go-to-definition and hover.</p>
 
     <nav class="proj__nav">
       <span></span>
-      <a href="../tiger/">Tiger Compiler →</a>
+      <a href="../gccrs/">gccrs →</a>
     </nav>
   </article>
 
