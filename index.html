@@ -40,8 +40,8 @@
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
+      <a href="#writing">Writing</a>
       <a href="#stack">Stack</a>
-      <a href="#community">Community</a>
       <a href="#contact" class="nav__cta">Contact</a>
     </nav>
   </header>
@@ -119,9 +119,10 @@
           </p>
           <p>
             I was selected for <strong>Google Summer of Code 2026</strong> with
-            <strong>Debian</strong> — accepted among <strong>15,245 applicants</strong>
-            worldwide (a 7.5% acceptance rate) — to build <strong>debian-lsp</strong>,
-            a Language Server Protocol implementation for Debian packaging files.
+            <strong>Debian</strong> — one of the <strong>1,141 contributors</strong>
+            accepted worldwide, out of 15,245 applicants — to build
+            <strong>debian-lsp</strong>, a Language Server Protocol implementation
+            for Debian packaging files.
           </p>
           <p>
             I contribute to several <strong>open-source projects</strong> — among them the
@@ -134,8 +135,8 @@
         </div>
         <div class="about__facts">
           <div class="fact">
-            <span class="fact__num">15,245</span>
-            <span class="fact__label">GSoC applicants · 7.5% accepted</span>
+            <span class="fact__num">1,141</span>
+            <span class="fact__label">GSoC 2026 contributors accepted worldwide — from 15,245 applicants</span>
           </div>
           <div class="fact">
             <span class="fact__num">1<span class="fact__unit">/6</span></span>
@@ -145,9 +146,9 @@
             <span class="fact__num">5</span>
             <span class="fact__label">SSA optimization passes I implemented</span>
           </div>
-          <div class="fact">
-            <span class="fact__num">∞</span>
-            <span class="fact__label">curiosity for how things really work</span>
+          <div class="fact" id="fact-gh">
+            <span class="fact__num" id="gh-num">∞</span>
+            <span class="fact__label" id="gh-label">curiosity for how things really work</span>
           </div>
         </div>
       </div>
@@ -172,8 +173,8 @@
             <h3 class="entry__role">Open Source Developer <span class="dim">— GSoC</span></h3>
             <p class="entry__org">Debian · Google Summer of Code 2026</p>
             <p class="entry__desc">
-              Selected to contribute to the Debian organization, accepted among 15,245
-              applicants worldwide (7.5% acceptance rate). Building <strong>debian-lsp</strong>,
+              Selected to contribute to the Debian organization — one of 1,141 contributors
+              accepted worldwide, from 15,245 applicants. Building <strong>debian-lsp</strong>,
               a Language Server Protocol implementation for Debian packaging files —
               delivering completions, diagnostics, hover, go-to-definition, formatting,
               code actions, inlay hints and semantic highlighting across key Debian metadata
@@ -253,6 +254,21 @@
         <span class="section__index">03</span>
         <h2 class="section__title">Projects</h2>
         <span class="section__rule"></span>
+      </div>
+
+      <!-- interactive terminal navigator -->
+      <div class="termnav" id="termnav">
+        <div class="termnav__bar">
+          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          <span class="termnav__title">lucas@systems: ~/projects — try <code>ls projects</code> · <code>help</code></span>
+        </div>
+        <div class="termnav__screen" id="termnav-screen">
+          <div class="termnav__out" id="termnav-out"></div>
+          <div class="termnav__line">
+            <span class="termnav__prompt">$</span>
+            <input class="termnav__input" id="termnav-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="terminal command input" />
+          </div>
+        </div>
       </div>
 
       <div class="cards">
@@ -348,10 +364,11 @@
           <h3 class="card__title">Mole</h3>
           <p class="card__desc">
             Mole — short for <strong>Mouseless</strong> — is a keyboard-driven mouse navigator
-            for X11. It hops the pointer around the screen like a mole, using a Vimium-style hint
-            mode over the AT-SPI accessibility tree (with OCR fallback) and x11rb. Built for i3.
+            for X11. It labels every word on screen with a hint; type one and the pointer
+            teleports there. Reads the screen with OCR, draws the overlay and moves the pointer
+            via x11rb, all from a daemon. Built for i3.
           </p>
-          <ul class="card__tags"><li>Rust</li><li>X11 / x11rb</li><li>AT-SPI</li><li>i3wm</li></ul>
+          <ul class="card__tags"><li>Rust</li><li>X11 / x11rb</li><li>OCR</li><li>i3wm</li></ul>
         </a>
 
         <a class="card" href="projects/42sh/">
@@ -386,10 +403,44 @@
       </div>
     </section>
 
+    <!-- ===== WRITING / NOTES ===== -->
+    <section id="writing" class="section">
+      <div class="section__head">
+        <span class="section__index">04</span>
+        <h2 class="section__title">Writing</h2>
+        <span class="section__rule"></span>
+      </div>
+      <p class="about__text" style="margin-bottom:24px;max-width:66ch;">
+        Long-form build journals — why each project is built the way it is, and the
+        problems I hit on the way. The full developer logs live in each repo's
+        <code>JOURNEY.md</code>; these are the readable versions.
+      </p>
+      <div class="notes">
+        <a class="note" href="notes/swift-nixos/">
+          <span class="note__kind">// toolchain · nix · llvm</span>
+          <h3 class="note__title">Building Swift from source on NixOS</h3>
+          <p class="note__desc">A cascade of toolchain bugs — DT_RUNPATH vs rpath, sysroot detection, a segfault root-caused under gdb — solved entirely in one flake.nix.</p>
+          <span class="note__more">Read the journey →</span>
+        </a>
+        <a class="note" href="notes/lux/">
+          <span class="note__kind">// editor · rust</span>
+          <h3 class="note__title">Lux: building an editor by hand</h3>
+          <p class="note__desc">A rope, incremental tree-sitter, an undo tree and a hand-written LSP client — built to understand how editors really work.</p>
+          <span class="note__more">Read the journey →</span>
+        </a>
+        <a class="note" href="notes/mole/">
+          <span class="note__kind">// systems · x11 · ocr</span>
+          <h3 class="note__title">Mole: when the map is text</h3>
+          <p class="note__desc">Why Mole abandoned the accessibility tree for OCR, and how a capture → detect → label → act daemon makes keyboard pointing feel instant.</p>
+          <span class="note__more">Read the journey →</span>
+        </a>
+      </div>
+    </section>
+
     <!-- ===== STACK ===== -->
     <section id="stack" class="section">
       <div class="section__head">
-        <span class="section__index">04</span>
+        <span class="section__index">05</span>
         <h2 class="section__title">Stack</h2>
         <span class="section__rule"></span>
       </div>
@@ -438,7 +489,7 @@
     <!-- ===== COMMUNITY ===== -->
     <section id="community" class="section">
       <div class="section__head">
-        <span class="section__index">05</span>
+        <span class="section__index">06</span>
         <h2 class="section__title">Community</h2>
         <span class="section__rule"></span>
       </div>

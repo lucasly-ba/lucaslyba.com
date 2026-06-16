@@ -61,6 +61,134 @@ if (navToggle && nav) {
   });
 }
 
+// ---- live GitHub stats ----
+(async () => {
+  const num = document.getElementById("gh-num");
+  const label = document.getElementById("gh-label");
+  if (!num) return;
+  try {
+    const r = await fetch("https://api.github.com/users/lucasly-ba");
+    if (!r.ok) return; // leave the ∞/curiosity card as-is
+    const u = await r.json();
+    if (typeof u.public_repos === "number") {
+      num.textContent = u.public_repos;
+      label.textContent =
+        "public repositories on GitHub" +
+        (u.followers ? ` · ${u.followers} followers` : "");
+    }
+  } catch (_) {
+    /* offline / rate-limited — keep the static card */
+  }
+})();
+
+// ---- interactive terminal navigator ----
+(() => {
+  const out = document.getElementById("termnav-out");
+  const input = document.getElementById("termnav-input");
+  const screen = document.getElementById("termnav-screen");
+  if (!out || !input) return;
+
+  const projects = [
+    ["debian-lsp", "Language tooling — GSoC 2026 with Debian"],
+    ["tiger", "Tiger Compiler — SSA back-end at EPITA"],
+    ["gccrs", "GCC Rust front-end — Embecosm internship"],
+    ["swift", "Swift compiler — open source"],
+    ["swift-nixos", "Swift 6.5 toolchain from source on NixOS"],
+    ["lux", "Helix-inspired modal editor in Rust"],
+    ["mole", "Keyboard-driven X11 pointer navigator"],
+    ["42sh", "POSIX shell in C"],
+  ];
+  const slugs = projects.map((p) => p[0]);
+
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  const print = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    out.appendChild(div);
+    screen.scrollTop = screen.scrollHeight;
+  };
+  const go = (slug) => {
+    print(`<span class="ok">opening</span> projects/${slug}/ …`);
+    setTimeout(() => (window.location.href = `projects/${slug}/`), 260);
+  };
+
+  const lsProjects = () =>
+    projects
+      .map(([s, d]) => `  <a href="projects/${s}/" data-open="${s}">${s.padEnd(12)}</a><span class="dim"> ${esc(d)}</span>`)
+      .join("\n");
+
+  const commands = {
+    help: () =>
+      [
+        "available commands:",
+        '  <span class="cy">ls</span> [projects]   list the projects',
+        '  <span class="cy">open</span> &lt;name&gt;     open a project page  (alias: cd)',
+        '  <span class="cy">whoami</span>          who is this',
+        '  <span class="cy">about</span>           the short version',
+        '  <span class="cy">notes</span>           build journals',
+        '  <span class="cy">contact</span>         how to reach me',
+        '  <span class="cy">clear</span>           clear the screen',
+      ].join("\n"),
+    ls: (arg) => lsProjects(),
+    projects: () => lsProjects(),
+    whoami: () =>
+      'Lucas Ly Ba — low-level &amp; systems engineer. Compilers, developer tools, systems software in Rust, C and C++. <span class="dim">EPITA · GSoC 2026 · Embecosm.</span>',
+    about: () =>
+      "I build compilers and the tools that sit close to the machine. GSoC 2026 with Debian, gccrs at Embecosm, Tiger maintainer at EPITA — plus my own editor, shell and X11 navigator.",
+    notes: () =>
+      'build journals: <a href="notes/swift-nixos/">swift-nixos</a> · <a href="notes/lux/">lux</a> · <a href="notes/mole/">mole</a>',
+    contact: () =>
+      'email <a href="mailto:hi@lucaslyba.com">hi@lucaslyba.com</a> · <a href="https://github.com/lucasly-ba" target="_blank" rel="noopener">github</a> · <a href="https://www.linkedin.com/in/lucas-ly-ba-a546b7294" target="_blank" rel="noopener">linkedin</a>',
+    sudo: () => '<span class="or">nice try.</span> you already have root here.',
+    pwd: () => "/home/lucas/portfolio",
+  };
+
+  const run = (raw) => {
+    const line = raw.trim();
+    print(`<span class="dim">$</span> <span class="echo">${esc(line)}</span>`);
+    if (!line) return;
+    const [cmd, ...rest] = line.split(/\s+/);
+    const arg = rest.join(" ");
+
+    if (cmd === "clear") { out.innerHTML = ""; return; }
+    if (cmd === "open" || cmd === "cd") {
+      const t = (arg || "").replace(/\/$/, "");
+      if (slugs.includes(t)) return go(t);
+      return print(`<span class="or">open: ${esc(t || "(nothing)")}: no such project</span> — try <span class="cy">ls</span>`);
+    }
+    if (slugs.includes(cmd)) return go(cmd); // bare slug
+    if (commands[cmd]) return print(commands[cmd](arg));
+    print(`<span class="or">${esc(cmd)}: command not found</span> — type <span class="cy">help</span>`);
+  };
+
+  // open links emitted by `ls`
+  out.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-open]");
+    if (a) { e.preventDefault(); go(a.getAttribute("data-open")); }
+  });
+
+  const history = [];
+  let hi = -1;
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const v = input.value;
+      if (v.trim()) { history.push(v); hi = history.length; }
+      run(v);
+      input.value = "";
+    } else if (e.key === "ArrowUp") {
+      if (hi > 0) input.value = history[--hi];
+      e.preventDefault();
+    } else if (e.key === "ArrowDown") {
+      if (hi < history.length - 1) input.value = history[++hi];
+      else { hi = history.length; input.value = ""; }
+      e.preventDefault();
+    }
+  });
+  screen.addEventListener("click", (e) => { if (!e.target.closest("a")) input.focus(); });
+
+  print('<span class="dim">type</span> <span class="cy">help</span> <span class="dim">to begin, or</span> <span class="cy">ls projects</span> <span class="dim">to look around.</span>');
+})();
+
 // ---- active nav link on scroll ----
 const navLinks = [...document.querySelectorAll(".nav__links a")];
 const sections = navLinks
