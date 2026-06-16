@@ -76,7 +76,7 @@
           <li><span class="badge-icon">◆</span> Debian — Google Summer of Code 2026</li>
           <li><span class="badge-icon">◆</span> Compiler Engineer Intern @ Embecosm — gccrs</li>
           <li><span class="badge-icon">◆</span> Tiger Compiler Maintainer @ EPITA</li>
-          <li><span class="badge-icon">◆</span> Active open source contributor — Helix · Debian · Swift · GCC</li>
+          <li><span class="badge-icon">◆</span> <span class="badge-text">Active open source contributor — Helix · Debian · Swift · GCC</span></li>
         </ul>
       </div>
 
@@ -129,8 +129,8 @@
             <strong>Swift compiler</strong>, <strong>gccrs</strong> (the GCC Rust front-end)
             at Embecosm, and <strong>Debian</strong>. Alongside that I maintain EPITA's
             <strong>Tiger Compiler</strong>, where I write SSA-based optimization passes. I
-            also build my own systems software — a POSIX shell, a Helix-inspired editor, and
-            a keyboard-driven X11 navigator.
+            also build my own systems software — a POSIX shell, <strong>Lux</strong> (a terminal
+            editor inspired by Helix), and <strong>Mole</strong> (a keyboard-driven X11 navigator).
           </p>
         </div>
         <div class="about__facts">
@@ -232,7 +232,7 @@
             <p class="entry__desc">
               Contributed to <strong>gccrs</strong> (the GCC Rust front-end), a
               production-grade open-source compiler written in C++ that brings Rust support
-              to GCC. Resolved multiple issues and pull requests across the compiler pipeline,
+              to GCC. Merged <strong>20+ pull requests</strong> across the compiler pipeline,
               focusing on <strong>lint accuracy, diagnostics quality</strong> and the overall
               compilation feedback experience.
             </p>
@@ -281,8 +281,8 @@
           <h3 class="card__title">debian-lsp</h3>
           <p class="card__desc">
             A Language Server Protocol implementation for Debian packaging files — completions,
-            diagnostics, hover, go-to-definition, formatting, code actions, inlay hints and
-            semantic highlighting. My Google Summer of Code 2026 project.
+            diagnostics, hover, go-to-definition, semantic highlighting and code actions across
+            the packaging metadata. My Google Summer of Code 2026 project.
           </p>
           <ul class="card__tags"><li>Rust</li><li>LSP</li><li>Debian</li><li>GSoC 2026</li></ul>
         </a>
@@ -307,8 +307,9 @@
           </div>
           <h3 class="card__title">Swift compiler</h3>
           <p class="card__desc">
-            Open-source contributor to the Swift toolchain — opening pull requests against the
-            compiler and working through a large production C++ codebase and its review process.
+            Getting into the Swift toolchain — a massive production C++ compiler. The entry point
+            was getting the full stack to build from source on NixOS; upstream pull requests are
+            the next milestone.
           </p>
           <ul class="card__tags"><li>C++</li><li>Swift</li><li>Compilers</li><li>Open source</li></ul>
         </a>
@@ -349,9 +350,9 @@
           </div>
           <h3 class="card__title">Lux</h3>
           <p class="card__desc">
-            A modal, Helix-inspired text editor written from scratch in Rust — selection-first
-            editing, multiple cursors and a tree-sitter-driven rendering pipeline. A deep dive
-            into terminal UIs, text buffers and editor internals.
+            A modal, Helix-inspired terminal editor written from scratch in Rust — a rope text
+            buffer, incremental tree-sitter highlighting, an undo tree and a hand-written LSP
+            client. A deep dive into how editors really work.
           </p>
           <ul class="card__tags"><li>Rust</li><li>TUI</li><li>tree-sitter</li><li>Editor internals</li></ul>
         </a>
@@ -379,9 +380,10 @@
           <h3 class="card__title">POSIX shell</h3>
           <p class="card__desc">
             A POSIX-compliant Unix shell written in C from the ground up: lexer, parser, AST
-            execution engine, built-ins, job control, redirections, piping and signal handling.
+            execution engine, built-ins, variable and arithmetic expansion, redirections and
+            pipelines.
           </p>
-          <ul class="card__tags"><li>C</li><li>POSIX</li><li>Parsing</li><li>Job control</li></ul>
+          <ul class="card__tags"><li>C</li><li>POSIX</li><li>Lexer</li><li>Parser</li><li>AST</li></ul>
         </a>
 
       </div>
@@ -413,7 +415,7 @@
       <p class="about__text" style="margin-bottom:24px;max-width:66ch;">
         Long-form build journals — why each project is built the way it is, and the
         problems I hit on the way. The full developer logs live in each repo's
-        <code>JOURNEY.md</code>; these are the readable versions.
+        <code>JOURNEY.md</code>.
       </p>
       <div class="notes">
         <a class="note" href="notes/swift-nixos/">
@@ -451,6 +453,7 @@
           <ul class="chips">
             <li>C</li><li>C++</li><li>Rust</li><li>OCaml</li><li>Swift</li><li>Bash</li>
             <li>ASM</li><li>Nix</li><li>VHDL</li><li>PostgreSQL</li><li>Python</li>
+            <li>Flex</li><li>Bison</li>
           </ul>
         </div>
         <div class="stack__group">
@@ -475,7 +478,7 @@
           </ul>
         </div>
         <div class="stack__group">
-          <h4 class="stack__label">Compiler engineering</h4>
+          <h4 class="stack__label">Compiler Engineering</h4>
           <ul class="chips">
             <li>Lexer / Parser</li><li>AST Visitors</li><li>Binder</li><li>Renamer</li>
             <li>Escape Analysis</li><li>Type-checker</li><li>Desugar</li><li>LLVM IR</li>
@@ -519,8 +522,9 @@
         <p class="contact__kicker">// Let's build something</p>
         <h2 class="contact__title">Let's talk.</h2>
         <p class="contact__text">
-          I'm open to opportunities in compilers, systems and tooling — internships,
-          collaborations or roles. The fastest way to reach me is email.
+          I'm open to opportunities in compilers, systems and tooling — a compiler/systems
+          internship starting February 2027, or open-source collaborations. The fastest way
+          to reach me is email.
         </p>
         <div class="contact__links">
           <a class="btn btn--primary" href="mailto:hi@lucaslyba.com">hi@lucaslyba.com</a>
