@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tiger Compiler — Lucas Ly Ba</title>
-  <meta name="description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes — finally merged." />
+  <meta name="description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes — shown here with real compiler output." />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Tiger Compiler — Lucas Ly Ba" />
-  <meta property="og:description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes — finally merged." />
+  <meta property="og:description" content="EPITA's Tiger Compiler. I built it front-to-back, then became its 7th-generation SSA maintainer and implemented five optimization passes." />
   <meta property="og:url" content="https://lucaslyba.com/projects/tiger/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -44,72 +44,879 @@
 
     <h2>Overview</h2>
     <p>The <strong>Tiger Compiler</strong> is the flagship project of EPITA's compiler course: a complete compiler for the Tiger language, built in modern C++ to teach compiler construction and software-design patterns. Before anything else, I <strong>built the whole thing myself as a student</strong> — lexer, parser, binding, type-checking, escape analysis, IR translation and a back-end — following the <a href="https://assignments.lre.epita.fr/index.html" target="_blank" rel="noopener">full assignment chain</a> front-end to back-end.</p>
-    <p>I was then accepted into the <strong>assistant team</strong> as a Tiger maintainer working on <strong>SSA</strong>. SSA optimization has been passed down through generations of maintainers: I am the <strong>7th maintainer of the 7th generation</strong> to work on it — and the one who <strong>finally got it merged</strong>. I built on the merged student work handed down from <strong>Elsa Keirouz</strong>, and <strong>Julie Fiadino</strong> helped me a lot throughout. The optimizer was written the hard way — reading the algorithms in <strong>Andrew W. Appel's <em>Modern Compiler Implementation in ML</em></strong>, thinking them through, and implementing them by hand.</p>
+    <p>I was then accepted into the <strong>assistant team</strong> as a Tiger maintainer working on <strong>SSA</strong>. SSA optimization has been handed down through generations of maintainers: I am the <strong>7th maintainer of the 7th generation</strong> to take it on — and the one who brought it across the finish line, <strong>landing it in the main project after years of iteration</strong>.</p>
+    <p>I built on the merged student work handed down from <strong>Elsa Keirouz</strong>, with <strong>Julie Fiadino</strong> helping me throughout.</p>
+    <p>The optimizer was written the hard way — reading the algorithms in <strong>Andrew W. Appel's <em>Modern Compiler Implementation in ML</em></strong>, working through them, and implementing them by hand.</p>
 
     <h2>Five SSA optimization passes</h2>
-    <p>Each pass runs on the Low-Level IR (LIR) after conversion to SSA form. Below: a small program, its LIR <span class="ba__tag ba__tag--before" style="display:inline">before</span> the pass, and the same LIR <span class="ba__tag ba__tag--after" style="display:inline">after</span>.</p>
+    <p>Each pass runs on the Low-Level IR (LIR) after conversion to SSA form. For each one below: a small Tiger program, its real LIR <span class="ba__tag ba__tag--before" style="display:inline">before</span> the pass, and the same LIR <span class="ba__tag ba__tag--after" style="display:inline">after</span> — captured by running <code>tc</code> directly.</p>
 
     <div class="pass">
       <h3><span class="pass__n">01</span> Constant folding<span class="pass__flag">--constant-folding --ssa</span></h3>
       <p>Expressions over known constants (<code>3 + 4</code>, <code>10 * 2</code>) are evaluated at compile time instead of at runtime.</p>
-      <figure><img src="cf-src.png" alt="Tiger source: constant folding before/after" /></figure>
+      <pre class="code">/* 01-constant-folding.tig */
+
+/* BEFORE — expressions computed at runtime */
+let
+  var a := 3 + 4
+  var b := 10 * 2
+  var c := a + b
+in
+  print_int(c);   /* expects 27 */
+  print("\n")
+end
+
+/* AFTER — compiler evaluates at compile time
+   var a := 7
+   var b := 20
+   var c := 27    &lt;-- no addition at runtime */</pre>
       <div class="ba">
-        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="cf-before.png" alt="LIR before constant folding" /></figure></div>
-        <div><span class="ba__tag ba__tag--after">After — folded</span><figure><img src="cf-after.png" alt="LIR after constant folding" /></figure></div>
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 01-constant-folding.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t0
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 12
+# Body
+seq
+  label l4
+  move
+    mem
+      temp fp
+    binop add
+      const 3
+      const 4
+  move
+    mem
+      binop add
+        temp fp
+        const -4
+    binop mul
+      const 10
+      const 2
+  move
+    mem
+      binop add
+        temp fp
+        const -8
+    binop add
+      mem
+        temp fp
+      mem
+        binop add
+          temp fp
+          const -4
+  sxp
+    call
+      name print_int
+      mem
+        binop add
+          temp fp
+          const -8
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t0
+label end</pre></div>
+        <div><span class="ba__tag ba__tag--after">After — folded</span><pre class="term"><span class="p">$ ./src/tc -e --constant-folding --ssa -L 01-constant-folding.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l4
+  move
+    temp t2.0
+    const 0
+  move
+    temp t1.0
+    const 0
+  move
+    temp t0.0
+    const 0
+  move
+    temp t0.1
+    const 7
+  move
+    temp t1.1
+    const 20
+  move
+    temp t2.1
+    binop add
+      temp t0.1
+      temp t1.1
+  sxp
+    call
+      name print_int
+      temp t2.1
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+label end</pre></div>
       </div>
     </div>
 
     <div class="pass">
       <h3><span class="pass__n">02</span> Constant propagation<span class="pass__flag">--constant-propagation --ssa</span></h3>
       <p>A variable known to hold a constant is substituted directly at its uses, so the value is never reloaded from memory.</p>
-      <figure><img src="cp-src.png" alt="Tiger source: constant propagation before/after" /></figure>
+      <pre class="code">/* 02-constant-propagation.tig */
+
+/* BEFORE — compiler reloads `c` from memory on every use */
+let
+  var c := 27
+  var d := c * 3
+  var e := c + 1
+in
+  print_int(d);   /* expects 81 */
+  print("\n");
+  print_int(e);   /* expects 28 */
+  print("\n")
+end
+
+/* AFTER — compiler substitutes the known value directly
+   var d := 27 * 3   →   81
+   var e := 27 + 1   →   28   &lt;-- no memory load */</pre>
       <div class="ba">
-        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="cp-before.png" alt="LIR before constant propagation" /></figure></div>
-        <div><span class="ba__tag ba__tag--after">After — propagated</span><figure><img src="cp-after.png" alt="LIR after constant propagation" /></figure></div>
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 02-constant-propagation.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+label l1
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t0
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 12
+# Body
+seq
+  label l6
+  move
+    mem
+      temp fp
+    const 27
+  move
+    mem
+      binop add
+        temp fp
+        const -4
+    binop mul
+      mem
+        temp fp
+      const 3
+  move
+    mem
+      binop add
+        temp fp
+        const -8
+    binop add
+      mem
+        temp fp
+      const 1
+  sxp
+    call
+      name print_int
+      mem
+        binop add
+          temp fp
+          const -4
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  sxp
+    call
+      name print_int
+      mem
+        binop add
+          temp fp
+          const -8
+    call end
+  sxp
+    call
+      name print
+      name l1
+    call end
+  label l2
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t0
+label end</pre></div>
+        <div><span class="ba__tag ba__tag--after">After — propagated</span><pre class="term"><span class="p">$ ./src/tc -e --constant-propagation --ssa -L 02-constant-propagation.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+label l1
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l6
+  move
+    temp t1.1
+    binop mul
+      const 27
+      const 3
+  move
+    temp t2.1
+    binop add
+      const 27
+      const 1
+  sxp
+    call
+      name print_int
+      temp t1.1
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  sxp
+    call
+      name print_int
+      temp t2.1
+    call end
+  sxp
+    call
+      name print
+      name l1
+    call end
+  label l2
+seq end
+# Epilogue
+label end</pre></div>
       </div>
     </div>
 
     <div class="pass">
       <h3><span class="pass__n">03</span> Copy propagation<span class="pass__flag">--copy-propagation --ssa</span></h3>
       <p>When one variable is just a copy of another (<code>e := d</code>), every use of the copy is replaced by the original and the copy is eliminated.</p>
-      <figure><img src="copy-src.png" alt="Tiger source: copy propagation before/after" /></figure>
+      <pre class="code">/* 03-copy-propagation.tig */
+
+/* BEFORE — `e` is just an alias for `d`, loaded separately */
+let
+  var d := 81
+  var e := d          /* copy */
+  var f := e + 1
+in
+  print_int(f);   /* expects 82 */
+  print("\n")
+end
+
+/* AFTER — compiler replaces every use of `e` with `d`
+   var f := d + 1     &lt;-- `e` is eliminated entirely */</pre>
       <div class="ba">
-        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="copy-before.png" alt="LIR before copy propagation" /></figure></div>
-        <div><span class="ba__tag ba__tag--after">After — copy removed</span><figure><img src="copy-after.png" alt="LIR after copy propagation" /></figure></div>
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 03-copy-propagation.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t0
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 12
+# Body
+seq
+  label l4
+  move
+    mem
+      temp fp
+    const 81
+  move
+    mem
+      binop add
+        temp fp
+        const -4
+    mem
+      temp fp
+  move
+    mem
+      binop add
+        temp fp
+        const -8
+    binop add
+      mem
+        binop add
+          temp fp
+          const -4
+      const 1
+  sxp
+    call
+      name print_int
+      mem
+        binop add
+          temp fp
+          const -8
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t0
+label end</pre></div>
+        <div><span class="ba__tag ba__tag--after">After — copy removed</span><pre class="term"><span class="p">$ ./src/tc -e --copy-propagation --ssa -L 03-copy-propagation.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l4
+  move
+    temp t2.0
+    const 0
+  move
+    temp t1.0
+    const 0
+  move
+    temp t0.0
+    const 0
+  move
+    temp t0.1
+    const 81
+  move
+    temp t2.1
+    binop add
+      temp t0.1
+      const 1
+  sxp
+    call
+      name print_int
+      temp t2.1
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+label end</pre></div>
       </div>
     </div>
 
     <div class="pass">
       <h3><span class="pass__n">04</span> Dead-code elimination<span class="pass__flag">--dead-code-elimination --ssa</span></h3>
       <p>An assignment whose result is never read (<code>unused := 999</code>) is removed entirely — no computation, no memory write.</p>
-      <figure><img src="dce-src.png" alt="Tiger source: dead code elimination before/after" /></figure>
+      <pre class="code">/* 04-dead-code-elimination.tig */
+
+/* BEFORE — `unused` is assigned but never read */
+let
+  var result := 42
+  var unused := 999   /* assigned, never read */
+in
+  print_int(result);  /* expects 42 */
+  print("\n")
+end
+
+/* AFTER — DCE removes the assignment entirely
+   var unused := 999  &lt;-- gone, no computation, no memory write */</pre>
       <div class="ba">
-        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="dce-before.png" alt="LIR before dead code elimination" /></figure></div>
-        <div><span class="ba__tag ba__tag--after">After — dead store gone</span><figure><img src="dce-after.png" alt="LIR after dead code elimination" /></figure></div>
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 04-dead-code-elimination.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t0
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 8
+# Body
+seq
+  label l4
+  move
+    mem
+      temp fp
+    const 42
+  move
+    mem
+      binop add
+        temp fp
+        const -4
+    const 999
+  sxp
+    call
+      name print_int
+      mem
+        temp fp
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t0
+label end</pre></div>
+        <div><span class="ba__tag ba__tag--after">After — dead store gone</span><pre class="term"><span class="p">$ ./src/tc -e --dead-code-elimination --ssa -L 04-dead-code-elimination.tig</span>
+/* == Low Level Intermediate representation. == */
+label l0
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l4
+  move
+    temp t0.1
+    const 42
+  sxp
+    call
+      name print_int
+      temp t0.1
+    call end
+  sxp
+    call
+      name print
+      name l0
+    call end
+  label l1
+seq end
+# Epilogue
+label end</pre></div>
       </div>
     </div>
 
     <div class="pass">
       <h3><span class="pass__n">05</span> Unreachable-code elimination<span class="pass__flag">--constant-conditions --ssa</span></h3>
       <p>A branch with a constant condition (<code>if 1 = 1</code>) is resolved at compile time and the dead branch is dropped.</p>
-      <figure><img src="unreach-src.png" alt="Tiger source: unreachable code before/after" /></figure>
+      <pre class="code">/* 05-unreachable-code.tig */
+
+/* BEFORE — condition is always true, else branch never runs */
+let
+  var result :=
+    if 1 = 1 then     /* always true */
+      42
+    else
+      0               /* unreachable */
+in
+  print_int(result);  /* expects 42 */
+  print("\n")
+end
+
+/* AFTER — compiler eliminates the else branch
+   var result := 42   &lt;-- condition and else are gone */</pre>
       <div class="ba">
-        <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="unreach-before.png" alt="LIR before unreachable code elimination" /></figure></div>
-        <div><span class="ba__tag ba__tag--after">After — branch removed</span><figure><img src="unreach-after.png" alt="LIR after unreachable code elimination" /></figure></div>
+        <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 05-unreachable-code.tig</span>
+/* == Low Level Intermediate representation. == */
+label l3
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t1
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 4
+# Body
+seq
+  label l7
+  move
+    temp t2
+    temp fp
+  cjump eq
+    const 1
+    const 1
+    name l0
+    name l1
+  label l1
+  move
+    temp t0
+    const 0
+  label l2
+  move
+    mem
+      temp t2
+    temp t0
+  sxp
+    call
+      name print_int
+      mem
+        temp fp
+    call end
+  sxp
+    call
+      name print
+      name l3
+    call end
+  jump
+    name l4
+  label l0
+  move
+    temp t0
+    const 42
+  jump
+    name l2
+  label l4
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t1
+label end</pre></div>
+        <div><span class="ba__tag ba__tag--after">After — branch removed</span><pre class="term"><span class="p">$ ./src/tc -e --constant-conditions --ssa -L 05-unreachable-code.tig</span>
+/* == Low Level Intermediate representation. == */
+label l3
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l7
+  move
+    temp t1.0
+    const 0
+  move
+    temp t0.0
+    const 0
+  jump
+    name l0
+  label l2
+  move
+    temp t1.2
+    temp t1.1
+  move
+    temp t0.1
+    temp t1.2
+  sxp
+    call
+      name print_int
+      temp t0.1
+    call end
+  sxp
+    call
+      name print
+      name l3
+    call end
+  jump
+    name l4
+  label l0
+  move
+    temp t1.1
+    const 42
+  jump
+    name l2
+  label l4
+seq end
+# Epilogue
+label end</pre></div>
       </div>
     </div>
 
     <h2>All passes at once</h2>
-    <p>Chained together (<code>--ssa-optimize</code>), what looks like six variables and a branch collapses to a single constant. The compiler sees <code>print_int(82)</code>.</p>
-    <figure><img src="all-src.png" alt="Tiger source: all optimization passes chained" /></figure>
+    <p>Chained together (<code>--ssa-optimize</code>), what looks like six variables and a branch collapses to a single constant — the compiler ends up emitting <code>print_int(82)</code>.</p>
+    <pre class="code">/* 06-all-passes.tig — All optimization passes chained */
+
+/* The compiler runs all passes in sequence.
+   What looks like 6 variables and a branch
+   collapses to a single constant: 82           */
+
+let
+  var a      := 3 + 4        /* constant folding      → 7  */
+  var b      := 10 * 2       /* constant folding      → 20 */
+  var c      := a + b        /* constant folding      → 27 */
+  var d      := c * 3        /* constant propagation  → 81 */
+  var e      := d            /* copy propagation      → eliminated */
+  var f      := e + 1        /* copy propagation      → 82 */
+  var unused := 999          /* dead code elimination → eliminated */
+  var result := f
+  var branch :=
+    if 1 = 1 then            /* unreachable code elim → else gone */
+      result
+    else
+      0
+in
+  print_int(branch);         /* compiler sees: print_int(82) */
+  print("\n")
+end
+
+/* AFTER all passes — the entire program reduces to:
+   print_int(82)
+   print("\n")               */</pre>
     <div class="ba">
-      <div><span class="ba__tag ba__tag--before">Before — LIR</span><figure><img src="all-before.png" alt="LIR before all passes" /></figure></div>
-      <div><span class="ba__tag ba__tag--after">After — fully reduced</span><figure><img src="all-after.png" alt="LIR after all passes" /></figure></div>
+      <div><span class="ba__tag ba__tag--before">Before — LIR</span><pre class="term"><span class="p">$ ./src/tc -L 06-all-passes.tig</span>
+/* == Low Level Intermediate representation. == */
+label l3
+	"\n"
+# Routine: _main
+label main
+# Prologue
+move
+  temp t1
+  temp fp
+move
+  temp fp
+  temp sp
+move
+  temp sp
+  binop sub
+    temp sp
+    const 36
+# Body
+seq
+  label l7
+  move
+    mem
+      temp fp
+    binop add
+      const 3
+      const 4
+  move
+    mem
+      binop add
+        temp fp
+        const -4
+    binop mul
+      const 10
+      const 2
+  move
+    mem
+      binop add
+        temp fp
+        const -8
+    binop add
+      mem
+        temp fp
+      mem
+        binop add
+          temp fp
+          const -4
+  move
+    mem
+      binop add
+        temp fp
+        const -12
+    binop mul
+      mem
+        binop add
+          temp fp
+          const -8
+      const 3
+  move
+    mem
+      binop add
+        temp fp
+        const -16
+    mem
+      binop add
+        temp fp
+        const -12
+  move
+    mem
+      binop add
+        temp fp
+        const -20
+    binop add
+      mem
+        binop add
+          temp fp
+          const -16
+      const 1
+  move
+    mem
+      binop add
+        temp fp
+        const -24
+    const 999
+  move
+    mem
+      binop add
+        temp fp
+        const -28
+    mem
+      binop add
+        temp fp
+        const -20
+  move
+    temp t2
+    binop add
+      temp fp
+      const -32
+  cjump eq
+    const 1
+    const 1
+    name l0
+    name l1
+  label l1
+  move
+    temp t0
+    const 0
+  label l2
+  move
+    mem
+      temp t2
+    temp t0
+  sxp
+    call
+      name print_int
+      mem
+        binop add
+          temp fp
+          const -32
+    call end
+  sxp
+    call
+      name print
+      name l3
+    call end
+  jump
+    name l4
+  label l0
+  move
+    temp t0
+    mem
+      binop add
+        temp fp
+        const -28
+  jump
+    name l2
+  label l4
+seq end
+# Epilogue
+move
+  temp sp
+  temp fp
+move
+  temp fp
+  temp t1
+label end</pre></div>
+      <div><span class="ba__tag ba__tag--after">After — fully reduced</span><pre class="term"><span class="p">$ ./src/tc -e --ssa-optimize --ssa -L 06-all-passes.tig</span>
+/* == Low Level Intermediate representation. == */
+label l3
+	"\n"
+# Routine: _main
+label main
+# Prologue
+# Body
+seq
+  label l7
+  jump
+    name l0
+  label l2
+  sxp
+    call
+      name print_int
+      const 82
+    call end
+  sxp
+    call
+      name print
+      name l3
+    call end
+  jump
+    name l4
+  label l0
+  jump
+    name l2
+  label l4
+seq end
+# Epilogue
+label end</pre></div>
     </div>
 
     <nav class="proj__nav">
-      <a href="../debian-lsp/">← debian-lsp</a>
-      <a href="../lux/">Lux →</a>
+      <a href="../swift/">← Swift compiler</a>
+      <a href="../swift-nixos/">Swift on NixOS →</a>
     </nav>
   </article>
 
