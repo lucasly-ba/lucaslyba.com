@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lux: building an editor by hand — Lucas Ly Ba</title>
+  <meta name="description" content="Building a modal terminal editor from scratch in Rust — a rope, incremental tree-sitter, an undo tree and a hand-written LSP client, and the bugs the tests missed." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Lux: building an editor by hand — Lucas Ly Ba" />
+  <meta property="og:description" content="A rope, incremental tree-sitter, an undo tree and a hand-written LSP client — built to understand how editors really work." />
+  <meta property="og:url" content="https://lucaslyba.com/notes/lux/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj note-article">
+    <a class="proj__back" href="../">&lt;&lt; All writing</a>
+
+    <span class="proj__kind">// Build journal · editor</span>
+    <h1 class="proj__title">Lux: building an editor by hand</h1>
+    <p class="proj__lede">Lux is a modal, Helix-inspired terminal editor in Rust. The whole point was to build the parts real editors rely on — the text structure, the syntax engine, the undo system, the LSP client — rather than import them, so the internals are understood instead of trusted.</p>
+
+    <div class="proj__links">
+      <a class="btn btn--ghost" href="https://github.com/lucasly-ba/lux-editor" target="_blank" rel="noopener">Repo &amp; full JOURNEY ↗</a>
+      <a class="btn btn--ghost" href="../../projects/lux/">Project page →</a>
+    </div>
+
+    <figure>
+      <img src="../../projects/lux/editor.png" alt="Lux editing a Rust file with tree-sitter highlighting and a modal status line" />
+      <figcaption>Lux in normal mode.</figcaption>
+    </figure>
+
+    <h2>The rope, not a string</h2>
+    <p>The text buffer is a <strong>rope</strong> rather than a flat <code>String</code>. A string makes an insert in the middle of a large file an O(n) memmove; a rope keeps edits cheap by storing text as a balanced tree of chunks. Everything above it — cursors, selections, rendering — addresses text through the rope, so the editor stays responsive on big files.</p>
+
+    <h2>Undo as a tree</h2>
+    <p>Most editors model undo as a linear stack: redo is lost the moment you type after undoing. Lux models history as a <strong>tree</strong>, so branching edits are all reachable. It's a small data-structure decision that changes how editing <em>feels</em> — you never lose work by exploring an alternative.</p>
+
+    <h2>Incremental syntax</h2>
+    <p>Highlighting is driven by <strong>tree-sitter</strong>, re-parsed <strong>incrementally</strong> as you type — only the edited region is re-analyzed, not the whole file each keystroke. The tree-sitter grammars are C compiled at build time, which is the reason the Nix dev shell carries a full C toolchain alongside the Rust one.</p>
+
+    <h2>A hand-written LSP client</h2>
+    <p>Lux speaks the <strong>Language Server Protocol</strong> to <code>rust-analyzer</code> over a hand-rolled JSON-RPC client — request/response correlation, notifications, document sync — for live diagnostics and completion. Writing the client by hand (rather than pulling a crate) was the fastest way to actually learn how editors and language servers talk.</p>
+
+    <h2>The audit — bugs the tests missed</h2>
+    <p>92 tests cover the internals, but the most useful part of the journal is the honest section on what they <em>didn't</em> catch: the edge cases that only show up against a real terminal and a real language server. That gap — between "structurally correct and tested" and "proven against a live display" — is the part most write-ups skip, and the part worth reading.</p>
+
+    <div class="callout"><p>The full developer log walks the codebase module by module — <code>rope/</code>, <code>text/</code>, <code>history/</code>, <code>editor/</code>, <code>syntax/</code>, <code>lsp/</code> — in the order it was built. It's in <a href="https://github.com/lucasly-ba/lux-editor" target="_blank" rel="noopener"><code>JOURNEY.md</code></a>.</p></div>
+
+    <nav class="proj__nav">
+      <a href="../swift-nixos/">← Building Swift on NixOS</a>
+      <a href="../mole/">Mole: when the map is text →</a>
+    </nav>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
