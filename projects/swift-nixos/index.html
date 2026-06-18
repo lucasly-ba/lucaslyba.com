@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swift on NixOS — Lucas Ly Ba</title>
-  <meta name="description" content="A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS — something upstream doesn't support." />
+  <title>Swift on NixOS · Lucas Ly Ba</title>
+  <meta name="description" content="A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS, something upstream doesn't support." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Swift on NixOS — Lucas Ly Ba" />
-  <meta property="og:description" content="A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS — something upstream doesn't support." />
+  <meta property="og:title" content="Swift on NixOS · Lucas Ly Ba" />
+  <meta property="og:description" content="A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS, something upstream doesn't support." />
   <meta property="og:url" content="https://lucaslyba.com/projects/swift-nixos/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -26,7 +26,7 @@
 
     <span class="proj__kind">// Toolchain</span>
     <h1 class="proj__title">Swift on NixOS</h1>
-    <p class="proj__lede">A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS — something upstream doesn't support.</p>
+    <p class="proj__lede">A reproducible flake.nix that builds the full Swift 6.5 toolchain from source on NixOS, something upstream doesn't support.</p>
 
     <dl class="proj__meta">
           <div><dt>Year</dt><dd>2026</dd></div>
@@ -43,28 +43,28 @@
     </div>
 
         <h2>Overview</h2>
-        <p>NixOS doesn't fit the assumptions most build systems make about a Linux toolchain — and Swift's build is one of the trickiest. This project is a single <code>flake.nix</code> that builds the complete <strong>Swift 6.5</strong> toolchain from source on NixOS, reproducibly, from a clean dev shell.</p><p>Getting there meant reverse-engineering the Swift build and solving a deep cascade of toolchain problems.</p>
+        <p>NixOS doesn't fit the assumptions most build systems make about a Linux toolchain, and Swift's build is one of the trickiest. This project is a single <code>flake.nix</code> that builds the complete <strong>Swift 6.5</strong> toolchain from source on NixOS, reproducibly, from a clean dev shell.</p><p>Getting there meant reverse-engineering the Swift build and solving a deep cascade of toolchain problems.</p>
 
         <h2>Problems solved</h2>
-        <ul class='proj__list'><li><strong>DT_RUNPATH vs transitive rpath</strong> — nixpkgs forces non-transitive <code>DT_RUNPATH</code>, but Swift assumes transitive <code>DT_RPATH</code>; built a complete bootstrap runtime so the just-built tools resolve <code>libdispatch</code>/<code>Foundation</code> at runtime.</li><li><strong>glibc sysroot detection</strong> — Swift's ClangImporter looks for libc in an empty <code>/usr/include</code> on NixOS; pointed it at a constructed sysroot of glibc headers and libs.</li><li><strong>Bootstrap compiler</strong> — wired up nixpkgs' prebuilt Swift as the bootstrap toolchain.</li><li><strong>ncurses shimming</strong> — Swift links bare <code>-lcurses</code>, which nixpkgs doesn't ship; built a compat shim mapping it to <code>libncursesw</code>.</li></ul>
+        <ul class='proj__list'><li><strong>DT_RUNPATH vs transitive rpath</strong>: nixpkgs forces non-transitive <code>DT_RUNPATH</code>, but Swift assumes transitive <code>DT_RPATH</code>; built a complete bootstrap runtime so the just-built tools resolve <code>libdispatch</code>/<code>Foundation</code> at runtime.</li><li><strong>glibc sysroot detection</strong>: Swift's ClangImporter looks for libc in an empty <code>/usr/include</code> on NixOS; pointed it at a constructed sysroot of glibc headers and libs.</li><li><strong>Bootstrap compiler</strong>: wired up nixpkgs' prebuilt Swift as the bootstrap toolchain.</li><li><strong>ncurses shimming</strong>: Swift links bare <code>-lcurses</code>, which nixpkgs doesn't ship; built a compat shim mapping it to <code>libncursesw</code>.</li></ul>
 
         <h2>The full stack builds</h2>
         <p>It isn't just the compiler. From a clean dev shell, <code>dobuild.sh</code> exits 0 building the whole toolchain, and each layer is verified running:</p>
         <ul class='proj__list'>
-          <li><strong>Compiler + standard library</strong> (Swift 6.5-dev) — a clean single build exits 0.</li>
-          <li><strong>C++ interop</strong> (<code>CxxStdlib</code>) — verified printing a <code>std::string</code> from Swift.</li>
-          <li><strong>libdispatch</strong> and <strong>Foundation</strong> — <code>import Foundation</code> with <code>Date</code> / JSON / <code>UUID</code> / <code>NSString</code> all working.</li>
-          <li><strong>Test suite</strong> — Parse 252/252 and Interpreter 257/260 pass, achieved with <em>zero</em> edits to the Swift or LLVM trees (flake-only).</li>
+          <li><strong>Compiler + standard library</strong> (Swift 6.5-dev): a clean single build exits 0.</li>
+          <li><strong>C++ interop</strong> (<code>CxxStdlib</code>): verified printing a <code>std::string</code> from Swift.</li>
+          <li><strong>libdispatch</strong> and <strong>Foundation</strong>: <code>import Foundation</code> with <code>Date</code> / JSON / <code>UUID</code> / <code>NSString</code> all working.</li>
+          <li><strong>Test suite</strong>: Parse 252/252 and Interpreter 257/260 pass, achieved with <em>zero</em> edits to the Swift or LLVM trees (flake-only).</li>
         </ul>
         <figure>
           <pre class="term"><span class="p">$ build/Ninja-RelWithDebInfoAssert+swift-DebugAssert/swift-linux-x86_64/bin/swiftc --version</span>
 Swift version 6.5-dev (LLVM 89c76288634fcd9, Swift 87350fc6de2da31)
 Target: x86_64-unknown-linux-gnu
 Build config: +assertions</pre>
-          <figcaption>The compiler built from source — Swift 6.5-dev, not the 5.10.1 bootstrap.</figcaption>
+          <figcaption>The compiler built from source: Swift 6.5-dev, not the 5.10.1 bootstrap.</figcaption>
         </figure>
         <p>The <code>swiftc</code> on <code>PATH</code> is the nixpkgs <strong>bootstrap</strong> compiler (Swift 5.10.1); the version above is the actual build output, run straight from the build tree.</p>
-        <div class="callout"><p>The deepest bug — executable tests segfaulting in libc — was root-caused under <code>gdb</code> to a bare-clang baked dynamic linker mismatching the Nix glibc in the RUNPATH, then fixed entirely in the flake's shell hook. The full write-up is in the <a href="../../notes/swift-nixos/">build journey</a>.</p></div>
+        <div class="callout"><p>The deepest bug (executable tests segfaulting in libc) was root-caused under <code>gdb</code> to a bare-clang baked dynamic linker mismatching the Nix glibc in the RUNPATH, then fixed entirely in the flake's shell hook. The full write-up is in the <a href="../../notes/swift-nixos/">build journey</a>.</p></div>
 
     <nav class="proj__nav">
       <a href="../tiger/">← Tiger Compiler</a>
@@ -74,7 +74,7 @@ Build config: +assertions</pre>
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
