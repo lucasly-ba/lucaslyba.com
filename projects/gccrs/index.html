@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gccrs — Lucas Ly Ba</title>
+  <title>gccrs · Lucas Ly Ba</title>
   <meta name="description" content="The GCC Rust front-end. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across a 200,000-line C++ compiler." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="gccrs — Lucas Ly Ba" />
+  <meta property="og:title" content="gccrs · Lucas Ly Ba" />
   <meta property="og:description" content="The GCC Rust front-end. As a compiler engineering intern at Embecosm I took ownership of multiple lints and fixed issues across a 200,000-line C++ compiler." />
   <meta property="og:url" content="https://lucaslyba.com/projects/gccrs/" />
   <meta name="twitter:card" content="summary" />
@@ -25,13 +25,13 @@
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
     <span class="proj__kind">// Compiler · Embecosm internship</span>
-    <h1 class="proj__title">gccrs <span class="card__sub">— GCC Rust front-end</span></h1>
+    <h1 class="proj__title">gccrs <span class="card__sub">(GCC Rust front-end)</span></h1>
     <p class="proj__lede">Native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints and merged 20+ pull requests across the compiler pipeline.</p>
 
     <dl class="proj__meta">
       <div><dt>Role</dt><dd>Compiler Engineering Intern</dd></div>
       <div><dt>Company</dt><dd>Embecosm</dd></div>
-      <div><dt>Dates</dt><dd>Sep 2025 — Feb 2026 · 6 months</dd></div>
+      <div><dt>Dates</dt><dd>Sep 2025 – Feb 2026 · 6 months</dd></div>
       <div><dt>Language</dt><dd>C++</dd></div>
       <div><dt>Merged</dt><dd>20+ pull requests on the project</dd></div>
       <div><dt>Mentors</dt><dd>Arthur Cohen, Pierre-Emmanuel Patry</dd></div>
@@ -45,21 +45,21 @@
     </div>
 
     <h2>Overview</h2>
-    <p>I spent six months at <strong>Embecosm</strong> contributing to <strong>gccrs</strong>, the GCC Rust front-end — a production-grade open-source compiler that brings Rust support to GCC. I merged 20+ pull requests across the compiler pipeline, focused on <strong>lint accuracy, diagnostics quality</strong> and the overall compilation feedback experience: making sure incorrect Rust is rejected the way the official <code>rustc</code> rejects it, and that the warnings read clearly.</p>
+    <p>I spent six months at <strong>Embecosm</strong> contributing to <strong>gccrs</strong>, the GCC Rust front-end (a production-grade open-source compiler that brings Rust support to GCC). I merged 20+ pull requests across the compiler pipeline, focused on <strong>lint accuracy, diagnostics quality</strong> and the overall compilation feedback experience: making sure incorrect Rust is rejected the way the official <code>rustc</code> rejects it, and that the warnings read clearly.</p>
 
     <h2>Recommendation</h2>
     <blockquote class="quote">
-      <p>"Lucas interned with us at Embecosm and worked on the Rust-GCC project for 6 months. While he did not have a lot of compiler experience at first, he was a brilliant student and eager to learn. He acquired competences quickly and was able to become productive on the compiler in a very short amount of time. He adapted to our complicated contributing guidelines very well, and became a very productive member of the team, solving hard problems despite the high complexity of our codebase — more than 200,000 lines of C++!"</p>
+      <p>"Lucas interned with us at Embecosm and worked on the Rust-GCC project for 6 months. While he did not have a lot of compiler experience at first, he was a brilliant student and eager to learn. He acquired competences quickly and was able to become productive on the compiler in a very short amount of time. He adapted to our complicated contributing guidelines very well, and became a very productive member of the team, solving hard problems despite the high complexity of our codebase: more than 200,000 lines of C++!"</p>
       <p>"Lucas took ownership of multiple lints within our compiler, ensuring proper warnings and reliable correctness checks for invalid Rust code. This part of the compiler helps ensure that incorrect Rust code is rejected by Rust-GCC, and helps bridge the gap between our compiler and the official implementation. He proved to be a very valuable member of the team, and I am more than happy to recommend him."</p>
-      <span class="quote__by">— Arthur Cohen <span>· Compiler Engineer at Embecosm · gccrs mentor</span></span>
+      <span class="quote__by">Arthur Cohen <span>· Compiler Engineer at Embecosm · gccrs mentor</span></span>
     </blockquote>
     <figure>
       <img src="recommendation.png" alt="LinkedIn recommendation from Arthur Cohen, Compiler Engineer at Embecosm" />
       <figcaption>The recommendation, on LinkedIn.</figcaption>
     </figure>
 
-    <h2>What I built — the lints</h2>
-    <p>I owned a family of lints in gccrs's unused / naming-convention checks, mirroring <code>rustc</code> so the compiler rejects and warns on exactly the code the official toolchain does — naming conventions (snake-case, upper-case globals), unused variables, assignments, <code>mut</code> and labels, and redundant semicolons. Landing them cleanly meant first reworking the unused-variable lint and the HIR string helpers underneath.</p>
+    <h2>What I built: the lints</h2>
+    <p>I owned a family of lints in gccrs's unused / naming-convention checks, mirroring <code>rustc</code> so the compiler rejects and warns on exactly the code the official toolchain does: naming conventions (snake-case, upper-case globals), unused variables, assignments, <code>mut</code> and labels, and redundant semicolons. Landing them cleanly meant first reworking the unused-variable lint and the HIR string helpers underneath.</p>
 
     <h2>In action</h2>
     <p>One file exercising the lints at once:</p>
@@ -71,11 +71,11 @@
     </figure>
 
     <h2>Growing the project, not just the code</h2>
-    <p>Beyond the lints, I opened <strong>30+ issues</strong> across the compiler — well-scoped, reproducible bug and missing-diagnostic reports. They became on-ramps: several turned into first contributions for <strong>newcomers</strong> joining the project, which is part of how an open-source compiler actually grows. I also fixed correctness bugs myself along the way — a segfault on an empty doc attribute, a <code>cfg</code> attribute without parentheses, and a missing check when a <code>derive</code> targets the wrong item.</p>
+    <p>Beyond the lints, I opened <strong>30+ issues</strong> across the compiler: well-scoped, reproducible bug and missing-diagnostic reports. They became on-ramps: several turned into first contributions for <strong>newcomers</strong> joining the project, which is part of how an open-source compiler actually grows. I also fixed correctness bugs myself along the way: a segfault on an empty doc attribute, a <code>cfg</code> attribute without parentheses, and a missing check when a <code>derive</code> targets the wrong item.</p>
     <blockquote class="quote">
-      <p>"Je voulais vous dire, c'est très cool les issues que vous avez créées — visiblement ça a motivé des nouveaux arrivants à les faire, et on avance bien du côté des erreurs sur les attributs."</p>
-      <p class="quote__tr">"I wanted to say — the issues you opened are really cool; they clearly motivated newcomers to take them on, and we're making good progress on the attribute errors."</p>
-      <span class="quote__by">— Pierre-Emmanuel Patry <span>· gccrs mentor</span></span>
+      <p>"Je voulais vous dire, c'est très cool les issues que vous avez créées, visiblement ça a motivé des nouveaux arrivants à les faire, et on avance bien du côté des erreurs sur les attributs."</p>
+      <p class="quote__tr">"I wanted to say: the issues you opened are really cool; they clearly motivated newcomers to take them on, and we're making good progress on the attribute errors."</p>
+      <span class="quote__by">Pierre-Emmanuel Patry <span>· gccrs mentor</span></span>
     </blockquote>
     <p>The full set of my work is in my <a href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">issues</a> and <a href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">pull requests</a>.</p>
 
@@ -87,7 +87,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
