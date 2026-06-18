@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building Swift from source on NixOS — Lucas Ly Ba</title>
-  <meta name="description" content="How I built the full Swift 6.5 toolchain from source on NixOS — solving a cascade of toolchain bugs in a single flake.nix, including a 30-minute hang cracked open with gdb." />
+  <title>Building Swift from source on NixOS · Lucas Ly Ba</title>
+  <meta name="description" content="How I built the full Swift 6.5 toolchain from source on NixOS, solving a cascade of toolchain bugs in a single flake.nix, including a 30-minute hang cracked open with gdb." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Building Swift from source on NixOS — Lucas Ly Ba" />
-  <meta property="og:description" content="A cascade of toolchain bugs — DT_RUNPATH vs rpath, sysroot detection, a gdb-cracked hang — all solved in one flake.nix." />
+  <meta property="og:title" content="Building Swift from source on NixOS · Lucas Ly Ba" />
+  <meta property="og:description" content="A cascade of toolchain bugs (DT_RUNPATH vs rpath, sysroot detection, a gdb-cracked hang) all solved in one flake.nix." />
   <meta property="og:url" content="https://lucaslyba.com/notes/swift-nixos/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -26,7 +26,7 @@
 
     <span class="proj__kind">// Build journal · toolchain</span>
     <h1 class="proj__title">Building Swift from source on NixOS</h1>
-    <p class="proj__lede">NixOS breaks almost every assumption a build system makes about a Linux toolchain — and Swift's is one of the trickiest there is. Here's how the whole stack ended up building from source, reproducibly, in a single <code>flake.nix</code>.</p>
+    <p class="proj__lede">NixOS breaks almost every assumption a build system makes about a Linux toolchain, and Swift's is one of the trickiest there is. Here's how the whole stack ended up building from source, reproducibly, in a single <code>flake.nix</code>.</p>
 
     <div class="proj__links">
       <a class="btn btn--ghost" href="https://github.com/lucasly-ba/swift-nixos" target="_blank" rel="noopener">Repo &amp; full README ↗</a>
@@ -34,23 +34,23 @@
     </div>
 
     <h2>The premise</h2>
-    <p>On a normal Linux distro, libc headers sit in <code>/usr/include</code>, libraries resolve transitively, and a compiler can mostly find its own runtime. On NixOS none of that is true: <code>/usr/include</code> is empty, nixpkgs forces non-transitive <code>DT_RUNPATH</code> instead of <code>DT_RPATH</code>, and every tool only knows the exact store paths it was wrapped with. Swift's build assumes the opposite at almost every step. The goal was a single flake that builds the compiler, standard library, C++ interop and Foundation from source — with no edits to the Swift or LLVM trees.</p>
+    <p>On a normal Linux distro, libc headers sit in <code>/usr/include</code>, libraries resolve transitively, and a compiler can mostly find its own runtime. On NixOS none of that is true: <code>/usr/include</code> is empty, nixpkgs forces non-transitive <code>DT_RUNPATH</code> instead of <code>DT_RPATH</code>, and every tool only knows the exact store paths it was wrapped with. Swift's build assumes the opposite at almost every step. The goal was a single flake that builds the compiler, standard library, C++ interop and Foundation from source, with no edits to the Swift or LLVM trees.</p>
 
     <h2>The cascade</h2>
     <p>Each bug unblocked the next. A few that stand out:</p>
     <ul class="proj__list">
-      <li><strong><code>#include_next &lt;math.h&gt;</code> not found</strong> — putting <code>glibc.dev</code> in <code>buildInputs</code> front-loaded glibc into the include path; clang's de-dup then dropped the cc-wrapper's correctly-placed copy, so libstdc++'s <code>&lt;cmath&gt;</code> couldn't reach glibc. Fix: don't add it — let the wrapper place it.</li>
-      <li><strong>The unwrapped clang that compiles the stdlib knows no NixOS paths.</strong> Delivered glibc + libstdc++ via <code>CCC_OVERRIDE_OPTIONS</code> (<code>--gcc-install-dir</code>, <code>-B &lt;glibc&gt;</code>, <code>-idirafter</code>) — crucially <em>not</em> through <code>CPLUS_INCLUDE_PATH</code>, which <code>-nostdinc++</code> doesn't suppress and which leaked gcc's headers into compiler-rt's sanitizers.</li>
-      <li><strong><code>DT_RUNPATH</code> vs transitive rpath</strong> — built a complete bootstrap runtime so the just-built <code>swift-frontend</code> can load <code>libdispatch.so</code> at runtime.</li>
-      <li><strong>The stdlib's clang-importer can't find libc</strong> — it detects libc via the <em>sysroot's</em> system includes, so I built a glibc sysroot and passed it as <code>-sdk</code>.</li>
-      <li><strong>C++ interop (<code>CxxStdlib</code>)</strong> — a link-vs-compile conflict over glibc's <code>libc.so</code> linker script, fixed with a <strong>symlink farm</strong> mirroring the glibc store dir under the sysroot at its own absolute path, plus delivering libstdc++ via <code>--gcc-toolchain</code> rather than the sysroot (two file identities → <code>redefinition</code> errors otherwise).</li>
+      <li><strong><code>#include_next &lt;math.h&gt;</code> not found</strong>: putting <code>glibc.dev</code> in <code>buildInputs</code> front-loaded glibc into the include path; clang's de-dup then dropped the cc-wrapper's correctly-placed copy, so libstdc++'s <code>&lt;cmath&gt;</code> couldn't reach glibc. Fix: don't add it, let the wrapper place it.</li>
+      <li><strong>The unwrapped clang that compiles the stdlib knows no NixOS paths.</strong> Delivered glibc + libstdc++ via <code>CCC_OVERRIDE_OPTIONS</code> (<code>--gcc-install-dir</code>, <code>-B &lt;glibc&gt;</code>, <code>-idirafter</code>), crucially <em>not</em> through <code>CPLUS_INCLUDE_PATH</code>, which <code>-nostdinc++</code> doesn't suppress and which leaked gcc's headers into compiler-rt's sanitizers.</li>
+      <li><strong><code>DT_RUNPATH</code> vs transitive rpath</strong>: built a complete bootstrap runtime so the just-built <code>swift-frontend</code> can load <code>libdispatch.so</code> at runtime.</li>
+      <li><strong>The stdlib's clang-importer can't find libc</strong>: it detects libc via the <em>sysroot's</em> system includes, so I built a glibc sysroot and passed it as <code>-sdk</code>.</li>
+      <li><strong>C++ interop (<code>CxxStdlib</code>)</strong>: a link-vs-compile conflict over glibc's <code>libc.so</code> linker script, fixed with a <strong>symlink farm</strong> mirroring the glibc store dir under the sysroot at its own absolute path, plus delivering libstdc++ via <code>--gcc-toolchain</code> rather than the sysroot (two file identities → <code>redefinition</code> errors otherwise).</li>
     </ul>
 
     <h2>The 30-minute "hang"</h2>
-    <p>Building Foundation from source, the compiler appeared to hang for over half an hour in the <code>FoundationMacros</code> step. A <strong>gdb</strong> backtrace — pulling the frontend's stack off a worker thread — showed it wasn't the type checker at all: it was the <strong>SIL verifier</strong>, running while the compiler <strong>rebuilt swift-syntax from its <code>.swiftinterface</code></strong>. The root cause: the host swift-syntax modules were compiled by the bootstrap Swift 5.10.1, so the 6.5-dev compiler can't load them and rebuilds from the interface — which then breaks five different ways on NixOS.</p>
+    <p>Building Foundation from source, the compiler appeared to hang for over half an hour in the <code>FoundationMacros</code> step. A <strong>gdb</strong> backtrace (pulling the frontend's stack off a worker thread) showed it wasn't the type checker at all: it was the <strong>SIL verifier</strong>, running while the compiler <strong>rebuilt swift-syntax from its <code>.swiftinterface</code></strong>. The root cause: the host swift-syntax modules were compiled by the bootstrap Swift 5.10.1, so the 6.5-dev compiler can't load them and rebuilds from the interface, which then breaks five different ways on NixOS.</p>
     <p>The fix delivers four flags to the <em>corelibs only</em> (never the compiler or stdlib) plus an augmented sysroot built in the shell hook: skip the assert-only SIL verifier, give the interface rebuild a sysroot so it can find <code>SwiftGlibc</code>, and point <code>ld</code> at the gcc and runtime libs so the indirect <code>libstdc++</code> / <code>libswiftSynchronization</code> NEEDEDs resolve.</p>
 
-    <div class="callout"><p>Net result: from a clean dev shell, <code>dobuild.sh</code> exits 0 building compiler + stdlib + C++ interop + libdispatch + Foundation — and the test suite runs (Parse 252/252, Interpreter 257/260) with zero edits to the Swift or LLVM trees. The full per-fix breakdown, with inline flake comments and one commit per fix, is in the <a href="https://github.com/lucasly-ba/swift-nixos" target="_blank" rel="noopener">repo README</a>.</p></div>
+    <div class="callout"><p>Net result: from a clean dev shell, <code>dobuild.sh</code> exits 0 building compiler + stdlib + C++ interop + libdispatch + Foundation, and the test suite runs (Parse 252/252, Interpreter 257/260) with zero edits to the Swift or LLVM trees. The full per-fix breakdown, with inline flake comments and one commit per fix, is in the <a href="https://github.com/lucasly-ba/swift-nixos" target="_blank" rel="noopener">repo README</a>.</p></div>
 
     <nav class="proj__nav">
       <span></span>
@@ -60,7 +60,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
