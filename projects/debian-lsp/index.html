@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>debian-lsp — Lucas Ly Ba</title>
-  <meta name="description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
+  <title>debian-lsp · Lucas Ly Ba</title>
+  <meta name="description" content="A Language Server Protocol implementation for Debian packaging files: my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="debian-lsp — Lucas Ly Ba" />
-  <meta property="og:description" content="A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
+  <meta property="og:title" content="debian-lsp · Lucas Ly Ba" />
+  <meta property="og:description" content="A Language Server Protocol implementation for Debian packaging files: my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij." />
   <meta property="og:url" content="https://lucaslyba.com/projects/debian-lsp/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -26,12 +26,12 @@
 
     <span class="proj__kind">// Language tooling · GSoC 2026</span>
     <h1 class="proj__title">debian-lsp</h1>
-    <p class="proj__lede">A Language Server Protocol implementation for Debian packaging files — my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij.</p>
+    <p class="proj__lede">A Language Server Protocol implementation for Debian packaging files: my Google Summer of Code 2026 project with Debian, mentored by Jelmer Vernooij.</p>
 
     <dl class="proj__meta">
       <div><dt>Program</dt><dd>Google Summer of Code 2026</dd></div>
       <div><dt>Org</dt><dd>Debian</dd></div>
-      <div><dt>Dates</dt><dd>May 25 — Aug 24, 2026</dd></div>
+      <div><dt>Dates</dt><dd>May 25 – Aug 24, 2026</dd></div>
       <div><dt>Language</dt><dd>Rust</dd></div>
       <div><dt>Mentor</dt><dd>Jelmer Vernooij</dd></div>
     </dl>
@@ -44,22 +44,22 @@
     </div>
 
     <h2>Overview</h2>
-    <p>Debian packaging is driven by a family of metadata files — <code>debian/control</code>, <code>debian/tests/control</code>, <code>debian/*.lintian-overrides</code>, <code>debian/conffiles</code>, <code>debian/install</code> and many more. <strong>debian-lsp</strong> brings modern editor intelligence to those files over the <strong>Language Server Protocol</strong>, so any LSP-capable editor gets first-class support for editing Debian packages: completions, diagnostics, hover, go-to-definition, semantic highlighting and code actions.</p>
-    <p>The project was started by <strong>Jelmer Vernooij</strong>, my mentor and a long-time Debian developer. I joined it through <strong>Google Summer of Code 2026</strong> and have been working alongside him on it since — <strong>accepted as one of the 1,141 contributors selected worldwide</strong> out of <strong>15,245 applicants</strong>. Going deep also meant working across the <strong>sibling crates</strong> it builds on: <strong>deb822</strong> (the parsing/format stack for Debian's RFC-822-style files), <strong>lintian-brush</strong> (the automated fixers), and the <strong>package and architecture caches</strong>.</p>
+    <p>Debian packaging is driven by a family of metadata files: <code>debian/control</code>, <code>debian/tests/control</code>, <code>debian/*.lintian-overrides</code>, <code>debian/conffiles</code>, <code>debian/install</code> and many more. <strong>debian-lsp</strong> brings modern editor intelligence to those files over the <strong>Language Server Protocol</strong>, so any LSP-capable editor gets first-class support for editing Debian packages: completions, diagnostics, hover, go-to-definition, semantic highlighting and code actions.</p>
+    <p>The project was started by <strong>Jelmer Vernooij</strong>, my mentor and a long-time Debian developer. I joined it through <strong>Google Summer of Code 2026</strong> and have been working alongside him on it since, <strong>accepted as one of the 1,141 contributors selected worldwide</strong> out of <strong>15,245 applicants</strong>. Going deep also meant working across the <strong>sibling crates</strong> it builds on: <strong>deb822</strong> (the parsing/format stack for Debian's RFC-822-style files), <strong>lintian-brush</strong> (the automated fixers), and the <strong>package and architecture caches</strong>.</p>
 
     <figure>
       <img src="control-hover.png" alt="debian-lsp providing hover documentation over a Source field in a debian/control file, inside Helix" />
-      <figcaption>debian-lsp serving hover docs for a <code>Source</code> field in <code>debian/control</code> — running in Helix.</figcaption>
+      <figcaption>debian-lsp serving hover docs for a <code>Source</code> field in <code>debian/control</code>, running in Helix.</figcaption>
     </figure>
 
     <h2>Editor support</h2>
-    <p>Because it speaks the Language Server Protocol, debian-lsp is editor-agnostic. As part of the work I got it running in <strong>Helix</strong> and <strong>Emacs</strong> (via <code>eglot</code>) in addition to the existing setups — wiring up the language-server configuration so Debian maintainers on those editors get the same completions, diagnostics and hover.</p>
+    <p>Because it speaks the Language Server Protocol, debian-lsp is editor-agnostic. As part of the work I got it running in <strong>Helix</strong> and <strong>Emacs</strong> (via <code>eglot</code>) in addition to the existing setups, wiring up the language-server configuration so Debian maintainers on those editors get the same completions, diagnostics and hover.</p>
 
     <h2>Before GSoC</h2>
-    <p>I was already navigating the codebase and its sibling crates before the official coding period started — reading the existing code, understanding the deb822 and lintian-brush layers, and <strong>fixing real bugs</strong> as I went. One concrete piece that isn't on the timeline below: I implemented support for <code>debian/patches/series</code> — go-to-definition from a patch name straight to the patch file in the tree, plus completion.</p>
+    <p>I was already navigating the codebase and its sibling crates before the official coding period started, reading the existing code, understanding the deb822 and lintian-brush layers, and <strong>fixing real bugs</strong> as I went. One concrete piece that isn't on the timeline below: I implemented support for <code>debian/patches/series</code>, with go-to-definition from a patch name straight to the patch file in the tree, plus completion.</p>
 
-    <h2>The plan — timeline</h2>
-    <p>The 175-hour project is scoped file-type by file-type. Each week takes on a packaging file (or a related cluster) and brings it up to the full feature set — completions, go-to-definition, hover, diagnostics, semantic tokens and code actions where they apply.</p>
+    <h2>The plan: timeline</h2>
+    <p>The 175-hour project is scoped file-type by file-type. Each week takes on a packaging file (or a related cluster) and brings it up to the full feature set: completions, go-to-definition, hover, diagnostics, semantic tokens and code actions where they apply.</p>
     <div class="proj__table-wrap">
       <table class="proj__table">
         <thead><tr><th>Period</th><th>Module</th><th>Will achieve</th><th>Perhaps achieve</th><th>Stretch / extend</th></tr></thead>
@@ -77,16 +77,16 @@
       </table>
     </div>
 
-    <h2>Week 1 — debian/tests/control</h2>
+    <h2>Week 1: debian/tests/control</h2>
     <p>DEP-8 autopkgtest control files. Full deb822-style intelligence driven by the shared parser:</p>
     <ul class="proj__list">
-      <li><strong>Field completions</strong> for all known fields — <code>Tests</code>, <code>Test-Command</code>, <code>Depends</code>, <code>Restrictions</code>, <code>Features</code>, <code>Architecture</code>, <code>Classes</code>, <code>Tests-Directory</code>.</li>
+      <li><strong>Field completions</strong> for all known fields: <code>Tests</code>, <code>Test-Command</code>, <code>Depends</code>, <code>Restrictions</code>, <code>Features</code>, <code>Architecture</code>, <code>Classes</code>, <code>Tests-Directory</code>.</li>
       <li><strong>Value completions</strong>: known DEP-8 restrictions and features (space-separated, de-duplicated); a lazy one-level directory scan for <code>Tests-Directory</code>; executable test files for <code>Tests</code> (respecting <code>Tests-Directory</code>); async package-cache completions plus the <code>@</code> / <code>@builddeps@</code> / <code>@recommends@</code> substitution variables for <code>Depends</code>; and the known architecture list for <code>Architecture</code>.</li>
       <li><strong>Go-to-definition</strong>: a test name jumps to its executable in the tests directory; a package in <code>Depends</code> resolves to its binary paragraph in <code>debian/control</code> (reusing the existing control logic); <code>Tests-Directory</code> opens the referenced folder.</li>
       <li><strong>Hover</strong> on a known field shows its documentation, via the shared deb822 hover logic.</li>
     </ul>
 
-    <h2>Week 2 — debian/*.lintian-overrides</h2>
+    <h2>Week 2: debian/*.lintian-overrides</h2>
     <p>Lintian override lines have the shape <code>[[&lt;package&gt;][ &lt;archlist&gt;][ &lt;type&gt;]: ]&lt;lintian-tag&gt;[[*]&lt;context&gt;[*]]</code>. The work:</p>
     <ul class="proj__list">
       <li><strong>Parser improvement</strong>: emit a partial <code>PACKAGE_SPEC</code> node even without the trailing <code>:</code>, so completion can walk the CST for the current spec context (package / arch list / type) without a separate partial-text parser.</li>
@@ -95,19 +95,19 @@
       <li><strong>Hover</strong>: tag descriptions (from <code>lintian-explain-tags</code>), whether a package is defined in <code>debian/control</code>, architecture-restriction notes (with negation), and per-type descriptions.</li>
     </ul>
 
-    <h2>Week 3 — debian/conffiles &amp; debian/dirs</h2>
+    <h2>Week 3: debian/conffiles &amp; debian/dirs</h2>
     <ul class="proj__list">
-      <li><strong>conffiles</strong> — completion by scanning <code>debian/&lt;package&gt;/etc/</code> for absolute paths and offering the <code>remove-on-upgrade</code> flag; diagnostics for empty lines, relative paths, unknown flags, duplicate entries, too many tokens, and <code>remove-on-upgrade</code> on a file that still exists (which <code>dpkg-deb</code> refuses to build); hover and semantic tokens (paths as values, the flag as a keyword).</li>
-      <li><strong>dirs</strong> — completion of common directory prefixes (<code>usr/share/</code>, <code>usr/lib/</code>, <code>usr/bin/</code>, <code>etc/</code>, <code>var/lib/</code>) and a duplicate-entry warning.</li>
+      <li><strong>conffiles:</strong> completion by scanning <code>debian/&lt;package&gt;/etc/</code> for absolute paths and offering the <code>remove-on-upgrade</code> flag; diagnostics for empty lines, relative paths, unknown flags, duplicate entries, too many tokens, and <code>remove-on-upgrade</code> on a file that still exists (which <code>dpkg-deb</code> refuses to build); hover and semantic tokens (paths as values, the flag as a keyword).</li>
+      <li><strong>dirs:</strong> completion of common directory prefixes (<code>usr/share/</code>, <code>usr/lib/</code>, <code>usr/bin/</code>, <code>etc/</code>, <code>var/lib/</code>) and a duplicate-entry warning.</li>
     </ul>
 
-    <h2>Week 4 — debian/install &amp; diagnostics</h2>
+    <h2>Week 4: debian/install &amp; diagnostics</h2>
     <ul class="proj__list">
-      <li><strong>install</strong> — source-path and destination-prefix completion; go-to-definition from a source path to the file in the tree (same pattern as <code>patches/series</code>); diagnostics for missing sources, leading-slash destinations, duplicates and malformed lines; hover and semantic tokens.</li>
-      <li><strong>Diagnostics</strong> for <code>tests/control</code> and <code>lintian-overrides</code> — e.g. a listed test that doesn't exist or isn't executable, a missing <code>Tests-Directory</code>, and field-casing warnings.</li>
+      <li><strong>install:</strong> source-path and destination-prefix completion; go-to-definition from a source path to the file in the tree (same pattern as <code>patches/series</code>); diagnostics for missing sources, leading-slash destinations, duplicates and malformed lines; hover and semantic tokens.</li>
+      <li><strong>Diagnostics</strong> for <code>tests/control</code> and <code>lintian-overrides</code>, e.g. a listed test that doesn't exist or isn't executable, a missing <code>Tests-Directory</code>, and field-casing warnings.</li>
     </ul>
 
-    <div class="callout"><p><strong>Design choice that pays off twice:</strong> several of these diagnostics are implemented as <strong>lintian-brush fixers</strong>, not just inside the LSP. So they help <strong>everyone running <code>lintian-brush</code> on the command line</strong> — not only people in an LSP-capable editor — and the language server then surfaces the very same checks automatically as live diagnostics and quick-fixes.</p></div>
+    <div class="callout"><p><strong>Design choice that pays off twice:</strong> several of these diagnostics are implemented as <strong>lintian-brush fixers</strong>, not just inside the LSP. So they help <strong>everyone running <code>lintian-brush</code> on the command line</strong> (not only people in an LSP-capable editor), and the language server then surfaces the very same checks automatically as live diagnostics and quick-fixes.</p></div>
 
     <h2>Documentation</h2>
     <p>Documentation is updated as each module lands: the README grows a section per file type covering its completions, diagnostics, go-to-definition and hover.</p>
@@ -120,7 +120,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
