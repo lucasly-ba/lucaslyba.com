@@ -69,10 +69,10 @@ if (navToggle && nav) {
   if (!out || !input) return;
 
   const projects = [
-    ["debian-lsp", "Language tooling — GSoC 2026 with Debian"],
-    ["tiger", "Tiger Compiler — SSA back-end at EPITA"],
-    ["gccrs", "GCC Rust front-end — Embecosm internship"],
-    ["swift", "Swift compiler — open source"],
+    ["debian-lsp", "Language tooling for GSoC 2026 with Debian"],
+    ["tiger", "Tiger Compiler, SSA back-end at EPITA"],
+    ["gccrs", "GCC Rust front-end (Embecosm internship)"],
+    ["swift", "Swift compiler, open source"],
     ["swift-nixos", "Swift 6.5 toolchain from source on NixOS"],
     ["lux", "Helix-inspired modal editor in Rust"],
     ["mole", "Keyboard-driven X11 pointer navigator"],
@@ -112,9 +112,9 @@ if (navToggle && nav) {
     ls: (arg) => lsProjects(),
     projects: () => lsProjects(),
     whoami: () =>
-      'Lucas Ly Ba — low-level &amp; systems engineer. Compilers, developer tools, systems software in Rust, C and C++. <span class="dim">EPITA · GSoC 2026 · Embecosm.</span>',
+      'Lucas Ly Ba: low-level &amp; systems engineer. Compilers, developer tools, systems software in Rust, C and C++. <span class="dim">EPITA · GSoC 2026 · Embecosm.</span>',
     about: () =>
-      "I build compilers and the tools that sit close to the machine. GSoC 2026 with Debian, gccrs at Embecosm, Tiger maintainer at EPITA — plus my own editor, shell and X11 navigator.",
+      "I build compilers and the tools that sit close to the machine. GSoC 2026 with Debian, gccrs at Embecosm, Tiger maintainer at EPITA, plus my own editor, shell and X11 navigator.",
     notes: () =>
       'build journals: <a href="notes/swift-nixos/">swift-nixos</a> · <a href="notes/lux/">lux</a> · <a href="notes/mole/">mole</a>',
     contact: () =>
@@ -134,11 +134,11 @@ if (navToggle && nav) {
     if (cmd === "open" || cmd === "cd") {
       const t = (arg || "").replace(/\/$/, "");
       if (slugs.includes(t)) return go(t);
-      return print(`<span class="or">open: ${esc(t || "(nothing)")}: no such project</span> — try <span class="cy">ls</span>`);
+      return print(`<span class="or">open: ${esc(t || "(nothing)")}: no such project</span>. Try <span class="cy">ls</span>`);
     }
     if (slugs.includes(cmd)) return go(cmd); // bare slug
     if (commands[cmd]) return print(commands[cmd](arg));
-    print(`<span class="or">${esc(cmd)}: command not found</span> — type <span class="cy">help</span>`);
+    print(`<span class="or">${esc(cmd)}: command not found</span>. Type <span class="cy">help</span>`);
   };
 
   // open links emitted by `ls`
