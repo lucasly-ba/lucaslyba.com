@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mole — Lucas Ly Ba</title>
-  <meta name="description" content="Mole (short for Mouseless) — a keyboard-driven mouse navigator for X11." />
+  <title>Mole · Lucas Ly Ba</title>
+  <meta name="description" content="Mole (short for Mouseless) is a keyboard-driven mouse navigator for X11." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Mole — Lucas Ly Ba" />
-  <meta property="og:description" content="Mole (short for Mouseless) — a keyboard-driven mouse navigator for X11." />
+  <meta property="og:title" content="Mole · Lucas Ly Ba" />
+  <meta property="og:description" content="Mole (short for Mouseless) is a keyboard-driven mouse navigator for X11." />
   <meta property="og:url" content="https://lucaslyba.com/projects/mole/" />
   <meta name="twitter:card" content="summary" />
   <meta name="theme-color" content="#0a0e14" />
@@ -26,7 +26,7 @@
 
     <span class="proj__kind">// Systems</span>
     <h1 class="proj__title">Mole</h1>
-    <p class="proj__lede">Mole (short for Mouseless) — a keyboard-driven mouse navigator for X11.</p>
+    <p class="proj__lede">Mole (short for Mouseless) is a keyboard-driven mouse navigator for X11.</p>
 
     <dl class="proj__meta">
           <div><dt>Role</dt><dd>Author</dd></div>
@@ -42,24 +42,24 @@
     </div>
 
         <h2>Overview</h2>
-        <p><strong>Mole</strong> is keyboard-only mouse navigation for Linux/X11. Press a key and Mole labels every word on your screen with a short hint; type the label and the pointer teleports there — then click, drag, or keep moving by keyboard. The name fits twice over: <strong>mo</strong>use-<strong>le</strong>ss, and a mole tunnels straight to wherever you point.</p>
+        <p><strong>Mole</strong> is keyboard-only mouse navigation for Linux/X11. Press a key and Mole labels every word on your screen with a short hint; type the label and the pointer teleports there, then click, drag, or keep moving by keyboard. The name fits twice over: <strong>mo</strong>use-<strong>le</strong>ss, and a mole tunnels straight to wherever you point.</p>
 
         <h2>Demo</h2>
         <figure>
           <video src="demo.mp4" controls muted loop playsinline preload="metadata"></video>
-          <figcaption>Hint mode over a real screen — type a label, the pointer jumps, click.</figcaption>
+          <figcaption>Hint mode over a real screen: type a label, the pointer jumps, click.</figcaption>
         </figure>
 
         <h2>How it works</h2>
-        <p>The hard part isn't the idea — it's the systems plumbing. Mole is a <strong>daemon</strong> built as a pipeline so a trigger only does the per-interaction work:</p>
+        <p>The hard part is the systems plumbing, not the idea. Mole is a <strong>daemon</strong> built as a pipeline so a trigger only does the per-interaction work:</p>
         <ul class='proj__list'>
-          <li><strong>The map is text.</strong> Mole reads the screen with <strong>OCR</strong> rather than the accessibility tree — so document text, terminals, Electron apps and custom-drawn UIs are all hintable, not just declared widgets. (An earlier AT-SPI design was abandoned for exactly this reason.)</li>
-          <li><strong>Vimium-style hints</strong> — two-letter labels are drawn over every word; type one and the pointer teleports there.</li>
+          <li><strong>The map is text.</strong> Mole reads the screen with <strong>OCR</strong> rather than the accessibility tree, so document text, terminals, Electron apps and custom-drawn UIs are all hintable, not just declared widgets. (An earlier AT-SPI design was abandoned for exactly this reason.)</li>
+          <li><strong>Vimium-style hints:</strong> two-letter labels are drawn over every word; type one and the pointer teleports there.</li>
           <li>A borderless, transparent <strong>X11 overlay</strong> the window manager won't touch, drawn and controlled via <strong>x11rb</strong>.</li>
           <li><strong>Synthetic input</strong> the rest of the system believes is hardware, for move / click / drag.</li>
           <li>Plain <code>hjkl</code> movement that does no scanning at all, so it feels instant.</li>
         </ul>
-        <p>Every stage — capture → detect → label → render → match → act — lives in its own module. The full design story is in the <a href="../../notes/mole/">build journey</a>.</p>
+        <p>Every stage (capture → detect → label → render → match → act) lives in its own module. The full design story is in the <a href="../../notes/mole/">build journey</a>.</p>
 
     <nav class="proj__nav">
       <a href="../lux/">← Lux</a>
@@ -69,7 +69,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>

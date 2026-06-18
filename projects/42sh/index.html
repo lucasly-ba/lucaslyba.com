@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>42sh — Lucas Ly Ba</title>
+  <title>42sh · Lucas Ly Ba</title>
   <meta name="description" content="A POSIX-compliant Unix shell written in C from the ground up." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="42sh — Lucas Ly Ba" />
+  <meta property="og:title" content="42sh · Lucas Ly Ba" />
   <meta property="og:description" content="A POSIX-compliant Unix shell written in C from the ground up." />
   <meta property="og:url" content="https://lucaslyba.com/projects/42sh/" />
   <meta name="twitter:card" content="summary" />
@@ -25,12 +25,12 @@
     <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
 
     <span class="proj__kind">// Systems</span>
-    <h1 class="proj__title">42sh <span class="card__sub">— POSIX shell</span></h1>
+    <h1 class="proj__title">42sh <span class="card__sub">(POSIX shell)</span></h1>
     <p class="proj__lede">A POSIX-compliant Unix shell written in C from the ground up.</p>
 
     <dl class="proj__meta">
           <div><dt>Role</dt><dd>Author</dd></div>
-          <div><dt>Context</dt><dd>EPITA — school project</dd></div>
+          <div><dt>Context</dt><dd>EPITA, school project</dd></div>
           <div><dt>Language</dt><dd>C</dd></div>
           <div><dt>Standard</dt><dd>POSIX</dd></div>
     </dl>
@@ -38,7 +38,7 @@
     <ul class="proj__tags"><li>C</li><li>POSIX</li><li>Lexer</li><li>Parser</li><li>AST</li><li>Expansion</li></ul>
 
         <h2>Overview</h2>
-        <p>42sh is a full Unix shell implemented in C, following the POSIX specification. It runs scripts and interactive sessions: a <strong>lexer</strong> tokenizes input, a <strong>parser</strong> builds an AST of the shell grammar, and an <strong>execution engine</strong> walks it with proper process and signal semantics. The source is organized into modules — <code>lexer</code>, <code>parser</code>, <code>ast</code>, <code>cmd</code>, <code>evalexpr</code>, <code>variable</code>, <code>myredir</code> — built and driven by autotools.</p>
+        <p>42sh is a full Unix shell implemented in C, following the POSIX specification. It runs scripts and interactive sessions: a <strong>lexer</strong> tokenizes input, a <strong>parser</strong> builds an AST of the shell grammar, and an <strong>execution engine</strong> walks it with proper process and signal semantics. The source is organized into modules (<code>lexer</code>, <code>parser</code>, <code>ast</code>, <code>cmd</code>, <code>evalexpr</code>, <code>variable</code>, <code>myredir</code>), built and driven by autotools.</p>
 
         <h2>What I built</h2>
         <ul class='proj__list'><li><strong>Lexer &amp; parser</strong> for the POSIX shell grammar, producing an AST</li><li><strong>AST execution engine</strong> with process management</li><li><strong>Built-ins</strong>, variables, and parameter / arithmetic expansion</li><li><strong>Redirections</strong>, <strong>pipelines</strong> and command sequences (<code>&amp;&amp;</code>, <code>||</code>)</li><li><strong>Globbing</strong>, <strong>for loops</strong>, functions and exit-code propagation</li></ul>
@@ -46,7 +46,7 @@
     <h2>Demo</h2>
     <p>A single script drives the shell (<code>./src/sh -c "…"</code>) through pipes, variable and arithmetic expansion, heredocs, redirection, sequences, globbing, functions and exit codes:</p>
     <div class="shots shots--2">
-      <figure><img src="demo-source.png" alt="demo.sh source driving 42sh through eleven shell features" /><figcaption>demo.sh — the driver script.</figcaption></figure>
+      <figure><img src="demo-source.png" alt="demo.sh source driving 42sh through eleven shell features" /><figcaption>demo.sh, the driver script.</figcaption></figure>
       <figure><img src="demo-output.png" alt="42sh running the demo script and printing the result of each feature" /><figcaption>42sh executing it.</figcaption></figure>
     </div>
 
@@ -58,7 +58,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
