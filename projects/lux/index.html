@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lux — Lucas Ly Ba</title>
+  <title>Lux · Lucas Ly Ba</title>
   <meta name="description" content="A modal, Helix-inspired text editor written from scratch in Rust." />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Lux — Lucas Ly Ba" />
+  <meta property="og:title" content="Lux · Lucas Ly Ba" />
   <meta property="og:description" content="A modal, Helix-inspired text editor written from scratch in Rust." />
   <meta property="og:url" content="https://lucaslyba.com/projects/lux/" />
   <meta name="twitter:card" content="summary" />
@@ -42,11 +42,11 @@
     </div>
 
         <h2>Overview</h2>
-        <p>Lux is a small but real terminal text editor built in Rust, inspired by <strong>Helix</strong>'s selection-first, modal editing model. The interesting parts — the text data structure, the syntax engine, the undo system, the language-server client — are all built <strong>by hand</strong> rather than pulled off the shelf. The goal was to <em>understand</em> how an editor works, not just use one.</p>
+        <p>Lux is a small but real terminal text editor built in Rust, inspired by <strong>Helix</strong>'s selection-first, modal editing model. The interesting parts (the text data structure, the syntax engine, the undo system, the language-server client) are all built <strong>by hand</strong> rather than pulled off the shelf. The goal was to <em>understand</em> how an editor works, not just use one.</p>
 
         <figure>
           <img src="editor.png" alt="Lux editing one of its own Rust source files with tree-sitter highlighting, line numbers and a modal status line" />
-          <figcaption>Lux editing its own source — tree-sitter highlighting, line numbers and a modal status line.</figcaption>
+          <figcaption>Lux editing its own source: tree-sitter highlighting, line numbers and a modal status line.</figcaption>
         </figure>
 
         <h2>What I built</h2>
@@ -55,10 +55,10 @@
           <li><strong>tree-sitter</strong> highlighting with <strong>incremental</strong> re-parsing as you type.</li>
           <li>A hand-written <strong>LSP client</strong> over JSON-RPC, talking to <code>rust-analyzer</code> for live diagnostics and completion.</li>
           <li><strong>Undo/redo as a tree</strong> rather than a linear stack.</li>
-          <li><strong>Modal editing</strong> — normal / insert / visual, with a <code>:</code> command line — and a test suite (92 tests) covering the internals.</li>
+          <li><strong>Modal editing:</strong> normal / insert / visual, with a <code>:</code> command line, plus a test suite (92 tests) covering the internals.</li>
         </ul>
 
-        <p>The piece I'm proudest of is the <strong>undo tree</strong>: a linear undo stack throws your redo history away the instant you type after undoing, so modelling history as a tree — every branch still reachable — is what makes editing feel safe to explore. The <a href="../../notes/lux/">build journey</a> walks through that and the rest, module by module.</p>
+        <p>The piece I'm proudest of is the <strong>undo tree</strong>: a linear undo stack throws your redo history away the instant you type after undoing, so modelling history as a tree (every branch still reachable) is what makes editing feel safe to explore. The <a href="../../notes/lux/">build journey</a> walks through that and the rest, module by module.</p>
 
     <nav class="proj__nav">
       <a href="../swift-nixos/">← Swift on NixOS</a>
@@ -68,7 +68,7 @@
 
   <footer class="footer">
     <span>$ built by Lucas Ly Ba</span>
-    <span class="footer__dim">© <span id="year"></span> — Rust · C · C++ · systems</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
   </footer>
   <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
