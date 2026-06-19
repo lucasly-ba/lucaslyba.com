@@ -56,7 +56,7 @@
       <p>Expressions over known constants (<code>3 + 4</code>, <code>10 * 2</code>) are evaluated at compile time instead of at runtime.</p>
       <pre class="code">/* 01-constant-folding.tig */
 
-/* BEFORE — expressions computed at runtime */
+/* BEFORE: expressions computed at runtime */
 let
   var a := 3 + 4
   var b := 10 * 2
@@ -66,7 +66,7 @@ in
   print("\n")
 end
 
-/* AFTER — compiler evaluates at compile time
+/* AFTER: compiler evaluates at compile time
    var a := 7
    var b := 20
    var c := 27    &lt;-- no addition at runtime */</pre>
@@ -193,7 +193,7 @@ label end</pre></div>
       <p>A variable known to hold a constant is substituted directly at its uses, so the value is never reloaded from memory.</p>
       <pre class="code">/* 02-constant-propagation.tig */
 
-/* BEFORE — compiler reloads `c` from memory on every use */
+/* BEFORE: compiler reloads `c` from memory on every use */
 let
   var c := 27
   var d := c * 3
@@ -205,7 +205,7 @@ in
   print("\n")
 end
 
-/* AFTER — compiler substitutes the known value directly
+/* AFTER: compiler substitutes the known value directly
    var d := 27 * 3   →   81
    var e := 27 + 1   →   28   &lt;-- no memory load */</pre>
       <div class="ba">
@@ -344,7 +344,7 @@ label end</pre></div>
       <p>When one variable is just a copy of another (<code>e := d</code>), every use of the copy is replaced by the original and the copy is eliminated.</p>
       <pre class="code">/* 03-copy-propagation.tig */
 
-/* BEFORE — `e` is just an alias for `d`, loaded separately */
+/* BEFORE: `e` is just an alias for `d`, loaded separately */
 let
   var d := 81
   var e := d          /* copy */
@@ -354,7 +354,7 @@ in
   print("\n")
 end
 
-/* AFTER — compiler replaces every use of `e` with `d`
+/* AFTER: compiler replaces every use of `e` with `d`
    var f := d + 1     &lt;-- `e` is eliminated entirely */</pre>
       <div class="ba">
         <div><span class="ba__tag ba__tag--before">Before · LIR</span><pre class="term"><span class="p">$ ./src/tc -L 03-copy-propagation.tig</span>
@@ -472,7 +472,7 @@ label end</pre></div>
       <p>An assignment whose result is never read (<code>unused := 999</code>) is removed entirely: no computation, no memory write.</p>
       <pre class="code">/* 04-dead-code-elimination.tig */
 
-/* BEFORE — `unused` is assigned but never read */
+/* BEFORE: `unused` is assigned but never read */
 let
   var result := 42
   var unused := 999   /* assigned, never read */
@@ -481,7 +481,7 @@ in
   print("\n")
 end
 
-/* AFTER — DCE removes the assignment entirely
+/* AFTER: DCE removes the assignment entirely
    var unused := 999  &lt;-- gone, no computation, no memory write */</pre>
       <div class="ba">
         <div><span class="ba__tag ba__tag--before">Before · LIR</span><pre class="term"><span class="p">$ ./src/tc -L 04-dead-code-elimination.tig</span>
@@ -571,7 +571,7 @@ label end</pre></div>
       <p>A branch with a constant condition (<code>if 1 = 1</code>) is resolved at compile time and the dead branch is dropped.</p>
       <pre class="code">/* 05-unreachable-code.tig */
 
-/* BEFORE — condition is always true, else branch never runs */
+/* BEFORE: condition is always true, else branch never runs */
 let
   var result :=
     if 1 = 1 then     /* always true */
@@ -583,7 +583,7 @@ in
   print("\n")
 end
 
-/* AFTER — compiler eliminates the else branch
+/* AFTER: compiler eliminates the else branch
    var result := 42   &lt;-- condition and else are gone */</pre>
       <div class="ba">
         <div><span class="ba__tag ba__tag--before">Before · LIR</span><pre class="term"><span class="p">$ ./src/tc -L 05-unreachable-code.tig</span>
@@ -705,7 +705,7 @@ label end</pre></div>
 
     <h2>All passes at once</h2>
     <p>Chained together (<code>--ssa-optimize</code>), what looks like six variables and a branch collapses to a single constant: the compiler ends up emitting <code>print_int(82)</code>.</p>
-    <pre class="code">/* 06-all-passes.tig — All optimization passes chained */
+    <pre class="code">/* 06-all-passes.tig: all optimization passes chained */
 
 /* The compiler runs all passes in sequence.
    What looks like 6 variables and a branch
@@ -730,7 +730,7 @@ in
   print("\n")
 end
 
-/* AFTER all passes — the entire program reduces to:
+/* With all passes applied, the entire program reduces to:
    print_int(82)
    print("\n")               */</pre>
     <div class="ba">
