@@ -1,6 +1,6 @@
 /* ============================================================
-   Lucas Ly Ba — portfolio
-   Theme: low-level / systems / compiler — dark terminal aesthetic
+   Lucas Ly Ba: portfolio
+   Theme: low-level / systems / compiler, dark terminal aesthetic
    ============================================================ */
 
 :root {
@@ -118,7 +118,7 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__cta:hover { background: rgba(126,231,135,.08); border-color: var(--green); }
 
-/* hamburger — hidden on desktop, shown on mobile via media query */
+/* hamburger: hidden on desktop, shown on mobile via media query */
 .nav__toggle {
   display: none;
   width: 40px; height: 40px; padding: 9px;
@@ -501,7 +501,7 @@ a { color: inherit; text-decoration: none; }
 .proj ul.proj__list li::before { content: "▹"; position: absolute; left: 0; color: var(--green); }
 .proj code { font-family: var(--mono); font-size: .88em; color: var(--orange); background: var(--panel); padding: 1px 6px; border-radius: 5px; overflow-wrap: anywhere; }
 
-/* media / demo slot — fill this with videos & screenshots later */
+/* media / demo slot: fill this with videos & screenshots later */
 .proj__media {
   border: 1px dashed var(--border-hi); border-radius: var(--r);
   padding: 48px 24px; text-align: center; margin-bottom: 16px; background: var(--bg-soft);
