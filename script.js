@@ -74,6 +74,7 @@ if (navToggle && nav) {
     ["gccrs", "GCC Rust front-end (Embecosm internship)"],
     ["swift", "Swift compiler, open source"],
     ["swift-nixos", "Swift 6.5 toolchain from source on NixOS"],
+    ["swiftlings", "Rustlings-style Swift exercises for Linux"],
     ["lux", "Helix-inspired modal editor in Rust"],
     ["mole", "Keyboard-driven X11 pointer navigator"],
     ["42sh", "POSIX shell in C"],

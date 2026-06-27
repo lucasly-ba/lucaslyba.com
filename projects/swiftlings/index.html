@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swiftlings-linux · Lucas Ly Ba</title>
+  <meta name="description" content="Rustlings-style exercises to learn Swift on the open-source toolchain on Linux, with no Mac or Xcode: a SwiftPM CLI with a watch mode and 100+ exercises." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="swiftlings-linux · Lucas Ly Ba" />
+  <meta property="og:description" content="Rustlings-style exercises to learn Swift on the open-source toolchain on Linux, with no Mac or Xcode." />
+  <meta property="og:url" content="https://lucaslyba.com/projects/swiftlings/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0a0e14" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <article class="proj">
+    <a class="proj__back" href="../../#projects">&lt;&lt; All projects</a>
+
+    <span class="proj__kind">// Learning · open source</span>
+    <h1 class="proj__title">swiftlings-linux</h1>
+    <p class="proj__lede">Small exercises to learn Swift, in the style of Rustlings, that run on the open-source Swift toolchain on Linux with no Mac and no Xcode.</p>
+
+    <dl class="proj__meta">
+      <div><dt>Year</dt><dd>2026</dd></div>
+      <div><dt>Role</dt><dd>Author</dd></div>
+      <div><dt>Stack</dt><dd>Swift · SwiftPM</dd></div>
+      <div><dt>Toolchain</dt><dd>Swift 6.1 (swift.org)</dd></div>
+      <div><dt>Status</dt><dd>Published, CI green</dd></div>
+    </dl>
+
+    <ul class="proj__tags"><li>Swift</li><li>SwiftPM</li><li>CLI / TUI</li><li>Linux</li><li>Teaching</li></ul>
+
+    <div class="proj__links">
+      <a class="btn btn--ghost" href="https://github.com/lucasly-ba/swiftlings-linux" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>Rustlings is how a lot of people first get their hands dirty with Rust: a series of tiny broken programs you fix one by one, with a watcher that recompiles as you go. There was no good equivalent for learning Swift on <strong>Linux</strong>, where most tooling still assumes a Mac and Xcode. <strong>swiftlings-linux</strong> is that: 100+ small exercises across the language, run entirely on the open-source Swift toolchain from <a href="https://www.swift.org/install/linux/" target="_blank" rel="noopener">swift.org</a>.</p>
+    <p>The install story is deliberately boring: install Swift 6.x, <code>git clone</code>, <code>make install</code>, then <code>swiftlings</code>. No Mac, no Xcode, no platform-specific anything.</p>
+
+    <h2>What I built</h2>
+    <ul class="proj__list">
+      <li><strong>A SwiftPM command-line tool</strong> (ArgumentParser + Rainbow): <code>swiftlings list / run / hint / watch / reset</code>, replacing the old script-based runner with a real Linux-first CLI.</li>
+      <li><strong>A Rustlings-style watch mode</strong>: output and errors at the top, a colored progress bar, the current exercise path and a key menu (<code>n:next / h:hint / l:list / c:check all / x:reset / q:quit</code>) pinned to the bottom; it recompiles the moment you save.</li>
+      <li><strong>100+ exercises across the language</strong>, each linked to the matching chapter of <em>The Swift Programming Language</em> so a hint always points at the canonical docs.</li>
+      <li><strong>Honest Linux portability</strong>: fixed the exercises that relied on Apple-only behaviour, moved to Swift 6 language mode (strict concurrency: a single-threaded non-blocking watch loop, <code>nonisolated(unsafe)</code> where needed), and wired up CI on the official <code>swift:6.1</code> container so every push builds and tests.</li>
+    </ul>
+
+    <h2>For the Swift community</h2>
+    <p>The whole thing is written for the <strong>Swift Forums</strong> as a Linux-first on-ramp, crediting the upstream Rustlings and Swiftlings projects it builds on. It is MIT-licensed and the CI keeps it honest: if an exercise stops compiling on a clean Swift 6.1 Linux image, the build goes red.</p>
+
+    <nav class="proj__nav">
+      <a href="../swift-nixos/">← Swift on NixOS</a>
+      <a href="../lux/">Lux →</a>
+    </nav>
+  </article>
+
+  <footer class="footer">
+    <span>$ built by Lucas Ly Ba</span>
+    <span class="footer__dim">© <span id="year"></span> · Rust · C · C++ · systems</span>
+  </footer>
+  <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>

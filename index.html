@@ -40,7 +40,6 @@
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
-      <a href="#writing">Writing</a>
       <a href="#stack">Stack</a>
       <a href="#contact" class="nav__cta">Contact</a>
     </nav>
@@ -92,7 +91,6 @@
     focus:       [<span class="t-str">"compilers"</span>, <span class="t-str">"systems"</span>, <span class="t-str">"tooling"</span>],
     languages:   [<span class="t-str">"Rust"</span>, <span class="t-str">"C"</span>, <span class="t-str">"C++"</span>],
     school:      <span class="t-str">"EPITA (MEng)"</span>,
-    now:         [<span class="t-str">"Debian GSoC 2026"</span>, <span class="t-str">"Tiger Compiler"</span>, <span class="t-str">"swift-nixos"</span>],
     prev:        <span class="t-str">"Embecosm, gccrs intern"</span>,
     seeking:     <span class="t-str">"6-month internship · Feb 2027"</span>,
     available:   <span class="t-bool">true</span>,
@@ -161,7 +159,7 @@
             <span class="fact__label">pull requests merged across open source</span>
           </div>
           <div class="fact">
-            <span class="fact__num">1,000+</span>
+            <span class="fact__num">1,200+</span>
             <span class="fact__label">contributions on GitHub</span>
           </div>
         </div>
@@ -357,6 +355,20 @@
           <ul class="card__tags"><li>Nix / flake.nix</li><li>Swift</li><li>LLVM</li><li>Toolchain</li><li>Linux</li></ul>
         </a>
 
+        <a class="card" href="projects/swiftlings/">
+          <div class="card__top">
+            <span class="card__kind">// Learning · open source</span>
+            <span class="card__icon" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="card__title">swiftlings-linux</h3>
+          <p class="card__desc">
+            Small exercises to learn Swift, Rustlings-style, that run on the open-source Swift
+            toolchain on Linux with no Mac or Xcode. A SwiftPM CLI with a Rustlings-like watch
+            mode and 100+ exercises, written for the Swift Forums.
+          </p>
+          <ul class="card__tags"><li>Swift</li><li>SwiftPM</li><li>CLI / TUI</li><li>Linux</li><li>Teaching</li></ul>
+        </a>
+
         <a class="card" href="projects/lux/">
           <div class="card__top">
             <span class="card__kind">// Editor</span>
@@ -432,44 +444,10 @@
       </div>
     </section>
 
-    <!-- ===== WRITING / NOTES ===== -->
-    <section id="writing" class="section">
-      <div class="section__head">
-        <span class="section__index">04</span>
-        <h2 class="section__title">Writing</h2>
-        <span class="section__rule"></span>
-      </div>
-      <p class="about__text" style="margin-bottom:24px;max-width:66ch;">
-        Long-form build journals: why each project is built the way it is, and the
-        problems I hit on the way. The full developer logs live in each repo's
-        <code>JOURNEY.md</code>.
-      </p>
-      <div class="notes">
-        <a class="note" href="notes/swift-nixos/">
-          <span class="note__kind">// toolchain · nix · llvm</span>
-          <h3 class="note__title">Building Swift from source on NixOS</h3>
-          <p class="note__desc">A cascade of toolchain bugs (DT_RUNPATH vs rpath, sysroot detection, a segfault root-caused under gdb) solved entirely in one flake.nix.</p>
-          <span class="note__more">Read the journey →</span>
-        </a>
-        <a class="note" href="notes/lux/">
-          <span class="note__kind">// editor · rust</span>
-          <h3 class="note__title">Lux: building an editor by hand</h3>
-          <p class="note__desc">A rope, incremental tree-sitter, an undo tree and a hand-written LSP client, all built to understand how editors really work.</p>
-          <span class="note__more">Read the journey →</span>
-        </a>
-        <a class="note" href="notes/mole/">
-          <span class="note__kind">// systems · x11 · ocr</span>
-          <h3 class="note__title">Mole: when the map is text</h3>
-          <p class="note__desc">Why Mole abandoned the accessibility tree for OCR, and how a capture → detect → label → act daemon makes keyboard pointing feel instant.</p>
-          <span class="note__more">Read the journey →</span>
-        </a>
-      </div>
-    </section>
-
     <!-- ===== STACK ===== -->
     <section id="stack" class="section">
       <div class="section__head">
-        <span class="section__index">05</span>
+        <span class="section__index">04</span>
         <h2 class="section__title">Stack</h2>
         <span class="section__rule"></span>
       </div>
@@ -519,7 +497,7 @@
     <!-- ===== COMMUNITY ===== -->
     <section id="community" class="section">
       <div class="section__head">
-        <span class="section__index">06</span>
+        <span class="section__index">05</span>
         <h2 class="section__title">Community</h2>
         <span class="section__rule"></span>
       </div>

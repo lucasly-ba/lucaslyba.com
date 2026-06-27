@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://lucaslyba.com/</loc><lastmod>2026-06-16</lastmod><priority>1.0</priority></url>
-  <url><loc>https://lucaslyba.com/projects/debian-lsp/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lucaslyba.com/projects/tiger/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lucaslyba.com/</loc><lastmod>2026-06-28</lastmod><priority>1.0</priority></url>
+  <url><loc>https://lucaslyba.com/projects/debian-lsp/</loc><lastmod>2026-06-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lucaslyba.com/projects/tiger/</loc><lastmod>2026-06-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://lucaslyba.com/projects/lux/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
   <url><loc>https://lucaslyba.com/projects/swift/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lucaslyba.com/projects/swift-nixos/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
-  <url><loc>https://lucaslyba.com/projects/gccrs/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lucaslyba.com/projects/swift-nixos/</loc><lastmod>2026-06-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lucaslyba.com/projects/swiftlings/</loc><lastmod>2026-06-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://lucaslyba.com/projects/gccrs/</loc><lastmod>2026-06-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://lucaslyba.com/projects/42sh/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
   <url><loc>https://lucaslyba.com/projects/mole/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
   <url><loc>https://lucaslyba.com/projects/memex/</loc><lastmod>2026-06-16</lastmod><priority>0.8</priority></url>
