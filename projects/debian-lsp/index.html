@@ -52,6 +52,13 @@
       <figcaption>debian-lsp serving hover docs for a <code>Source</code> field in <code>debian/control</code>, running in Helix.</figcaption>
     </figure>
 
+    <h2>Mentor feedback</h2>
+    <blockquote class="quote">
+      <p>"I'm really happy with how things are going so far; you clearly understand what you're doing, are receptive to feedback and contribute good quality changes. So definitely very positive ahead of the midterm evaluations."</p>
+      <p>"With the changes you've made and experience using debian-lsp, you may have ideas about how both the tool and the code could be better, and I think you could provide valuable opinions on that."</p>
+      <span class="quote__by">Jelmer Vernooij <span>· Debian developer · GSoC mentor</span></span>
+    </blockquote>
+
     <h2>Editor support</h2>
     <p>Because it speaks the Language Server Protocol, debian-lsp is editor-agnostic. As part of the work I got it running in <strong>Helix</strong> and <strong>Emacs</strong> (via <code>eglot</code>) in addition to the existing setups, wiring up the language-server configuration so Debian maintainers on those editors get the same completions, diagnostics and hover.</p>
 
@@ -60,19 +67,20 @@
 
     <h2>The plan: timeline</h2>
     <p>The 175-hour project is scoped file-type by file-type. Each week takes on a packaging file (or a related cluster) and brings it up to the full feature set: completions, go-to-definition, hover, diagnostics, semantic tokens and code actions where they apply.</p>
+    <p>The first four weeks are <strong>done</strong>. The focus has since shifted to Debian's <strong>debhelper</strong> files, which share a structure and so a parser. <strong>This week</strong>: the shared <strong>debhelper parser</strong>, plus <code>debian/manpages</code> and <code>debian/clean</code> support.</p>
     <div class="proj__table-wrap">
       <table class="proj__table">
         <thead><tr><th>Period</th><th>Module</th><th>Will achieve</th><th>Perhaps achieve</th><th>Stretch / extend</th></tr></thead>
         <tbody>
-          <tr><td>Week 1</td><td>tests/control</td><td>Completions · Go-to-definition · Hover · Docs</td><td>Code lens · Code actions</td><td>Diagnostics</td></tr>
-          <tr><td>Week 2</td><td>lintian-overrides</td><td>Parser rework · Completions · Go-to-definition · Docs</td><td>Code actions</td><td>Diagnostics</td></tr>
-          <tr><td>Week 3</td><td>conffiles · dirs</td><td>Completions · Diagnostics · Semantics · Docs · Code actions</td><td></td><td></td></tr>
-          <tr><td>Week 4</td><td>install · diagnostics</td><td>install support · tests &amp; lintian-overrides diagnostics · tidy earlier work</td><td></td><td></td></tr>
-          <tr><td>Week 5</td><td>manpages</td><td>Support + cleanup</td><td></td><td></td></tr>
-          <tr><td>Week 6</td><td>menu</td><td>Support</td><td></td><td></td></tr>
-          <tr><td>Week 7</td><td>triggers · not-installed</td><td>Support</td><td></td><td></td></tr>
-          <tr><td>Week 8</td><td>debcargo.toml</td><td>Support</td><td></td><td></td></tr>
-          <tr><td>Week 9</td><td>wrap-up</td><td>Tidy everything · mentor review · GSoC final report</td><td></td><td></td></tr>
+          <tr><td class="done">Week 1 ✓</td><td>tests/control</td><td>Completions · Go-to-definition · Hover · Docs</td><td>Code lens · Code actions</td><td>Diagnostics</td></tr>
+          <tr><td class="done">Week 2 ✓</td><td>lintian-overrides</td><td>Parser rework · Completions · Go-to-definition · Docs</td><td>Code actions</td><td>Diagnostics</td></tr>
+          <tr><td class="done">Week 3 ✓</td><td>conffiles · dirs</td><td>Completions · Diagnostics · Semantics · Docs · Code actions</td><td></td><td></td></tr>
+          <tr><td class="done">Week 4 ✓</td><td>install · diagnostics</td><td>install support · tests &amp; lintian-overrides diagnostics · tidy earlier work</td><td></td><td></td></tr>
+          <tr><td class="now">This week</td><td>debhelper · manpages · clean</td><td>Shared debhelper parser · <code>manpages</code> support · <code>clean</code> support</td><td>Diagnostics · Code actions</td><td></td></tr>
+          <tr><td>Next</td><td>menu</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Next</td><td>triggers · not-installed</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Next</td><td>debcargo.toml</td><td>Support</td><td></td><td></td></tr>
+          <tr><td>Wrap-up</td><td>final report</td><td>Tidy everything · mentor review · GSoC final report</td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>
