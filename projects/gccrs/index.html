@@ -26,22 +26,24 @@
 
     <span class="proj__kind">// Compiler · Embecosm internship</span>
     <h1 class="proj__title">gccrs <span class="card__sub">(GCC Rust front-end)</span></h1>
-    <p class="proj__lede">Native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints and merged 20+ pull requests across the compiler pipeline.</p>
+    <p class="proj__lede">Native Rust support inside GCC. As a compiler engineering intern at Embecosm I took ownership of multiple lints, and I've kept contributing since: 40+ pull requests opened across the compiler pipeline, building out gccrs's warn-by-default lint set to match <code>rustc</code>.</p>
 
     <dl class="proj__meta">
       <div><dt>Role</dt><dd>Compiler Engineering Intern</dd></div>
       <div><dt>Company</dt><dd>Embecosm</dd></div>
       <div><dt>Dates</dt><dd>Sep 2025 – Feb 2026 · 6 months</dd></div>
       <div><dt>Language</dt><dd>C++</dd></div>
-      <div><dt>Merged</dt><dd>20+ pull requests on the project</dd></div>
+      <div><dt>Pull requests</dt><dd>40+ opened · 19 merged</dd></div>
+      <div><dt>Issues</dt><dd>30+ opened</dd></div>
       <div><dt>Mentors</dt><dd>Arthur Cohen, Pierre-Emmanuel Patry</dd></div>
     </dl>
 
     <ul class="proj__tags"><li>C++</li><li>Rust</li><li>GCC internals</li><li>Lints</li><li>Diagnostics</li><li>HIR</li></ul>
 
     <div class="proj__links">
-      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn--primary" href="https://github.com/Rust-GCC/gccrs/pulls?q=is%3Apr+author%3Alucasly-ba" target="_blank" rel="noopener">All my pull requests ↗</a>
       <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs/issues?q=author%3Alucasly-ba" target="_blank" rel="noopener">My issues ↗</a>
+      <a class="btn btn--ghost" href="https://github.com/Rust-GCC/gccrs" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
 
     <h2>Overview</h2>
@@ -60,6 +62,10 @@
 
     <h2>What I built: the lints</h2>
     <p>I owned a family of lints in gccrs's unused / naming-convention checks, mirroring <code>rustc</code> so the compiler rejects and warns on exactly the code the official toolchain does: naming conventions (snake-case, upper-case globals), unused variables, assignments, <code>mut</code> and labels, and redundant semicolons. Landing them cleanly meant first reworking the unused-variable lint and the HIR string helpers underneath.</p>
+
+    <h2>Still at it after the internship</h2>
+    <p>The internship ended, the work didn't. I kept going at the warn-by-default lint set, auditing gccrs against <code>rustc -W help</code> tier by tier and implementing the ones that were missing. A recent push added a whole batch of new lints, among them <code>while_true</code>, <code>path_statements</code>, <code>unreachable_patterns</code>, <code>unused_braces</code>, <code>unused_comparisons</code>, <code>unused_doc_comments</code>, <code>non_shorthand_field_patterns</code>, <code>trivial_numeric_casts</code>, <code>unused_unsafe</code>, <code>drop_bounds</code>, deprecated <code>...</code> range patterns, <code>bare_trait_objects</code>, <code>double_negations</code>, <code>static_mut_refs</code> and more.</p>
+    <p>Some of these couldn't live in a tidy HIR pass: <code>bare_trait_objects</code> had to go into the type checker, and a couple of candidates turned out to be blocked by pre-existing compiler bugs, so I fixed those too (ICEs on generic type aliases and on <code>break 'label value</code>) to unblock the lints behind them. The audit itself became a reusable map of what rustc warns on, what gccrs already covers, and what each remaining lint would need (type info, CFG, resolver or macro machinery).</p>
 
     <h2>In action</h2>
     <p>One file exercising the lints at once:</p>
